@@ -7,7 +7,7 @@ public class BuildingHideableWall : MonoBehaviour
     [SerializeField]
     private SpriteRenderer componentSprite;
     [SerializeField]
-    private BuildingTrigger hideTrigger;
+    private ActionTrigger hideTrigger;
 
     private void Awake()
     {

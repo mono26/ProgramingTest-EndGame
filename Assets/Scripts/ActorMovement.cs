@@ -22,7 +22,7 @@ namespace ProgramingTest.ActorComponents
             float verticalInput = Input.GetAxis("Vertical");
 
             // Only calculate the target position if there's movement input.
-            if (horizontalInput > 0.0f || verticalInput > 0.0f)
+            if (!horizontalInput.Equals(0.0f) || !verticalInput.Equals(0.0f))
             {
                 Vector3 currentPosition = transform.position;
                 // Vertical input is mapped out to the z axis.

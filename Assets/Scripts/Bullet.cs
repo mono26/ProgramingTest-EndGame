@@ -13,4 +13,9 @@ public class Bullet : MonoBehaviour
     {
         bulletBody.AddForce(transform.forward * bulletInitialSpeed, ForceMode.Impulse);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Destroy(gameObject);
+    }
 }

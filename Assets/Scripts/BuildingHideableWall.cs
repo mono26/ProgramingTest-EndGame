@@ -5,11 +5,16 @@ using UnityEngine;
 public class BuildingHideableWall : MonoBehaviour
 {
     [SerializeField]
-    private SpriteRenderer componentSprite;
+    private SpriteRenderer rendererComponent;
     [SerializeField]
     private ActionTrigger hideTrigger;
 
     private void Awake()
+    {
+        rendererComponent = GetComponent<SpriteRenderer>();
+    }
+
+    private void Start()
     {
         hideTrigger.OnTriggerEntered += OnBuildingEntered;
         hideTrigger.OnTriggerExited += OnBuildingExited;
@@ -29,7 +34,7 @@ public class BuildingHideableWall : MonoBehaviour
 
     private void ActivateWallSprite(bool _activate)
     {
-        componentSprite.enabled = _activate;
+        rendererComponent.enabled = _activate;
     }
 
     private void OnBuildingExited()

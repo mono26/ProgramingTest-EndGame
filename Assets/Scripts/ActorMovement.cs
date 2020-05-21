@@ -1,7 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class ActorMovement : MonoBehaviour
 {
+    public event Action OnMovement;
+    public event Action OnStandingStill;
+
     [SerializeField]
     private Rigidbody bodyComponent = null;
     [SerializeField]
@@ -28,6 +32,19 @@ public class ActorMovement : MonoBehaviour
             Vector3 nextPosition = currentPosition + inputVector * movementSpeed * Time.fixedDeltaTime;
 
             bodyComponent.MovePosition(nextPosition);
+
+            RotateTowardsTargetPosition(nextPosition);
+
+            OnMovement?.Invoke();
         }
+        else
+        {
+            OnStandingStill?.Invoke();
+        }
+    }
+
+    private void RotateTowardsTargetPosition(Vector3 _nextPosition)
+    {
+        transform.LookAt(_nextPosition);
     }
 }

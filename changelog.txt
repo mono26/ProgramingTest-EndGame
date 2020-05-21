@@ -6,7 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.0.7] 20-05-2020
+## [7] 21-05-2020
+### Added
+- Scripts for AI patrolling behaviour. Includes a state controller. Actions to perform. Decisions and transitions.
+
+## [6] 20-05-2020
 ### Added
 - Fixed Connor animations by setting the meshes to use a generic avatar.
 - Pull and release trigger event for the weapon handler.
@@ -14,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - The transition to the shooting state is now using a bool parameter.
 
-## [0.0.6] 20-05-2020
+## [5] 20-05-2020
 ### Added
 - Buidling door script for controlling the door states.
 - Door animations, ToOpen and ToClose for the transitions, and CloseIdle and OpenIdle.
@@ -22,7 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Connor lower and upper body mask for the animation blend between shooting and the other states. Idle and running.
 - Building door prefab.
 
-## [0.0.5] 19-05-2020
+## [4] 19-05-2020
 ### Added
 - Hideable wall component for coffe shop sections for enabling/disabling the sprite renderer.
 - Building trigger to trigger when a building section should hide the sprite renderer.
@@ -38,22 +42,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - BuildingTrigger class name to ActionTrigger.
 
-## [0.0.4] 19-05-2020
+## [3] 19-05-2020
 ### Added
 - Connor prefab variant.
 - Actor movemente script that reacts to joystick movement.
 
-## [0.0.3] 19-05-2020
+## [2] 19-05-2020
 ### Added
 - Connor prefab variant.
 - Actor movemente script that reacts to joystick movement.
 
-## [0.0.2] 19-05-2020
+## [1] 19-05-2020
 ### Added
 - Unity project.
 - Test assets.
 
-## [0.0.1] 19-05-2020
+## [0] 19-05-2020
 ### Added
 - README.
 - Gitignore.

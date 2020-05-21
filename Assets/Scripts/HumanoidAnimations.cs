@@ -12,7 +12,7 @@ public class HumanoidAnimations : MonoBehaviour
     private Animator animationController;
 
     private const string IS_MOVING_PARAMETER = "IsMoving";
-    private const string IS_SHOOTING_PARAMETER = "IsShooting";
+    private const string IS_SHOOTING_PARAMETER = "IsShootingBool";
 
     private void Awake()
     {
@@ -25,7 +25,8 @@ public class HumanoidAnimations : MonoBehaviour
         movementComponent.OnMovement += OnActorMovement;
         movementComponent.OnStandingStill += OnActorStandingStill;
 
-        weaponHandleComponent.OnShootWeapon += OnActorShootingWeapon;
+        weaponHandleComponent.OnPullTrigger += OnActorShootingWeapon;
+        weaponHandleComponent.OnPullTrigger += OnActorStopShootingWeapon;
     }
 
     private void OnDestroy()
@@ -33,7 +34,8 @@ public class HumanoidAnimations : MonoBehaviour
         movementComponent.OnMovement -= OnActorMovement;
         movementComponent.OnStandingStill -= OnActorStandingStill;
 
-        weaponHandleComponent.OnShootWeapon -= OnActorShootingWeapon;
+        weaponHandleComponent.OnPullTrigger -= OnActorShootingWeapon;
+        weaponHandleComponent.OnPullTrigger -= OnActorStopShootingWeapon;
     }
 
     private void OnActorMovement()
@@ -54,6 +56,11 @@ public class HumanoidAnimations : MonoBehaviour
 
     private void OnActorShootingWeapon()
     {
-        animationController.SetTrigger(IS_SHOOTING_PARAMETER);
+        animationController.SetBool(IS_SHOOTING_PARAMETER, true);
+    }
+
+    private void OnActorStopShootingWeapon()
+    {
+        animationController.SetBool(IS_SHOOTING_PARAMETER, false);
     }
 }

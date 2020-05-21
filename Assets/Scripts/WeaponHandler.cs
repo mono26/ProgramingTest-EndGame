@@ -5,23 +5,33 @@ using UnityEngine;
 
 public class WeaponHandler : MonoBehaviour
 {
-    public event Action OnShootWeapon;
+    public event Action OnPullTrigger;
+    public event Action OnReleaseTrigger;
 
     [SerializeField]
     private WeaponFire weaponToShoot;
 
     private void Update()
     {
-        if (Input.GetButton("Fire1"))
+        if (Input.GetButtonDown("Fire1"))
         {
             OnShootInput();
+        }
+        if (Input.GetButtonUp("Fire1"))
+        {
+            OnReleaseShootInput();
         }
     }
 
     private void OnShootInput()
     {
-        weaponToShoot.FireWeapon();
+        //weaponToShoot.FireWeapon();
 
-        OnShootWeapon?.Invoke();
+        OnPullTrigger?.Invoke();
+    }
+
+    private void OnReleaseShootInput()
+    {
+        OnReleaseTrigger?.Invoke();
     }
 }

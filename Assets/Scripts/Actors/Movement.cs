@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class ActorMovement : MonoBehaviour
+public class Movement : MonoBehaviour
 {
     public event Action OnMovement;
     public event Action OnStandingStill;
@@ -46,5 +46,14 @@ public class ActorMovement : MonoBehaviour
     private void RotateTowardsTargetPosition(Vector3 _nextPosition)
     {
         transform.LookAt(_nextPosition);
+    }
+
+    public void MoveTowardsTargetPosition(Vector3 _nextPosition)
+    {
+        bodyComponent.MovePosition(_nextPosition);
+
+        RotateTowardsTargetPosition(_nextPosition);
+
+        OnMovement?.Invoke();
     }
 }

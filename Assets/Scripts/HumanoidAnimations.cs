@@ -5,7 +5,7 @@ using UnityEngine;
 public class HumanoidAnimations : MonoBehaviour
 {
     [SerializeField]
-    private ActorMovement movementComponent;
+    private Movement movementComponent;
     [SerializeField]
     private WeaponHandler weaponHandleComponent;
     [SerializeField]
@@ -16,7 +16,7 @@ public class HumanoidAnimations : MonoBehaviour
 
     private void Awake()
     {
-        movementComponent = GetComponent<ActorMovement>();
+        movementComponent = GetComponent<Movement>();
         weaponHandleComponent = GetComponent<WeaponHandler>();
     }
 

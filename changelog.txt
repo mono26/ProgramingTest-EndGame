@@ -1,0 +1,59 @@
+# Changelog
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+## [0.0.7] 20-05-2020
+### Added
+- Fixed Connor animations by setting the meshes to use a generic avatar.
+- Pull and release trigger event for the weapon handler.
+
+### Changed
+- The transition to the shooting state is now using a bool parameter.
+
+## [0.0.6] 20-05-2020
+### Added
+- Buidling door script for controlling the door states.
+- Door animations, ToOpen and ToClose for the transitions, and CloseIdle and OpenIdle.
+- Humanoid animation controller.
+- Connor lower and upper body mask for the animation blend between shooting and the other states. Idle and running.
+- Building door prefab.
+
+## [0.0.5] 19-05-2020
+### Added
+- Hideable wall component for coffe shop sections for enabling/disabling the sprite renderer.
+- Building trigger to trigger when a building section should hide the sprite renderer.
+- Added coffe shop sprites for both the building and the door.
+- Door animator controller for controlling open and close animations.
+- Door open animation.
+- Bullet material for the bullet.
+- Scar material for the weapon.
+- Bullet script for bullet instantiation and applying force.
+- Weapon fire component.
+- Weapon handler component.
+
+### Changed
+- BuildingTrigger class name to ActionTrigger.
+
+## [0.0.4] 19-05-2020
+### Added
+- Connor prefab variant.
+- Actor movemente script that reacts to joystick movement.
+
+## [0.0.3] 19-05-2020
+### Added
+- Connor prefab variant.
+- Actor movemente script that reacts to joystick movement.
+
+## [0.0.2] 19-05-2020
+### Added
+- Unity project.
+- Test assets.
+
+## [0.0.1] 19-05-2020
+### Added
+- README.
+- Gitignore.

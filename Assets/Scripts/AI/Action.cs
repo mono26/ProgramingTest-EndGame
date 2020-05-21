@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace EndGame.Test.AI
 {
-    public abstract class Action : ScriptableObject
+    public abstract class AIAction : ScriptableObject
     {
-        public abstract void DoAction(Actor actor, StateData _data);
+        public abstract void DoAction(AIStateController _controller, AIStateData _data);
     }
 }

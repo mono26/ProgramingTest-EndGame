@@ -5,7 +5,7 @@ using UnityEngine;
 public class AIBrain : MonoBehaviour
 {
     [SerializeField]
-    private StateController controller;
+    private AIStateController controller;
 
     // Update is called once per frame
     void Update()

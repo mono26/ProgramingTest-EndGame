@@ -11,10 +11,35 @@ public class Movement : MonoBehaviour
     [SerializeField]
     private float movementSpeed = 3.0f;
 
+    private Vector3 targetDirection = Vector3.zero;
+
+    public float GetMovementSpeed { get => movementSpeed; }
+    public Vector3 SetTargetDirection { set => targetDirection = value; }
+
     private void Awake()
     {
         // Catch component references.
         bodyComponent = GetComponent<Rigidbody>();
+    }
+
+    private void Update()
+    {
+        // Get the horizontal and vertical input.
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+
+        // Only calculate the target position if there's movement input.
+        if (!horizontalInput.Equals(0.0f) || !verticalInput.Equals(0.0f))
+        {
+            // Vertical input is mapped out to the z axis.
+            Vector3 inputVector = new Vector3(horizontalInput, 0, verticalInput);
+
+            SetTargetDirection = inputVector;
+        }
+        //else
+        //{
+        //    OnStandingStill?.Invoke();
+        //}
     }
 
     private void FixedUpdate()
@@ -24,18 +49,9 @@ public class Movement : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
 
         // Only calculate the target position if there's movement input.
-        if (!horizontalInput.Equals(0.0f) || !verticalInput.Equals(0.0f))
+        if (!targetDirection.Equals(Vector3.zero))
         {
-            Vector3 currentPosition = transform.position;
-            // Vertical input is mapped out to the z axis.
-            Vector3 inputVector = new Vector3(horizontalInput, 0, verticalInput);
-            Vector3 nextPosition = currentPosition + inputVector * movementSpeed * Time.fixedDeltaTime;
-
-            bodyComponent.MovePosition(nextPosition);
-
-            RotateTowardsTargetPosition(nextPosition);
-
-            OnMovement?.Invoke();
+            MoveTowardsDirection(targetDirection);
         }
         else
         {
@@ -43,17 +59,26 @@ public class Movement : MonoBehaviour
         }
     }
 
-    private void RotateTowardsTargetPosition(Vector3 _nextPosition)
+
+    private void MoveTowardsDirection(Vector3 _directionVector)
     {
-        transform.LookAt(_nextPosition);
+        Vector3 currentPosition = transform.position;
+        Vector3 nextPosition = currentPosition + _directionVector * movementSpeed * Time.fixedDeltaTime;
+
+        MoveTowardsTargetPosition(nextPosition);
     }
 
-    public void MoveTowardsTargetPosition(Vector3 _nextPosition)
+    private void MoveTowardsTargetPosition(Vector3 _nextPosition)
     {
         bodyComponent.MovePosition(_nextPosition);
 
         RotateTowardsTargetPosition(_nextPosition);
 
         OnMovement?.Invoke();
+    }
+
+    private void RotateTowardsTargetPosition(Vector3 _nextPosition)
+    {
+        transform.LookAt(_nextPosition);
     }
 }

@@ -1,16 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using EndGame.Test.AI;
 using UnityEngine;
 
-public class Patrol : Action
+public class Patrol : AIAction
 {
-    public override void DoAction(Actor _actor, StateData _data)
+    public override void DoAction(AIStateController _controller, AIStateData _data)
     {
-        throw new System.NotImplementedException();
+        PatrolAction(_controller, (PatrolData)_data);
     }
 
-    private void PatrolToTargetPoint(Actor _actor, Vector3 _targetPosition)
+    private void PatrolAction(AIStateController _controller, PatrolData _data)
     {
-        Movement movement = _actor.GetComponent<Movement>();
+        PatrolToTargetPoint(_controller, _data.GetPatrolPosition());
+    }
+
+    private void PatrolToTargetPoint(AIStateController _controller, Vector3 _targetPosition)
+    {
+        Vector3 currentPosition = _controller.GetOwner.transform.position;
+        Vector3 directionTowardsPosition = _targetPosition - currentPosition;
+
+        Movement movement = _controller.GetOwner.GetComponent<Movement>();
+        movement.SetTargetDirection = directionTowardsPosition;
     }
 }

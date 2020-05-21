@@ -1,9 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PatrolData : MonoBehaviour
+public class PatrolData : AIStateData
 {
-    private Vector3 targetPosition;
-    private Vector3 initialPosition;
+    [SerializeField]
+    private Vector3[] patrolPoints = new Vector3[0];
+
+    private int currentPatrolPoint = 0;
+
+    /// <summary>
+    /// Gets the current patrol position.
+    /// </summary>
+    /// <returns></returns>
+    public Vector3 GetPatrolPosition() => patrolPoints[currentPatrolPoint];
+
+    /// <summary>
+    /// Advances de current patrol point to the next one.
+    /// </summary>
+    public void OnPatrolPointReached()
+    {
+        currentPatrolPoint++;
+        currentPatrolPoint = currentPatrolPoint % patrolPoints.Length;
+    }
 }

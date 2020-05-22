@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [8] 21-05-2020
+### Added
+- Player input script.
+- Multiple transitions handling.
+
+### Changed
+- Movement component now listens to movement commands.
+- Patrol action now sends commands.
+
 ## [7] 21-05-2020
 ### Added
 - Scripts for AI behaviour. Includes a state controller. Actions to perform. Decisions and transitions.

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using EndGame.Test.Actors;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,6 +23,7 @@ public class HumanoidAnimations : MonoBehaviour
 
     private void Start()
     {
+        // TODO remove this events.
         movementComponent.OnMovement += OnActorMovement;
         movementComponent.OnStandingStill += OnActorStandingStill;
 

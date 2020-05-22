@@ -44,20 +44,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 4
   m_Center: {x: 0.00000023841858, y: 1.31, z: 0}
---- !u!114 &7755856352187752038
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5454476634795328182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25a90211a6e8d6f49a0d4707d669bb3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingState: {fileID: 11400000, guid: 0203f80003827e147af6955431381a3d, type: 2}
-  currentState: {fileID: 0}
 --- !u!114 &580685539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,6 +90,21 @@ MonoBehaviour:
   viewDistance: 6
   detectorTrigger: {fileID: 1574131521}
   nearTargets: []
+--- !u!114 &7755856352187752038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5454476634795328182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25a90211a6e8d6f49a0d4707d669bb3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingState: {fileID: 11400000, guid: 0203f80003827e147af6955431381a3d, type: 2}
+  remainInState: {fileID: 11400000, guid: 408033498a87409499cb9c6b0d1d005e, type: 2}
+  currentState: {fileID: 0}
 --- !u!1001 &1506476843178557404
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -959,7 +960,7 @@ PrefabInstance:
     - target: {fileID: 6870845055111183722, guid: c5c9d2d2c3e6c8744a32c15e194e2822,
         type: 3}
       propertyPath: m_Name
-      value: Connor_Rig AI
+      value: Connor_Rig AI Variant
       objectReference: {fileID: 0}
     - target: {fileID: 6872424208277323570, guid: c5c9d2d2c3e6c8744a32c15e194e2822,
         type: 3}

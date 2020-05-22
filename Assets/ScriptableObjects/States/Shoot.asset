@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Shoot
   m_EditorClassIdentifier: 
   stateId: shooting
+  weight: 4
   actions: []
   transitions: []

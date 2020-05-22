@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Waiting
   m_EditorClassIdentifier: 
   stateId: waiting
+  weight: 1
   actions:
   - {fileID: 11400000, guid: becc537e87cc1844db2040b35038e6e8, type: 2}
   transitions:

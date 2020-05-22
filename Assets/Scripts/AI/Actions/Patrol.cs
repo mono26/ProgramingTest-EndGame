@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using EndGame.Test.Actors;
+using EndGame.Test.Events;
+using UnityEngine;
 
 namespace EndGame.Test.AI
 {
@@ -22,10 +24,14 @@ namespace EndGame.Test.AI
             Vector3 directionTowardsPosition = targetPosition - currentPosition;
             directionTowardsPosition.y = 0;
 
-            Movement movement = _actor.GetComponent<Movement>();
+            var args = new OnActorCommandReceiveEventArgs()
+            {
+                actor = _actor,
+                command = ActorCommands.Move,
+                value = directionTowardsPosition.normalized
+            };
 
-            // TODO change for send movement command with target direction.
-            movement.SetTargetDirection = directionTowardsPosition.normalized;
+            EventController.PushEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
         }
     }
 }

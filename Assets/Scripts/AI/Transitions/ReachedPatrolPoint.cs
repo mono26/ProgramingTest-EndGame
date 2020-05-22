@@ -24,11 +24,6 @@ namespace EndGame.Test.AI
             {
                 reachedPatrolPoint = true;
 
-                Movement movement = _actor.GetComponent<Movement>();
-
-                // TODO change for send stop command.
-                movement.SetTargetDirection = Vector3.zero;
-
                 var args = new OnPatrolPointReachedEventArgs()
                 {
                     actor = _actor

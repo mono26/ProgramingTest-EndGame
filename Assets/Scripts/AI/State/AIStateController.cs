@@ -8,10 +8,14 @@ namespace EndGame.Test.AI
     {
         [SerializeField]
         private AIState startingState = null;
+        [SerializeField]
+        private AIState remainInState = null;
 
         [SerializeField]
         private AIState currentState;
         private Dictionary<string, AIStateData> stateDatas = null;
+
+        public AIState GetRemainState { get => remainInState; }
 
         public override void OnAwake(Actor _actor)
         {
@@ -32,7 +36,7 @@ namespace EndGame.Test.AI
 
         public void TransitionToState(AIState _nextState)
         {
-            if (currentState != _nextState)
+            if (currentState != _nextState && _nextState != remainInState)
             {
                 Debug.Log("Transition to: " + _nextState.GetStateId);
 

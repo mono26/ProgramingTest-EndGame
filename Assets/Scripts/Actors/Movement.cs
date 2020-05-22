@@ -1,95 +1,95 @@
-﻿using System;
+﻿using EndGame.Test.Actors;
+using EndGame.Test.Events;
+using System;
 using UnityEngine;
 
-public class Movement : MonoBehaviour
+namespace EndGame.Test.Actors
 {
-    public event Action OnMovement;
-    public event Action OnStandingStill;
-
-    [SerializeField]
-    private Rigidbody bodyComponent = null;
-    [SerializeField]
-    private float movementSpeed = 3.0f;
-
-    private Vector3 targetDirection = Vector3.zero;
-
-    public float GetMovementSpeed { get => movementSpeed; }
-    public Vector3 SetTargetDirection { set => targetDirection = value; }
-
-    private void OnDrawGizmos()
+    public class Movement : ActorComponent
     {
-        Gizmos.color = Color.yellow;
+        public event Action OnMovement;
+        public event Action OnStandingStill;
 
-        Vector3 startPosition = transform.position;
-        startPosition.y += 0.5f;
-        Vector3 targetPosition = startPosition + targetDirection;
+        [SerializeField]
+        private Rigidbody bodyComponent = null;
+        [SerializeField]
+        private float movementSpeed = 3.0f;
 
-        Gizmos.DrawLine(startPosition, targetPosition);
-    }
+        [SerializeField]
+        private Vector3 targetDirection = Vector3.zero;
 
-    private void Awake()
-    {
-        // Catch component references.
-        bodyComponent = GetComponent<Rigidbody>();
-    }
+        public float GetMovementSpeed { get => movementSpeed; }
+        public Vector3 SetTargetDirection { set => targetDirection = value; }
 
-    private void Update()
-    {
-        // Get the horizontal and vertical input.
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-
-        // Only calculate the target position if there's movement input.
-        if (!horizontalInput.Equals(0.0f) || !verticalInput.Equals(0.0f))
+        private void OnDrawGizmos()
         {
-            // Vertical input is mapped out to the z axis.
-            Vector3 inputVector = new Vector3(horizontalInput, 0, verticalInput);
+            Gizmos.color = Color.yellow;
 
-            SetTargetDirection = inputVector;
+            Vector3 startPosition = transform.position;
+            startPosition.y += 0.5f;
+            Vector3 targetPosition = startPosition + targetDirection;
+
+            Gizmos.DrawLine(startPosition, targetPosition);
         }
-        //else
-        //{
-        //    OnStandingStill?.Invoke();
-        //}
-    }
 
-    private void FixedUpdate()
-    {
-        // Get the horizontal and vertical input.
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-
-        // Only calculate the target position if there's movement input.
-        if (!targetDirection.Equals(Vector3.zero))
+        public override void OnAwake(Actor _actor)
         {
-            MoveTowardsDirection(targetDirection);
+            base.OnAwake(_actor);
+
+            // Catch component references.
+            bodyComponent = _actor.GetComponent<Rigidbody>();
         }
-        else
+
+        private void Start()
         {
-            OnStandingStill?.Invoke();
+            EventController.SubscribeToEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, (args) => OnActorCommandReceive((OnActorCommandReceiveEventArgs)args));
         }
-    }
 
+        private void FixedUpdate()
+        {
+            if (!targetDirection.Equals(Vector3.zero))
+            {
+                MoveTowardsDirection(targetDirection);
 
-    private void MoveTowardsDirection(Vector3 _directionVector)
-    {
-        Vector3 currentPosition = transform.position;
-        Vector3 nextPosition = currentPosition + _directionVector * movementSpeed * Time.fixedDeltaTime;
+                targetDirection = Vector3.zero;
+            }
+            else
+            {
+                OnStandingStill?.Invoke();
+            }
+        }
 
-        MoveTowardsTargetPosition(nextPosition);
-    }
+        private void OnActorCommandReceive(OnActorCommandReceiveEventArgs _args)
+        {
+            if (GetOwner == _args.actor)
+            {
+                if (_args.command.Equals(ActorCommands.Move))
+                {
+                    SetTargetDirection = (Vector3)_args.value;
+                }
+            }
+        }
 
-    private void MoveTowardsTargetPosition(Vector3 _nextPosition)
-    {
-        bodyComponent.MovePosition(_nextPosition);
+        private void MoveTowardsDirection(Vector3 _directionVector)
+        {
+            Vector3 currentPosition = transform.position;
+            Vector3 nextPosition = currentPosition + _directionVector * movementSpeed * Time.fixedDeltaTime;
 
-        RotateTowardsTargetPosition(_nextPosition);
+            MoveTowardsTargetPosition(nextPosition);
+        }
 
-        OnMovement?.Invoke();
-    }
+        private void MoveTowardsTargetPosition(Vector3 _nextPosition)
+        {
+            bodyComponent.MovePosition(_nextPosition);
 
-    private void RotateTowardsTargetPosition(Vector3 _nextPosition)
-    {
-        transform.LookAt(_nextPosition);
+            RotateTowardsTargetPosition(_nextPosition);
+
+            OnMovement?.Invoke();
+        }
+
+        private void RotateTowardsTargetPosition(Vector3 _nextPosition)
+        {
+            transform.LookAt(_nextPosition);
+        }
     }
 }

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95397f9de46489045a7102f7e7cdec3d, type: 3}
-  m_Name: Chase
+  m_Name: RemainInState
   m_EditorClassIdentifier: 
-  stateId: chasing
-  weight: 3
+  stateId: remain
+  weight: 0
   actions: []
   transitions: []

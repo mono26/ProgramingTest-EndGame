@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Patrolling
   m_EditorClassIdentifier: Assembly-CSharp::AIState
   stateId: patrolling
+  weight: 2
   actions:
   - {fileID: 11400000, guid: 18d7f2e4ecc362a49851e461788d5500, type: 2}
   transitions:
   - decision: {fileID: 11400000, guid: 00eebe7645c073a4fa0da974c628ecb0, type: 2}
     trueState: {fileID: 11400000, guid: 29d297cc419ed9941a4999b6d0262f60, type: 2}
-    falseState: {fileID: 11400000}
+    falseState: {fileID: 11400000, guid: 408033498a87409499cb9c6b0d1d005e, type: 2}
   - decision: {fileID: 11400000, guid: de73f40897ef2fa42bbb0b6190436740, type: 2}
     trueState: {fileID: 11400000, guid: 9edd3f2711d58cb4fac9d39a8da77ba0, type: 2}
-    falseState: {fileID: 11400000}
+    falseState: {fileID: 11400000, guid: 408033498a87409499cb9c6b0d1d005e, type: 2}

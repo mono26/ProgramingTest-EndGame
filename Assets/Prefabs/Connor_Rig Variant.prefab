@@ -61,6 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2bcf2ed1a56ff5448f473136cb1fb66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actorHeight: 1.470189
 --- !u!114 &1495671265392225637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,6 +89,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bodyComponent: {fileID: 812597703}
   movementSpeed: 3
+  targetDirection: {x: 0, y: 0, z: 0}
+--- !u!114 &5453467543051493301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6870845055111183722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4e856f2c70d4bd44bce68c1ca497d92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7963458862008237070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -618,7 +632,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: ff7dc2322a295214ba2ea09df4537d3b,
         type: 3}
       propertyPath: m_Name
-      value: Connor_Rig
+      value: Connor_Rig Variant
       objectReference: {fileID: 0}
     - target: {fileID: -926605327514477743, guid: ff7dc2322a295214ba2ea09df4537d3b,
         type: 3}

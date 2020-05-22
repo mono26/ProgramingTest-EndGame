@@ -1,6 +1,7 @@
 ﻿using EndGame.Test.Actors;
 using EndGame.Test.Events;
 using EndGame.Test.Events.AI;
+using EndGame.Test.Utils;
 using UnityEngine;
 
 namespace EndGame.Test.AI
@@ -24,20 +25,17 @@ namespace EndGame.Test.AI
             bool hasTarget = false;
             foreach(Actor target in _targeter.GetNearTargets)
             {
-                if (IsTargetInFieldOfView(_actor, target, _targeter.GetViewAngle))
+                if (IsPotentialTargetInFieldOfView(_actor, target, _targeter.GetViewAngle))
                 {
-                    if (IsInSight(_actor, target, _targeter.GetViewDistance))
-                    {
-                        hasTarget = true;
-                        break;
-                    }
+                    hasTarget = IsPotentialTargetInSight(_actor, target, _targeter.GetViewDistance);
+                    break;
                 }
             }
 
             return hasTarget;
         }
 
-        private bool IsTargetInFieldOfView(Actor _actor, Actor _target, float _viewAngle)
+        private bool IsPotentialTargetInFieldOfView(Actor _actor, Actor _target, float _viewAngle)
         {
             bool isInFieldOfView = false;
 
@@ -52,45 +50,58 @@ namespace EndGame.Test.AI
             return isInFieldOfView;
         }
 
-        private bool IsInSight(Actor _actor, Actor _target, float _viewDistance)
+        private bool IsPotentialTargetInSight(Actor _actor, Actor _target, float _viewDistance)
         {
-            bool isInFieldOfView = false;
+            bool inSight = false;
 
-            float ownHeight = _actor.GetHeight;
-            float targetHeight = _target.GetHeight;
-
-            Vector3 startPosition = _actor.transform.position;
-            startPosition.y += ownHeight / 2;
-            Vector3 targetPosition = _target.transform.position;
-            targetPosition.y += targetHeight / 2;
+            Vector3 startPosition = _actor.GetCenterOfBodyPosition;
+            Vector3 targetPosition = _target.GetCenterOfBodyPosition;
             Vector3 directionToTarget = targetPosition - startPosition;
 
-            RaycastHit hit;
+            RaycastHit hit = PhysicsHelper.CastRayForHits(startPosition, directionToTarget.normalized, _viewDistance, rayCastLayers);
 
-            // Debug.DrawLine(startPosition, targetPosition, Color.red, 3.0f);
-
-            if (Physics.Raycast(startPosition, directionToTarget.normalized, out hit, _viewDistance, rayCastLayers))
+            if (hit.collider)
             {
-                if (hit.collider)
+                Actor hitTarget = hit.collider.GetComponent<Actor>();
+                if (_target == hitTarget)
                 {
-                    Actor hitTarget = hit.collider.GetComponent<Actor>();
-                    if (_target == hitTarget)
+                    inSight = true;
+
+                    //Debug.DrawLine(startPosition, targetPosition, Color.green, 3.0f);
+
+                    OnTargetInSightEventArgs args = new OnTargetInSightEventArgs()
                     {
-                        isInFieldOfView = true;
+                        actor = _actor,
+                        target = hitTarget
+                    };
 
-                        //Debug.DrawLine(startPosition, targetPosition, Color.green, 3.0f);
-
-                        OnTargetInSightEventArgs args = new OnTargetInSightEventArgs()
-                        {
-                            actor = _actor,
-                            target = hitTarget
-                        };
-
-                        EventController.PushEventImmediately(DecisionEvents.TARGET_IN_SIGHT, args);
-                    }
+                    EventController.PushEventImmediately(DecisionEvents.TARGET_IN_SIGHT, args);
                 }
             }
-            return isInFieldOfView;
+
+            //// Debug.DrawLine(startPosition, targetPosition, Color.red, 3.0f);
+            //if (Physics.Raycast(startPosition, directionToTarget.normalized, out hit, _viewDistance, rayCastLayers))
+            //{
+            //    if (hit.collider)
+            //    {
+            //        Actor hitTarget = hit.collider.GetComponent<Actor>();
+            //        if (_target == hitTarget)
+            //        {
+            //            inSight = true;
+
+            //            //Debug.DrawLine(startPosition, targetPosition, Color.green, 3.0f);
+
+            //            OnTargetInSightEventArgs args = new OnTargetInSightEventArgs()
+            //            {
+            //                actor = _actor,
+            //                target = hitTarget
+            //            };
+
+            //            EventController.PushEventImmediately(DecisionEvents.TARGET_IN_SIGHT, args);
+            //        }
+            //    }
+            //}
+            return inSight;
         }
     }
 }

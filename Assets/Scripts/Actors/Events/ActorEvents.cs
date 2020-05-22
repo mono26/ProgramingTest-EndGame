@@ -1,6 +1,4 @@
 ﻿using EndGame.Test.Events;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace EndGame.Test.Actors
@@ -8,6 +6,10 @@ namespace EndGame.Test.Actors
     public class ActorEvents : MonoBehaviour
     {
         public const string ACTOR_COMMAND_RECEIVE = "event.actor.command.receive";
+        public const string ACTOR_MOVEMENT = "event.actor.movement";
+        public const string ACTOR_MOVEMENT_STOPPED = "event.actor.movement.stoped";
+        public const string ACTOR_TRIGGER_PULLED = "event.actor.trigger.pulled";
+        public const string ACTOR_TRIGGER_RELEASED = "event.actor.trigger.released";
     }
 
     public struct OnActorCommandReceiveEventArgs : IEventArgs
@@ -20,11 +22,22 @@ namespace EndGame.Test.Actors
     // TODO create BaseEventArgs with actor as base.
     public struct OnActorMovement : IEventArgs
     {
-
+        public Actor actor;
     }
 
     public struct OnActorStoppedMovement : IEventArgs
     {
+        public Actor actor;
+    }
 
+    public struct OnActorPulledTrigger : IEventArgs
+    {
+        public Actor actor;
+        public Vector3 aimDirection;
+    }
+
+    public struct OnActorReleasedTrigger : IEventArgs
+    {
+        public Actor actor;
     }
 }

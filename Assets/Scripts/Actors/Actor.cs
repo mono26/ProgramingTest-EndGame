@@ -13,7 +13,16 @@ public class Actor : MonoBehaviour
     [SerializeField]
     private float actorWidth;
 
-    public float GetHeight { get => actorHeight; }
+    // public float GetHeight { get => actorHeight; }
+    public Vector3 GetCenterOfBodyPosition 
+    { 
+        get
+        {
+            Vector3 centerPosition = transform.position;
+            centerPosition.y += actorHeight / 2;
+            return centerPosition;
+        } 
+    }
 
     private void Awake()
     {

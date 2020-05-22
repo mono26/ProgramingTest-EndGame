@@ -24,6 +24,8 @@ namespace EndGame.Test.Actors
         public float GetViewAngle { get => viewAngle; }
         public float GetViewDistance { get => viewDistance; }
         public List<Actor> GetNearTargets { get => nearTargets; }
+        public Actor GetCurrenTarget { get => currentTarget; }
+        public Vector3 GetCurrentTargetDirection { get => currentTarget.transform.position - GetOwner.transform.position; }
 
         //private void OnDrawGizmos()
         //{

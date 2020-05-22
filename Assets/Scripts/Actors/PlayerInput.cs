@@ -26,6 +26,31 @@ namespace EndGame.Test.Actors
 
                 EventController.PushEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
             }
+
+            if (Input.GetButtonDown("Fire1"))
+            {
+                OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
+                {
+                    actor = GetOwner,
+                    command = ActorCommands.Shoot,
+                    // Means the shoot button is pressed.
+                    value = 1.0f
+                };
+
+                EventController.PushEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
+            }
+            if (Input.GetButtonUp("Fire1"))
+            {
+                OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
+                {
+                    actor = GetOwner,
+                    command = ActorCommands.Shoot,
+                    // Means the shoot button has been released.
+                    value = 0.0f
+                };
+
+                EventController.PushEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
+            }
         }
     }
 }

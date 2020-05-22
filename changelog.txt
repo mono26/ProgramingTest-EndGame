@@ -6,6 +6,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [10] 21-05-2020
+### Added
+- Target in shoot range and keep shooting decision.
+- Physics helper.
+- Shoot command.
+- Weapon handle events.
+
+## [9] 21-05-2020
+### Added
+- Chase and shoot state.
+- Chase action.
+- Push inmmediately a event.
+
 ## [8] 21-05-2020
 ### Added
 - Player input script.

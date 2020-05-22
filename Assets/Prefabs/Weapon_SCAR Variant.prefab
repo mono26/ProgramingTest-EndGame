@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22865d1a200bfc54eae8f6d0c0f8a5b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fireRate: 1
   bulletPrefab: {fileID: 88218283651248954, guid: 8bc2154879385b4489e4838e7c6a46bf,
     type: 3}
   bulletSpawnPoint: {fileID: 1180178290622338330}
@@ -25,7 +26,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1180178290622338330}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: BulletPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -116,6 +117,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Weapon_SCAR Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 6306971017694268109, guid: 3457b05031e793747870065a5a1928fe,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e30dc5d7c9b47e1498bcab7801c47698, type: 2}
+    - target: {fileID: 8160817383737747161, guid: 3457b05031e793747870065a5a1928fe,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3457b05031e793747870065a5a1928fe, type: 3}

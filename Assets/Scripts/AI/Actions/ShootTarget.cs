@@ -1,18 +1,29 @@
-﻿using System.Collections;
+﻿using EndGame.Test.Actors;
+using EndGame.Test.Events;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShootTarget : MonoBehaviour
+namespace EndGame.Test.AI
 {
-    // Start is called before the first frame update
-    void Start()
+    public class ShootTarget : AIAction
     {
-        
-    }
+        public override void DoAction(AIStateController _controller, AIStateData _data)
+        {
+            DoShoot(_controller.GetOwner);
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private void DoShoot(Actor _actor)
+        {
+            OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
+            {
+                actor = _actor,
+                command = ActorCommands.Shoot,
+                // Means the shoot button is pressed.
+                value = 1.0f
+            };
+
+            EventController.PushEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
+        }
     }
 }

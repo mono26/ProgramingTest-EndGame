@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b1a3dacb136e3c419249a46ad13f9ad, type: 3}
   m_Name: TargetInSight
   m_EditorClassIdentifier: 
+  rayCastLayers:
+    serializedVersion: 2
+    m_Bits: 512

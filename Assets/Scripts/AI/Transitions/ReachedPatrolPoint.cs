@@ -24,7 +24,7 @@ namespace EndGame.Test.AI
             {
                 reachedPatrolPoint = true;
 
-                var args = new OnPatrolPointReachedEventArgs()
+                OnPatrolPointReachedEventArgs args = new OnPatrolPointReachedEventArgs()
                 {
                     actor = _actor
                 };

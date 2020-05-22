@@ -24,7 +24,7 @@ namespace EndGame.Test.AI
             Vector3 directionTowardsPosition = targetPosition - currentPosition;
             directionTowardsPosition.y = 0;
 
-            var args = new OnActorCommandReceiveEventArgs()
+            OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
             {
                 actor = _actor,
                 command = ActorCommands.Move,

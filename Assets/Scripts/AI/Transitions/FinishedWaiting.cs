@@ -19,7 +19,7 @@ namespace EndGame.Test.AI
             {
                 finishedWaiting = true;
 
-                var args = new OnWaitFinishedEventArgs()
+                OnWaitFinishedEventArgs args = new OnWaitFinishedEventArgs()
                 {
                     actor = _actor,
                 };

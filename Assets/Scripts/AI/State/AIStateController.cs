@@ -13,7 +13,7 @@ namespace EndGame.Test.AI
 
         [SerializeField]
         private AIState currentState;
-        private Dictionary<string, AIStateData> stateDatas = null;
+        private Dictionary<string, AIStateData> stateDatas = new Dictionary<string, AIStateData>();
 
         public AIState GetRemainState { get => remainInState; }
 

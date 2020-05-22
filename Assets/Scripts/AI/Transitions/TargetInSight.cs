@@ -1,4 +1,6 @@
 ﻿using EndGame.Test.Actors;
+using EndGame.Test.Events;
+using EndGame.Test.Events.AI;
 using UnityEngine;
 
 namespace EndGame.Test.AI
@@ -61,15 +63,13 @@ namespace EndGame.Test.AI
             startPosition.y += ownHeight / 2;
             Vector3 targetPosition = _target.transform.position;
             targetPosition.y += targetHeight / 2;
-
-            //Vector3 directionToTarget = targetPosition - startPosition;
-            //startPosition += directionToTarget.normalized
+            Vector3 directionToTarget = targetPosition - startPosition;
 
             RaycastHit hit;
 
-            Debug.DrawLine(startPosition, targetPosition, Color.red, 3.0f);
+            // Debug.DrawLine(startPosition, targetPosition, Color.red, 3.0f);
 
-            if (Physics.Raycast(startPosition, targetPosition, out hit, _viewDistance, rayCastLayers);)
+            if (Physics.Raycast(startPosition, directionToTarget.normalized, out hit, _viewDistance, rayCastLayers))
             {
                 if (hit.collider)
                 {
@@ -78,7 +78,15 @@ namespace EndGame.Test.AI
                     {
                         isInFieldOfView = true;
 
-                        Debug.DrawLine(startPosition, targetPosition, Color.green, 3.0f);
+                        //Debug.DrawLine(startPosition, targetPosition, Color.green, 3.0f);
+
+                        OnTargetInSightEventArgs args = new OnTargetInSightEventArgs()
+                        {
+                            actor = _actor,
+                            target = hitTarget
+                        };
+
+                        EventController.PushEventImmediately(DecisionEvents.TARGET_IN_SIGHT, args);
                     }
                 }
             }

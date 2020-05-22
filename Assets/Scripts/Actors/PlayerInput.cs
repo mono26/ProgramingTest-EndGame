@@ -17,7 +17,7 @@ namespace EndGame.Test.Actors
                 // Vertical input is mapped out to the z axis.
                 Vector3 inputVector = new Vector3(horizontalInput, 0, verticalInput);
 
-                var args = new OnActorCommandReceiveEventArgs()
+                OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
                 {
                     actor = GetOwner,
                     command = ActorCommands.Move,

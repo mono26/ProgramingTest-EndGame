@@ -17,7 +17,7 @@ namespace EndGame.Test.AI
             Debug.Log("Actor: " + _actor.gameObject.name + " waiting");
 
             // TODO trigger actor waited event.
-            var args = new OnWaitedActionEventArgs()
+            OnWaitedActionEventArgs args = new OnWaitedActionEventArgs()
             {
                 actor = _actor,
                 waitedTime = Time.deltaTime

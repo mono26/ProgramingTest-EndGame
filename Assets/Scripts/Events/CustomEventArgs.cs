@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIBrain : MonoBehaviour
+public class CustomEventArgs : MonoBehaviour
 {
-    [SerializeField]
-    private AIStateController controller;
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
 
     // Update is called once per frame
     void Update()

@@ -16,6 +16,17 @@ public class Movement : MonoBehaviour
     public float GetMovementSpeed { get => movementSpeed; }
     public Vector3 SetTargetDirection { set => targetDirection = value; }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+
+        Vector3 startPosition = transform.position;
+        startPosition.y += 0.5f;
+        Vector3 targetPosition = startPosition + targetDirection;
+
+        Gizmos.DrawLine(startPosition, targetPosition);
+    }
+
     private void Awake()
     {
         // Catch component references.

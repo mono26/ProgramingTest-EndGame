@@ -8,7 +8,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [7] 21-05-2020
 ### Added
-- Scripts for AI patrolling behaviour. Includes a state controller. Actions to perform. Decisions and transitions.
+- Scripts for AI behaviour. Includes a state controller. Actions to perform. Decisions and transitions.
+- Event controller.
+- Created decision events that can be triggered when AI decisions are made.
+- Created action events that can be triggered when AI actions are performed.
+- AI patroll action, reached patrol decision, wait action, and finished waiting decition for the patrolling AI.
+- Actor awakes components.
+- Created actions, decision, transitions and states for shooting and chasing.
+
+### Changed
+- The movement component now handles input catching and movement separately.
+- Folder organization.
 
 ## [6] 20-05-2020
 ### Added

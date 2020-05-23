@@ -51,7 +51,8 @@ namespace EndGame.Test.AI
 
                 //Debug.Log("Actor is moving");
             }
-            else
+
+            if (lastPosition.Equals(currentPosition))
             {
                 // TODO create base actor event.
                 OnActorStoppedMovement args = new OnActorStoppedMovement()

@@ -10,6 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [14] 23-05-2020
 ### Added
+- Virtual touch joystick.
+- Aim command.
+
+### Changed
+- Actor rotation is now separated from movement.
+
+## [14] 23-05-2020
+### Added
 - Pickup and inventory system.
 - Door check for the key.
 - Action trigger events.

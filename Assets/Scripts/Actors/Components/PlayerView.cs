@@ -1,4 +1,6 @@
 ﻿using EndGame.Test.Events;
+using EndGame.Test.UI;
+using EndGame.Test.Utils;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +12,15 @@ namespace EndGame.Test.Actors
         private Action<IEventArgs> OnActorHealthUpdated;
 
         [SerializeField]
+        private TouchJoystick movementJoystick = null;
+        [SerializeField]
+        private TouchJoystick aimJoystick = null;
+        [SerializeField]
         private Image healthBarFillComponent = null;
+        [SerializeField]
+        private Camera playerCamera = null;
+        [SerializeField]
+        private bool forceMobileInput = false;
 
         private void Start()
         {
@@ -28,8 +38,29 @@ namespace EndGame.Test.Actors
         private void Update()
         {
             // Get the horizontal and vertical input.
-            float horizontalInput = Input.GetAxis("Horizontal");
-            float verticalInput = Input.GetAxis("Vertical");
+            float horizontalInput = 0.0f;
+            float verticalInput = 0.0f;
+            Vector3 aimDirection = Vector2.zero;
+            if (forceMobileInput)
+            {
+                Vector2 virtualjoystickValue = movementJoystick.GetJoystickValue;
+                horizontalInput = virtualjoystickValue.x;
+                verticalInput = virtualjoystickValue.y;
+
+                aimDirection = new Vector3(aimJoystick.GetJoystickValue.x, 0, aimJoystick.GetJoystickValue.y);
+            }
+            else
+            {
+                horizontalInput = Input.GetAxis("Horizontal");
+                verticalInput = Input.GetAxis("Vertical");
+
+                Vector2 positionOnScreen = playerCamera.WorldToScreenPoint(GetOwner.transform.position);
+                Vector2 mouseOnScreen = Input.mousePosition;
+
+                aimDirection = mouseOnScreen - positionOnScreen;
+                aimDirection.z = aimDirection.y;
+                aimDirection.y = 0;
+            }
 
             // Only calculate the target position if there's movement input.
             if (!horizontalInput.Equals(0.0f) || !verticalInput.Equals(0.0f))
@@ -45,6 +76,19 @@ namespace EndGame.Test.Actors
                 };
 
                 // TODO Pack commands into one.
+                EventController.PushEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
+            }
+
+            if (aimDirection.x != 0.0f || aimDirection.y != 0.0f)
+            {
+                OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
+                {
+                    actor = GetOwner,
+                    command = ActorCommands.Aim,
+                    // Means the shoot button is pressed.
+                    value = aimDirection
+                };
+
                 EventController.PushEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
             }
 

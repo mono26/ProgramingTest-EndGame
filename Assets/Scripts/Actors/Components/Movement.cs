@@ -84,6 +84,7 @@ namespace EndGame.Test.Actors
                 if (_args.command.Equals(ActorCommands.Move))
                 {
                     targetDirection = (Vector3)_args.value;
+                    Debug.Log("Receibed movement command.");
                 }
             }
         }

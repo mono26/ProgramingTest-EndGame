@@ -7,14 +7,16 @@ namespace EndGame.Test.Actors
     {
         protected virtual void Start()
         {
-            EventController.SubscribeToEvent(ActorEvents.ACTOR_MOVEMENT, (args) => OnActorMovement((OnActorMovement)args));
+            //EventController.SubscribeToEvent(ActorEvents.ACTOR_MOVEMENT, (args) => OnActorMovement((OnActorMovement)args));
+            EventController.SubscribeToEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, (args) => OnActorCommandReceive((OnActorCommandReceiveEventArgs)args));
             EventController.SubscribeToEvent(ActorEvents.ACTOR_FIRE_WEAPON, (args) => OnActorFireWeapon((OnActorFireWeapon)args));
         }
 
         protected virtual void OnDestroy()
         {
             // TODO store as delegates ??
-            EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_MOVEMENT, (args) => OnActorMovement((OnActorMovement)args));
+            //EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_MOVEMENT, (args) => OnActorMovement((OnActorMovement)args));
+            EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, (args) => OnActorCommandReceive((OnActorCommandReceiveEventArgs)args));
             EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_FIRE_WEAPON, (args) => OnActorFireWeapon((OnActorFireWeapon)args));
         }
 
@@ -37,6 +39,19 @@ namespace EndGame.Test.Actors
             if (GetOwner == _args.actor)
             {
                 RotateTowardsTargetDirection(_args.aimDirection);
+            }
+        }
+
+        private void OnActorCommandReceive(OnActorCommandReceiveEventArgs _args)
+        {
+            if (GetOwner == _args.actor)
+            {
+                if (_args.command.Equals(ActorCommands.Aim))
+                {
+                    Debug.Log("Rotating towards: " + (Vector3)_args.value);
+
+                    RotateTowardsTargetDirection((Vector3)_args.value);
+                }
             }
         }
     }

@@ -5,13 +5,10 @@ using UnityEngine;
 
 public class WeaponHandler : ActorComponent
 {
-    public event Action OnPullTrigger;
-    public event Action OnReleaseTrigger;
-
     [SerializeField]
     private WeaponFire weaponToShoot;
     [SerializeField]
-    private TargetDetector targeter;
+    private Detector targeter;
 
     protected void Start()
     {
@@ -44,16 +41,29 @@ public class WeaponHandler : ActorComponent
         OnActorPulledTrigger args = new OnActorPulledTrigger()
         {
             actor = GetOwner,
-            aimDirection = targeter.GetCurrentTargetDirection
+            aimDirection = targeter.GetTargetDirection
         };
 
-        EventController.PushEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
-
-        OnPullTrigger?.Invoke();
+        EventController.PushEvent(ActorEvents.ACTOR_TRIGGER_PULLED, args);
     }
 
     private void ReleaseTrigger()
     {
-        OnReleaseTrigger?.Invoke();
+        OnActorReleasedTrigger args = new OnActorReleasedTrigger()
+        {
+            actor = GetOwner
+        };
+
+        EventController.PushEvent(ActorEvents.ACTOR_TRIGGER_RELEASED, args);
     }
+
+    /// <summary>
+    /// Called by an animation event at the start of the shooting animation.
+    /// </summary>
+    private void OnShootAnimationInit() => weaponToShoot.PullTrigger(targeter.GetTargetDirection);
+
+    /// <summary>
+    /// Called by an animation event at the end of the shooting animation.
+    /// </summary>
+    private void OnFinishShootAnimtionEvent() => weaponToShoot.OnFinishShootAnimtionEvent();
 }

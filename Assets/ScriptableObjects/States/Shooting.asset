@@ -14,5 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateId: shooting
   weight: 4
-  actions: []
-  transitions: []
+  actions:
+  - {fileID: 11400000, guid: aaa4af4ac09f38f42a7766110c7e2808, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: 89350f4bd96a2a44682d01b8ded88969, type: 2}
+    trueState: {fileID: 11400000, guid: 408033498a87409499cb9c6b0d1d005e, type: 2}
+    falseState: {fileID: 11400000, guid: 9edd3f2711d58cb4fac9d39a8da77ba0, type: 2}

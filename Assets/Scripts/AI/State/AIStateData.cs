@@ -16,7 +16,7 @@ namespace EndGame.Test.AI
 
         protected virtual void Start()
         {
-            GetOwner.GetComponent<AIStateController>().AddData(dataId, this);
+            GetOwner.GetComponent<AIStateController>().AddData(this);
         }
     }
 }

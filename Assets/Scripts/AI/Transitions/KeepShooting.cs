@@ -1,30 +1,33 @@
 ﻿using EndGame.Test.Actors;
 using EndGame.Test.AI;
+using EndGame.Test.Events;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KeepShooting : TargetInShootRange
+namespace EndGame.Test.AI
 {
-    public override bool Decide(AIStateController _controller, AIStateData _data)
+    [CreateAssetMenu(menuName = "PluggableAI/Decisions/KeepShooting")]
+    public class KeepShooting : TargetInShootRange
     {
-        Actor actor = _controller.GetOwner;
-        TargetDetector targeter = actor.GetComponent<TargetDetector>();
-        bool keepShooting = IsTargetInShootRange(actor, targeter);
-        
-        if (!keepShooting)
+        public override bool Decide(AIStateController _controller, AIStateData _data)
         {
-            OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
+            bool keepShooting = base.Decide(_controller, _data);
+
+            if (!keepShooting)
             {
-                actor = GetOwner,
-                command = ActorCommands.Shoot,
-                // Means the shoot button has been released.
-                value = 0.0f
-            };
+                OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
+                {
+                    actor = _controller.GetOwner,
+                    command = ActorCommands.Shoot,
+                    // Means the shoot button has been released.
+                    value = 0.0f
+                };
 
-            EventController.PushEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
+                EventController.PushEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
+            }
+
+            return keepShooting;
         }
-
-        return base.Decide(_controller, _data);
     }
 }

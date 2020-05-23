@@ -1,44 +1,35 @@
 ﻿using EndGame.Test.Actors;
-using EndGame.Test.AI;
-using EndGame.Test.Utils;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace EndGame.Test.AI
 {
-    public class TargetInShootRange : Decision
+    [CreateAssetMenu(menuName = "PluggableAI/Decisions/TargetInShootRange")]
+    public class TargetInShootRange : TargetInSight
     {
-        [SerializeField]
-        private LayerMask rayCastLayers;
-
         public override bool Decide(AIStateController _controller, AIStateData _data)
         {
             Actor actor = _controller.GetOwner;
-            TargetDetector targeter = actor.GetComponent<TargetDetector>();
+            Detector targeter = actor.GetComponent<Detector>();
             return IsTargetInShootRange(_controller.GetOwner, targeter);
         }
 
-        protected bool IsTargetInShootRange(Actor _actor, TargetDetector _targeter)
+        protected bool IsTargetInShootRange(Actor _actor, Detector _targeter)
         {
             bool inRange = false;
 
             //TODO use weapon range instead?
 
             Vector3 startPosition = _actor.GetCenterOfBodyPosition;
-            Vector3 directionToTarget = _targeter.GetCurrentTargetDirection;
+            Vector3 directionToTarget = _targeter.GetTargetDirection;
             float viewDistance = _targeter.GetViewDistance;
 
-            RaycastHit hit = PhysicsHelper.CastRayForHits(startPosition, directionToTarget, viewDistance, rayCastLayers);
-
-            if (hit.collider)
+            Actor hitTarget = RayScan(startPosition, directionToTarget.normalized, viewDistance, rayCastLayers);
+            if (_targeter.GetCurrenTarget == hitTarget)
             {
-                Actor hitTarget = hit.collider.GetComponent<Actor>();
-                if (_targeter.GetCurrenTarget == hitTarget)
-                {
-                    Vector3 directionToHit = hit.collider.transform.position - _actor.transform.position;
-                    inRange = directionToHit.sqrMagnitude <= viewDistance * viewDistance;
-                }
+                Vector3 directionToHit = hitTarget.transform.position - _actor.transform.position;
+                inRange = directionToHit.sqrMagnitude <= viewDistance * viewDistance;
+
+                Debug.DrawLine(startPosition, hitTarget.transform.position, Color.green, 3.0f);
             }
 
             return inRange;

@@ -9,21 +9,24 @@ namespace EndGame.Test.AI
     [CreateAssetMenu(menuName = "PluggableAI/Actions/Chase")]
     public class Chase : AIAction
     {
-        public override void DoAction(AIStateController _controller, AIStateData _data)
+        public override void DoAction(AIStateController _controller)
         {
-            ChaseTarget(_controller.GetOwner, (ChaseData)_data);
+            ChaseTarget(_controller);
         }
 
-        private void ChaseTarget(Actor _actor, ChaseData _data)
+        private void ChaseTarget(AIStateController _controller)
         {
-            Vector3 currentPosition = _actor.transform.position;
-            Vector3 targetPosition = _data.GetCurrentTarget.transform.position;
+            Actor actor = _controller.GetOwner;
+            ChaseData data = _controller.GetStateData<ChaseData>();
+
+            Vector3 currentPosition = actor.transform.position;
+            Vector3 targetPosition = data.GetCurrentTarget.transform.position;
             Vector3 directionTowardsPosition = targetPosition - currentPosition;
             directionTowardsPosition.y = 0;
 
             OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
             {
-                actor = _actor,
+                actor = actor,
                 command = ActorCommands.Move,
                 value = directionTowardsPosition.normalized
             };

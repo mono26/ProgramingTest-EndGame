@@ -1,7 +1,5 @@
 ﻿using EndGame.Test.Actors;
 using EndGame.Test.Events;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponFire : ActorComponent
@@ -13,23 +11,32 @@ public class WeaponFire : ActorComponent
     [SerializeField]
     private Transform bulletSpawnPoint = null;
 
-    private void Start()
-    {
-        EventController.SubscribeToEvent(ActorEvents.ACTOR_TRIGGER_PULLED, (args) => OnActorPullingTrigger((OnActorPulledTrigger)args));
-    }
+    private bool canShoot = true;
 
-    private void OnActorPullingTrigger(OnActorPulledTrigger _args)
-    {
-        if (GetOwner == _args.actor)
-        {
-            FireWeapon(_args.aimDirection);
-        }
-    }
+    //private void Start()
+    //{
+    //    EventController.SubscribeToEvent(ActorEvents.ACTOR_TRIGGER_PULLED, (args) => OnActorPullingTrigger((OnActorPulledTrigger)args));
+    //}
 
-    public void FireWeapon(Vector3 _direction)
+    //private void OnActorPullingTrigger(OnActorPulledTrigger _args)
+    //{
+    //    if (canShoot)
+    //    {
+    //        if (GetOwner == _args.actor)
+    //        {
+    //            FireWeapon(_args.aimDirection);
+    //        }
+    //    }
+    //}
+
+    public void OnFinishShootAnimtionEvent() => canShoot = true;
+
+    public void PullTrigger(Vector3 _direction)
     {
-        Quaternion targetRotation = Quaternion.FromToRotation(_direction, Vector3.up);
+        Quaternion targetRotation = Quaternion.LookRotation(_direction, Vector3.up);
         Bullet newBullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, targetRotation);
         newBullet.OnWeaponShoot();
+
+        canShoot = false;
     }
 }

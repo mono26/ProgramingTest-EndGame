@@ -1,4 +1,5 @@
 ﻿using EndGame.Test.Actors;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ namespace EndGame.Test.AI
 
         [SerializeField]
         private AIState currentState;
-        private Dictionary<string, AIStateData> stateDatas = new Dictionary<string, AIStateData>();
+        private Dictionary<Type, AIStateData> stateDatas = new Dictionary<Type, AIStateData>();
 
         public AIState GetRemainState { get => remainInState; }
 
@@ -21,7 +22,7 @@ namespace EndGame.Test.AI
         {
             base.OnAwake(_actor);
 
-            stateDatas = new Dictionary<string, AIStateData>();
+            stateDatas = new Dictionary<Type, AIStateData>();
         }
 
         private void Start()
@@ -45,23 +46,27 @@ namespace EndGame.Test.AI
             }
         }
 
-        public void AddData(string _dataId, AIStateData _stateData)
+        public void AddData<T>(T _stateData) where T : AIStateData
         {
-            if (!stateDatas.ContainsKey(_dataId))
+            if (!stateDatas.ContainsKey(typeof(T)))
             {
-                stateDatas[_dataId] = _stateData;
+                stateDatas[typeof(T)] = _stateData;
             }
         }
 
-        public AIStateData GetStateData(string _dataId)
+        public T GetStateData<T>() where T : AIStateData
         {
             AIStateData dataToReturn = null;
-            if (stateDatas.ContainsKey(_dataId))
+            if (stateDatas.ContainsKey(typeof(T)))
             {
-                dataToReturn = stateDatas[_dataId];
+                dataToReturn = stateDatas[typeof(T)];
+            }
+            else
+            {
+                Debug.LogError("No data of type: " + typeof(T).Name);
             }
 
-            return dataToReturn;
+            return dataToReturn as T;
         }
     }
 }

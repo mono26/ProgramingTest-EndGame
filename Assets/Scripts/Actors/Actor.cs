@@ -10,8 +10,6 @@ public class Actor : MonoBehaviour
     /// </summary>
     [SerializeField]
     private float actorHeight;
-    [SerializeField]
-    private float actorWidth;
 
     // public float GetHeight { get => actorHeight; }
     public Vector3 GetCenterOfBodyPosition 

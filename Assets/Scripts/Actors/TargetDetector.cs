@@ -1,47 +1,32 @@
-﻿using EndGame.Test.Actors;
-using EndGame.Test.Events;
-using EndGame.Test.Events.AI;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace EndGame.Test.Actors
 {
-    public class TargetDetector : ActorComponent
+    public class Detector : ActorComponent
     {
         [SerializeField]
-        private float viewAngle = 60.0f;
+        protected float viewDistance = 6.0f;
         [SerializeField]
-        private float viewDistance = 6.0f;
-        [SerializeField]
-        private SphereCollider detectorTrigger;
+        protected SphereCollider detectorTrigger = null;
 
-        private Actor currentTarget = null;
+        [SerializeField]
+        protected Actor currentTarget = null;
         // Srialize for editor inspect.
         [SerializeField]
-        private List<Actor> nearTargets;
+        protected List<Actor> nearTargets = new List<Actor>();
 
-        public float GetViewAngle { get => viewAngle; }
         public float GetViewDistance { get => viewDistance; }
         public List<Actor> GetNearTargets { get => nearTargets; }
-        public Actor GetCurrenTarget { get => currentTarget; }
-        public Vector3 GetCurrentTargetDirection { get => currentTarget.transform.position - GetOwner.transform.position; }
-
-        //private void OnDrawGizmos()
-        //{
-
-        //}
+        public virtual Actor GetCurrenTarget { get => currentTarget; }
+        public virtual Vector3 GetTargetDirection { get; }
 
         public override void OnAwake(Actor _owner)
         {
             base.OnAwake(_owner);
 
             detectorTrigger.radius = viewDistance;
-        }
-
-        private void Start()
-        {
-            EventController.SubscribeToEvent(DecisionEvents.TARGET_IN_SIGHT, (args) => OnTargetInSight((OnTargetInSightEventArgs)args));
+            nearTargets = new List<Actor>();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -59,16 +44,6 @@ namespace EndGame.Test.Actors
             if (actor && GetOwner != actor)
             {
                 nearTargets.Remove(actor);
-            }
-        }
-
-        private void OnTargetInSight(OnTargetInSightEventArgs _args)
-        {
-            if (_args.actor == GetOwner)
-            {
-                currentTarget = _args.target;
-
-                Debug.DrawLine(GetOwner.transform.position, _args.target.transform.position, Color.magenta, 3.0f);
             }
         }
     }

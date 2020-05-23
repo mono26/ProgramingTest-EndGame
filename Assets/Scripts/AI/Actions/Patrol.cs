@@ -7,26 +7,25 @@ namespace EndGame.Test.AI
     [CreateAssetMenu(menuName = "PluggableAI/Actions/Patrol")]
     public class Patrol : AIAction
     {
-        public override void DoAction(AIStateController _controller, AIStateData _data)
+        public override void DoAction(AIStateController _controller)
         {
-            PatrolAction(_controller, (PatrolData)_data);
+            PatrolAction(_controller);
         }
 
-        private void PatrolAction(AIStateController _controller, PatrolData _data)
+        // TODO patrol and chase are very similar.
+        private void PatrolAction(AIStateController _controller)
         {
-            PatrolToTargetPoint(_controller.GetOwner, _data);
-        }
+            Actor actor = _controller.GetOwner;
+            PatrolData data = _controller.GetStateData<PatrolData>();
 
-        private void PatrolToTargetPoint(Actor _actor, PatrolData _data)
-        {
-            Vector3 currentPosition = _actor.transform.position;
-            Vector3 targetPosition = _data.GetPatrolPosition;
+            Vector3 currentPosition = actor.transform.position;
+            Vector3 targetPosition = data.GetPatrolPosition;
             Vector3 directionTowardsPosition = targetPosition - currentPosition;
             directionTowardsPosition.y = 0;
 
             OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
             {
-                actor = _actor,
+                actor = actor,
                 command = ActorCommands.Move,
                 value = directionTowardsPosition.normalized
             };

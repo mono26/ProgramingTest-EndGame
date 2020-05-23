@@ -9,7 +9,7 @@ namespace EndGame.Test.Utils
         public static RaycastHit CastRayForHits(Vector3 _startPosition, Vector3 _direction, float _distance, LayerMask _layers)
         {
             RaycastHit hit;
-            Physics.Raycast(_startPosition, _direction.normalized, out hit, _distance, _layers);
+            Physics.Raycast(_startPosition, _direction, out hit, _distance, _layers);
             return hit;
         }
     }

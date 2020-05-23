@@ -4,6 +4,6 @@ namespace EndGame.Test.AI
 {
     public abstract class Decision : ScriptableObject
     {
-        public abstract bool Decide(AIStateController _controller, AIStateData _data);
+        public abstract bool Decide(AIStateController _controller);
     }
 }

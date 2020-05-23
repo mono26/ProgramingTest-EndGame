@@ -24,26 +24,25 @@ namespace EndGame.Test.AI
 
         public void OnUpdate(AIStateController _controller)
         {
-            AIStateData data = _controller.GetStateData(stateId);
-            DoActions(_controller, data);
-            CheckTransitions(_controller, data);
+            DoActions(_controller);
+            CheckTransitions(_controller);
         }
 
-        private void DoActions(AIStateController _controller, AIStateData _stateData)
+        private void DoActions(AIStateController _controller)
         {
             for (int i = 0; i < actions.Length; i++)
             {
-                actions[i].DoAction(_controller, _stateData);
+                actions[i].DoAction(_controller);
             }
         }
 
-        private void CheckTransitions(AIStateController _controller, AIStateData _stateData)
+        private void CheckTransitions(AIStateController _controller)
         {
             List<AIState> trueStates = new List<AIState>();
             List<AIState> falseStates = new List<AIState>();
             for (int i = 0; i < transitions.Length; i++)
             {
-                bool transition = transitions[i].decision.Decide(_controller, _stateData);
+                bool transition = transitions[i].decision.Decide(_controller);
 
                 if (transition)
                 {

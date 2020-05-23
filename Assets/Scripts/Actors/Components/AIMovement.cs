@@ -1,7 +1,5 @@
 ﻿using EndGame.Test.Actors;
 using EndGame.Test.Events;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,8 +11,6 @@ namespace EndGame.Test.AI
         private NavMeshAgent navigationComponent = null;
 
         private Vector3 targetPosition = Vector3.zero;
-
-        private int frame = 0;
 
         private void OnDrawGizmos()
         {
@@ -69,7 +65,6 @@ namespace EndGame.Test.AI
             }
 
             lastPosition = currentPosition;
-            frame++;
         }
 
         protected override void OnActorCommandReceive(OnActorCommandReceiveEventArgs _args)

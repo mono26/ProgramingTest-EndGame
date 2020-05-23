@@ -10,6 +10,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [14] 23-05-2020
 ### Added
+- Pickup and inventory system.
+- Door check for the key.
+- Action trigger events.
+
+## [14] 23-05-2020
+### Added
+- Created Player View and Actor health updte events.
+- Nav mesh agent to the AI actor.
+- Nav mesh obstacles to the map.
+- AI rotator component.
+
+## [14] 23-05-2020
+### Added
 - Created Player View and Actor health updte events.
 - Nav mesh agent to the AI actor.
 - Nav mesh obstacles to the map.

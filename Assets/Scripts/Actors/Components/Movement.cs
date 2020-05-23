@@ -13,8 +13,6 @@ namespace EndGame.Test.Actors
         private Vector3 targetDirection = Vector3.zero;
         protected Vector3 lastPosition = Vector3.zero;
 
-        private int frame = 0;
-
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.yellow;
@@ -77,7 +75,6 @@ namespace EndGame.Test.Actors
             }
 
             lastPosition = currentPosition;
-            frame++;
         }
 
         protected virtual void OnActorCommandReceive(OnActorCommandReceiveEventArgs _args)

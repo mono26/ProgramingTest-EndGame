@@ -1,13 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using EndGame.Test.Actors;
+using EndGame.Test.Events;
+using EndGame.Test.Triggers;
 using UnityEngine;
 
 public class BuildingDoor : MonoBehaviour
 {
     [SerializeField]
-    private Animator doorController;
+    private Animator doorController = null;
     [SerializeField]
-    private ActionTrigger openCloseTrigger;
+    private ActionTrigger openCloseTrigger = null;
+    [SerializeField]
+    private Collider doorCollider = null;
+    [SerializeField]
+    private string keyId = null;
 
     private void Awake()
     {
@@ -16,33 +21,58 @@ public class BuildingDoor : MonoBehaviour
 
     private void Start()
     {
-        openCloseTrigger.OnTriggerEntered += OnTriggerEntered;
-        openCloseTrigger.OnTriggerExited += OnTriggerExited;
+        EventController.SubscribeToEvent(ActionTriggerEvents.TRIGGER_ENTERED, (args) => OnTriggerEntered((OnTriggerEntered)args));
+        EventController.SubscribeToEvent(ActionTriggerEvents.TRIGGER_EXITED, (args) => OnTriggerExited((OnTriggerExited)args));
     }
 
     private void OnDestroy()
     {
-        openCloseTrigger.OnTriggerEntered -= OnTriggerEntered;
-        openCloseTrigger.OnTriggerExited -= OnTriggerExited;
+        EventController.UnSubscribeFromEvent(ActionTriggerEvents.TRIGGER_ENTERED, (args) => OnTriggerEntered((OnTriggerEntered)args));
+        EventController.UnSubscribeFromEvent(ActionTriggerEvents.TRIGGER_EXITED, (args) => OnTriggerExited((OnTriggerExited)args));
     }
 
-    private void OnTriggerEntered()
+    private void OnTriggerEntered(OnTriggerEntered _args)
     {
-        OpenDoor();
+        if (openCloseTrigger == _args.trigger)
+        {
+            // We want to always open the door to the AI.
+            bool opendDoor = true;
+            if (_args.actor.CompareTag("Player"))
+            {
+                Inventory playerInventory = _args.actor.GetComponent<Inventory>();
+                if (!playerInventory.HasKeyItem(keyId))
+                {
+                    opendDoor = false;
+                }
+
+            }
+
+            if (opendDoor)
+            {
+                OpenDoor();
+            }
+        }       
     }
 
     private void OpenDoor()
     {
         doorController.SetTrigger("Open");
+
+        doorCollider.enabled = false;
     }
 
-    private void OnTriggerExited()
+    private void OnTriggerExited(OnTriggerExited _args)
     {
-        CloseDoor();
+        if (openCloseTrigger == _args.trigger)
+        {
+            CloseDoor();
+        }
     }
 
     private void CloseDoor()
     {
         doorController.SetTrigger("Close");
+
+        doorCollider.enabled = true;
     }
 }

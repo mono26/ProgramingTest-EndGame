@@ -106,6 +106,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actorHeight: 1.470189
+--- !u!114 &361280582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6870845055111183722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02c0692fa5b193445b3538d1bcfca18a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHitPoints: 3
 --- !u!114 &1495671265392225637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,7 +147,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bodyComponent: {fileID: 812597703}
   movementSpeed: 3
-  targetDirection: {x: 0, y: 0, z: 0}
 --- !u!114 &3949316602554184938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,7 +202,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementComponent: {fileID: 3078692227378051769}
   animationController: {fileID: 812597705}
---- !u!114 &361280582
+--- !u!114 &8494006297615467487
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -199,10 +211,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6870845055111183722}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02c0692fa5b193445b3538d1bcfca18a, type: 3}
+  m_Script: {fileID: 11500000, guid: d853aa4ec2eb6a14bb34466ccc964c5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHitPoints: 3
+  iventoryItems: []
 --- !u!1001 &3205375714705138787
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -918,7 +930,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: ff7dc2322a295214ba2ea09df4537d3b,
         type: 3}
       propertyPath: m_Name
-      value: Connor_Rig
+      value: Connor_Rig Variant
       objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: ff7dc2322a295214ba2ea09df4537d3b,
         type: 3}

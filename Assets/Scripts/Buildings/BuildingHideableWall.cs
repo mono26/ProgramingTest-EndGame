@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using EndGame.Test.Events;
+using EndGame.Test.Triggers;
 using UnityEngine;
 
 public class BuildingHideableWall : MonoBehaviour
@@ -18,18 +18,40 @@ public class BuildingHideableWall : MonoBehaviour
     {
         ActivateWallSprite(true);
 
-        // TODO use event system.
-        hideTrigger.OnTriggerEntered += OnBuildingEntered;
-        hideTrigger.OnTriggerExited += OnBuildingExited;
+        EventController.SubscribeToEvent(ActionTriggerEvents.TRIGGER_ENTERED, (args) => OnTriggerEntered((OnTriggerEntered)args));
+        EventController.SubscribeToEvent(ActionTriggerEvents.TRIGGER_EXITED, (args) => OnTriggerExited((OnTriggerExited)args));
     }
 
     private void OnDestroy()
     {
-        hideTrigger.OnTriggerEntered -= OnBuildingEntered;
-        hideTrigger.OnTriggerExited -= OnBuildingExited;
+        EventController.UnSubscribeFromEvent(ActionTriggerEvents.TRIGGER_ENTERED, (args) => OnTriggerEntered((OnTriggerEntered)args));
+        EventController.UnSubscribeFromEvent(ActionTriggerEvents.TRIGGER_EXITED, (args) => OnTriggerExited((OnTriggerExited)args));
     }
 
-    private void OnBuildingEntered()
+    private void OnTriggerEntered(OnTriggerEntered _args)
+    {
+        if (hideTrigger == _args.trigger)
+        {
+            // Only hide the sprite if the playerr enters.
+            if (_args.actor.CompareTag("Player"))
+            {
+                OnHideTriggerEntered();
+            }
+        }
+    }
+
+    private void OnTriggerExited(OnTriggerExited _args)
+    {
+        if (hideTrigger == _args.trigger)
+        {
+            if (_args.actor.CompareTag("Player"))
+            {
+                OnHideTriggerExited();
+            }
+        }
+    }
+
+    private void OnHideTriggerEntered()
     {
         Debug.Log("Entered building");
         ActivateWallSprite(false);
@@ -40,7 +62,7 @@ public class BuildingHideableWall : MonoBehaviour
         rendererComponent.enabled = _activate;
     }
 
-    private void OnBuildingExited()
+    private void OnHideTriggerExited()
     {
         Debug.Log("Exited building");
         ActivateWallSprite(true);

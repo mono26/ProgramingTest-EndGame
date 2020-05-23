@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95397f9de46489045a7102f7e7cdec3d, type: 3}
   m_Name: Waiting
   m_EditorClassIdentifier: 
-  stateId: waiting
   weight: 1
   actions:
   - {fileID: 11400000, guid: becc537e87cc1844db2040b35038e6e8, type: 2}
   transitions:
   - decision: {fileID: 11400000, guid: f851d4262f4b7f549ae0a81120a00863, type: 2}
     trueState: {fileID: 11400000, guid: 0203f80003827e147af6955431381a3d, type: 2}
-    falseState: {fileID: 11400000}
+    falseState: {fileID: 11400000, guid: 408033498a87409499cb9c6b0d1d005e, type: 2}
+  - decision: {fileID: 11400000, guid: de73f40897ef2fa42bbb0b6190436740, type: 2}
+    trueState: {fileID: 11400000, guid: 9edd3f2711d58cb4fac9d39a8da77ba0, type: 2}
+    falseState: {fileID: 11400000, guid: 408033498a87409499cb9c6b0d1d005e, type: 2}

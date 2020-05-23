@@ -1,6 +1,4 @@
-﻿using EndGame.Test.Actors;
-using EndGame.Test.Events;
-using System;
+﻿using EndGame.Test.Events;
 using UnityEngine;
 
 namespace EndGame.Test.Actors
@@ -14,9 +12,9 @@ namespace EndGame.Test.Actors
 
         [SerializeField]
         private Vector3 targetDirection = Vector3.zero;
+        private Vector3 lastPosition = Vector3.zero;
 
-        public float GetMovementSpeed { get => movementSpeed; }
-        public Vector3 SetTargetDirection { set => targetDirection = value; }
+        private int frame = 0;
 
         private void OnDrawGizmos()
         {
@@ -40,6 +38,8 @@ namespace EndGame.Test.Actors
         private void Start()
         {
             EventController.SubscribeToEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, (args) => OnActorCommandReceive((OnActorCommandReceiveEventArgs)args));
+
+            lastPosition = GetOwner.transform.position;
         }
 
         private void FixedUpdate()
@@ -52,7 +52,9 @@ namespace EndGame.Test.Actors
 
                 Debug.Log("Actor is moving");
             }
-            else
+
+            Vector3 currentPosition = GetOwner.transform.position;
+            if (lastPosition == currentPosition)
             {
                 // TODO create base actor event.
                 OnActorStoppedMovement args = new OnActorStoppedMovement()
@@ -64,6 +66,9 @@ namespace EndGame.Test.Actors
 
                 Debug.Log("Actor is stopped");
             }
+
+            lastPosition = currentPosition;
+            frame++;
         }
 
         private void OnActorCommandReceive(OnActorCommandReceiveEventArgs _args)
@@ -72,14 +77,14 @@ namespace EndGame.Test.Actors
             {
                 if (_args.command.Equals(ActorCommands.Move))
                 {
-                    SetTargetDirection = (Vector3)_args.value;
+                    targetDirection = (Vector3)_args.value;
                 }
             }
         }
 
         private void MoveTowardsDirection(Vector3 _directionVector)
         {
-            Vector3 currentPosition = transform.position;
+            Vector3 currentPosition = GetOwner.transform.position;
             Vector3 nextPosition = currentPosition + _directionVector * movementSpeed * Time.fixedDeltaTime;
 
             MoveTowardsTargetPosition(nextPosition);

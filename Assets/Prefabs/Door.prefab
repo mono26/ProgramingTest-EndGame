@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 5143059685347952166}
   - component: {fileID: 5853567725023955887}
   m_Layer: 0
-  m_Name: Collider
+  m_Name: DoorCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -13,6 +13,7 @@ namespace EndGame.Test.Actors
 
         private void OnDestroy()
         {
+            // TODO store as delegates ??
             EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_MOVEMENT, (args) => OnActorMovement((OnActorMovement)args));
             EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_FIRE_WEAPON, (args) => OnActorFireWeapon((OnActorFireWeapon)args));
         }

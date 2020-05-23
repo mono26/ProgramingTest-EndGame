@@ -5,7 +5,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-## [12] 21-05-2020
+- Animation flicker fix.
+- Use delegates instead of anonymous.
+
+## [13] 23-05-2020
+### Added
+- Colliders to map.
+
+## [12] 22-05-2020
 ### Added
 - Health component for the actors.
 - Actor hit by bullet event.
@@ -13,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Folder structure.
 
-## [11] 21-05-2020
+## [11] 22-05-2020
 ### Added
 - Bullet shooting to animation.
 - Weapon handler listens to shooting animation events.
@@ -23,20 +30,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The way states data are store is now by type. And now everybody access the states data throught the state controller.
 - Code refactoring.
 
-## [10] 21-05-2020
+## [10] 22-05-2020
 ### Added
 - Target in shoot range and keep shooting decision.
 - Physics helper.
 - Shoot command.
 - Weapon handle events.
 
-## [9] 21-05-2020
+## [9] 22-05-2020
 ### Added
 - Chase and shoot state.
 - Chase action.
 - Push inmmediately a event.
 
-## [8] 21-05-2020
+## [8] 22-05-2020
 ### Added
 - Player input script.
 - Multiple transitions handling.

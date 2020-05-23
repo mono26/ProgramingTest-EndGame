@@ -7,9 +7,6 @@ namespace EndGame.Test.Actors
 {
     public class Movement : ActorComponent
     {
-        public event Action OnMovement;
-        public event Action OnStandingStill;
-
         [SerializeField]
         private Rigidbody bodyComponent = null;
         [SerializeField]
@@ -55,7 +52,13 @@ namespace EndGame.Test.Actors
             }
             else
             {
-                OnStandingStill?.Invoke();
+                // TODO create base actor event.
+                OnActorStoppedMovement args = new OnActorStoppedMovement()
+                {
+                    actor = GetOwner
+                };
+
+                EventController.PushEvent(ActorEvents.ACTOR_MOVEMENT_STOPPED, args);
             }
         }
 
@@ -76,20 +79,19 @@ namespace EndGame.Test.Actors
             Vector3 nextPosition = currentPosition + _directionVector * movementSpeed * Time.fixedDeltaTime;
 
             MoveTowardsTargetPosition(nextPosition);
+
+            OnActorMovement args = new OnActorMovement()
+            {
+                actor = GetOwner,
+                direction = _directionVector
+            };
+
+            EventController.PushEvent(ActorEvents.ACTOR_MOVEMENT, args);
         }
 
         private void MoveTowardsTargetPosition(Vector3 _nextPosition)
         {
             bodyComponent.MovePosition(_nextPosition);
-
-            RotateTowardsTargetPosition(_nextPosition);
-
-            OnMovement?.Invoke();
-        }
-
-        private void RotateTowardsTargetPosition(Vector3 _nextPosition)
-        {
-            transform.LookAt(_nextPosition);
         }
     }
 }

@@ -26,7 +26,6 @@ namespace EndGame.Test.Actors
             base.OnAwake(_owner);
 
             detectorTrigger.radius = viewDistance;
-            nearTargets = new List<Actor>();
         }
 
         private void OnTriggerEnter(Collider other)

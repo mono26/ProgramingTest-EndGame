@@ -9,6 +9,7 @@ namespace EndGame.Test.Actors
         public const string ACTOR_MOVEMENT = "event.actor.movement";
         public const string ACTOR_MOVEMENT_STOPPED = "event.actor.movement.stoped";
         public const string ACTOR_TRIGGER_PULLED = "event.actor.trigger.pulled";
+        public const string ACTOR_FIRE_WEAPON = "event.actor.weapon.fire";
         public const string ACTOR_TRIGGER_RELEASED = "event.actor.trigger.released";
     }
 
@@ -23,6 +24,7 @@ namespace EndGame.Test.Actors
     public struct OnActorMovement : IEventArgs
     {
         public Actor actor;
+        public Vector3 direction;
     }
 
     public struct OnActorStoppedMovement : IEventArgs
@@ -31,6 +33,11 @@ namespace EndGame.Test.Actors
     }
 
     public struct OnActorPulledTrigger : IEventArgs
+    {
+        public Actor actor;
+    }
+
+    public struct OnActorFireWeapon : IEventArgs
     {
         public Actor actor;
         public Vector3 aimDirection;

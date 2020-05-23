@@ -5,12 +5,16 @@ namespace EndGame.Test.AI
     [CreateAssetMenu(menuName = "PluggableAI/Decisions/LostTarget")]
     public class LostTarget : TargetInSight
     {
-        public override bool Decide(AIStateController _controller, AIStateData _data)
+        public override bool Decide(AIStateController _controller)
         {
             bool lostTarget = false;
-            if (!base.Decide(_controller, _data))
+            if (!base.Decide(_controller))
             {
-                lostTarget = HasLostTarget((ChaseData)_data);
+                ChaseData data = _controller.GetStateData<ChaseData>();
+
+                lostTarget = HasLostTarget(data);
+
+                // TODO trigger lost target event.
             }
 
             return lostTarget;

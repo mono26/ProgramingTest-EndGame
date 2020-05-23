@@ -7,6 +7,7 @@ namespace EndGame.Test.Events.AI
         public const string WAIT_FINISH = "event.decision.wait.finish";
         public const string PATROL_POINT_REACHED = "event.decision.patrol.point.reach";
         public const string TARGET_IN_SIGHT = "event.decision.target.in.sight";
+        public const string TARGET_IN_SHOOT_RANGE = "event.decision.target.in.shoot.range";
     }
 
 
@@ -21,6 +22,12 @@ namespace EndGame.Test.Events.AI
     }
 
     public struct OnTargetInSightEventArgs : IEventArgs
+    {
+        public Actor actor;
+        public Actor target;
+    }
+
+    public struct OnTargetInShootRange : IEventArgs
     {
         public Actor actor;
         public Actor target;

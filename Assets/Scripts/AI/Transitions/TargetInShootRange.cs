@@ -1,4 +1,6 @@
 ﻿using EndGame.Test.Actors;
+using EndGame.Test.Events;
+using EndGame.Test.Events.AI;
 using UnityEngine;
 
 namespace EndGame.Test.AI
@@ -6,30 +8,43 @@ namespace EndGame.Test.AI
     [CreateAssetMenu(menuName = "PluggableAI/Decisions/TargetInShootRange")]
     public class TargetInShootRange : TargetInSight
     {
-        public override bool Decide(AIStateController _controller, AIStateData _data)
+        public override bool Decide(AIStateController _controller)
         {
-            Actor actor = _controller.GetOwner;
-            Detector targeter = actor.GetComponent<Detector>();
-            return IsTargetInShootRange(_controller.GetOwner, targeter);
+            return IsTargetInShootRange(_controller);
         }
 
-        protected bool IsTargetInShootRange(Actor _actor, Detector _targeter)
+        protected bool IsTargetInShootRange(AIStateController _controller)
         {
             bool inRange = false;
 
             //TODO use weapon range instead?
+            Actor actor = _controller.GetOwner;
+            // TODO remove detector from here and other places.
+            Detector targeter = actor.GetComponent<Detector>();
 
-            Vector3 startPosition = _actor.GetCenterOfBodyPosition;
-            Vector3 directionToTarget = _targeter.GetTargetDirection;
-            float viewDistance = _targeter.GetViewDistance;
+            Vector3 startPosition = actor.GetCenterOfBodyPosition;
+            Vector3 directionToTarget = targeter.GetTargetDirection;
+            float viewDistance = targeter.GetViewDistance;
 
             Actor hitTarget = RayScan(startPosition, directionToTarget.normalized, viewDistance, rayCastLayers);
-            if (_targeter.GetCurrenTarget == hitTarget)
+            // TODO use chase targe data.
+            if (targeter.GetCurrenTarget == hitTarget)
             {
-                Vector3 directionToHit = hitTarget.transform.position - _actor.transform.position;
-                inRange = directionToHit.sqrMagnitude <= viewDistance * viewDistance;
+                ShootData data = _controller.GetStateData<ShootData>();
+
+                Vector3 directionToHit = hitTarget.transform.position - actor.transform.position;
+                inRange = directionToHit.sqrMagnitude <= data.GetShootRange * data.GetShootRange;
 
                 Debug.DrawLine(startPosition, hitTarget.transform.position, Color.green, 3.0f);
+
+                OnTargetInShootRange args = new OnTargetInShootRange()
+                {
+                    actor = actor,
+                    target = hitTarget
+                };
+
+                EventController.PushEvent(DecisionEvents.TARGET_IN_SHOOT_RANGE, args);
+                // TODO fire target in shoot range event.
             }
 
             return inRange;

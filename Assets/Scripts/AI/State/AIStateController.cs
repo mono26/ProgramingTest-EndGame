@@ -21,8 +21,6 @@ namespace EndGame.Test.AI
         public override void OnAwake(Actor _actor)
         {
             base.OnAwake(_actor);
-
-            stateDatas = new Dictionary<Type, AIStateData>();
         }
 
         private void Start()
@@ -39,7 +37,7 @@ namespace EndGame.Test.AI
         {
             if (currentState != _nextState && _nextState != remainInState)
             {
-                Debug.Log("Transition to: " + _nextState.GetStateId);
+                Debug.Log("Transition to: " + _nextState.name);
 
                 currentState = _nextState;
                 // OnExitState();
@@ -48,18 +46,20 @@ namespace EndGame.Test.AI
 
         public void AddData<T>(T _stateData) where T : AIStateData
         {
-            if (!stateDatas.ContainsKey(typeof(T)))
+            Type type = typeof(T);
+            if (!stateDatas.ContainsKey(type))
             {
-                stateDatas[typeof(T)] = _stateData;
+                stateDatas[type] = _stateData;
             }
         }
 
         public T GetStateData<T>() where T : AIStateData
         {
             AIStateData dataToReturn = null;
-            if (stateDatas.ContainsKey(typeof(T)))
+            Type type = typeof(T);
+            if (stateDatas.ContainsKey(type))
             {
-                dataToReturn = stateDatas[typeof(T)];
+                dataToReturn = stateDatas[type];
             }
             else
             {

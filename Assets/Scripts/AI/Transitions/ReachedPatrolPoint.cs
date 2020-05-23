@@ -7,13 +7,16 @@ namespace EndGame.Test.AI
     [CreateAssetMenu(menuName = "PluggableAI/Decisions/ReachedPatrolPoint")]
     public class ReachedPatrolPoint : Decision
     {
-        public override bool Decide(AIStateController _controller, AIStateData _data)
+        public override bool Decide(AIStateController _controller)
         {
-            return HasReachedPatrolPoint(_controller.GetOwner, (PatrolData)_data);
+            return HasReachedPatrolPoint(_controller);
         }
 
-        private bool HasReachedPatrolPoint(Actor _actor, PatrolData _data)
+        private bool HasReachedPatrolPoint(AIStateController _controller)
         {
+            Actor _actor = _controller.GetOwner;
+            PatrolData _data = _controller.GetStateData<PatrolData>();
+
             bool reachedPatrolPoint = false;
 
             Vector3 currentPosition = _actor.transform.position;

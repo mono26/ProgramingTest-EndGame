@@ -8,8 +8,6 @@ namespace EndGame.Test.AI
     [CreateAssetMenu(menuName = "PluggableAI/State")]
     public class AIState : ScriptableObject
     {
-        [SerializeField]
-        private string stateId = "";
         /// <summary>
         /// Controlls the state priority when evaluating multiple transitions. Heigher weight means heigher priority.
         /// </summary>
@@ -19,8 +17,6 @@ namespace EndGame.Test.AI
         private AIAction[] actions = null;
         [SerializeField]
         private Transition[] transitions = null;
-
-        public string GetStateId { get => stateId; }
 
         public void OnUpdate(AIStateController _controller)
         {

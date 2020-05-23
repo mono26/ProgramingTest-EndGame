@@ -7,21 +7,24 @@ namespace EndGame.Test.AI
     [CreateAssetMenu(menuName = "PluggableAI/Decisions/FinishedWaiting")]
     public class FinishedWaiting : Decision
     {
-        public override bool Decide(AIStateController _controller, AIStateData _data)
+        public override bool Decide(AIStateController _controller)
         {
-            return HasFinishedWaiting(_controller.GetOwner, (WaitData)_data);
+            return HasFinishedWaiting(_controller);
         }
 
-        private bool HasFinishedWaiting(Actor _actor, WaitData _data)
+        private bool HasFinishedWaiting(AIStateController _controller)
         {
+            Actor actor = _controller.GetOwner;
+            WaitData data = _controller.GetStateData<WaitData>();
+
             bool finishedWaiting = false;
-            if (_data.GetWaitedTime >= _data.GetMaxTime)
+            if (data.GetWaitedTime >= data.GetMaxTime)
             {
                 finishedWaiting = true;
 
                 OnWaitFinishedEventArgs args = new OnWaitFinishedEventArgs()
                 {
-                    actor = _actor,
+                    actor = actor,
                 };
 
                 EventController.PushEvent(DecisionEvents.WAIT_FINISH, args);

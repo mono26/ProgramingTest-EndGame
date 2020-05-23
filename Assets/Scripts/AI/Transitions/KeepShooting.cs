@@ -10,9 +10,9 @@ namespace EndGame.Test.AI
     [CreateAssetMenu(menuName = "PluggableAI/Decisions/KeepShooting")]
     public class KeepShooting : TargetInShootRange
     {
-        public override bool Decide(AIStateController _controller, AIStateData _data)
+        public override bool Decide(AIStateController _controller)
         {
-            bool keepShooting = base.Decide(_controller, _data);
+            bool keepShooting = base.Decide(_controller);
 
             if (!keepShooting)
             {

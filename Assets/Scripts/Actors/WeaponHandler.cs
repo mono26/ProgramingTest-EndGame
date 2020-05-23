@@ -6,9 +6,14 @@ using UnityEngine;
 public class WeaponHandler : ActorComponent
 {
     [SerializeField]
-    private WeaponFire weaponToShoot;
+    private WeaponFire weaponToShoot = null;
     [SerializeField]
-    private Detector targeter;
+    private Detector targeter = null;
+
+    public override void OnAwake(Actor _actor)
+    {
+        targeter = GetComponent<Detector>();
+    }
 
     protected void Start()
     {
@@ -40,8 +45,7 @@ public class WeaponHandler : ActorComponent
     {
         OnActorPulledTrigger args = new OnActorPulledTrigger()
         {
-            actor = GetOwner,
-            aimDirection = targeter.GetTargetDirection
+            actor = GetOwner
         };
 
         EventController.PushEvent(ActorEvents.ACTOR_TRIGGER_PULLED, args);
@@ -60,7 +64,10 @@ public class WeaponHandler : ActorComponent
     /// <summary>
     /// Called by an animation event at the start of the shooting animation.
     /// </summary>
-    private void OnShootAnimationInit() => weaponToShoot.PullTrigger(targeter.GetTargetDirection);
+    private void OnShootAnimationInit()
+    {
+        weaponToShoot.FireWeapon(targeter.GetTargetDirection);
+    }
 
     /// <summary>
     /// Called by an animation event at the end of the shooting animation.

@@ -14,10 +14,8 @@ namespace EndGame.Test.AI
         public float GetMaxTime { get => maxWaitTime; }
         public float GetWaitedTime { get => waitedTime; }
 
-        protected override void Start()
+        private void Start()
         {
-            base.Start();
-
             EventController.SubscribeToEvent(ActionEvents.WAITED_ACTION, (args) => OnActorWaited((OnWaitedActionEventArgs)args));
             EventController.SubscribeToEvent(DecisionEvents.WAIT_FINISH, (args) => OnActorFinishedWaiting((OnWaitFinishedEventArgs)args));
         }
@@ -36,6 +34,11 @@ namespace EndGame.Test.AI
             {
                 waitedTime = 0;
             }
+        }
+
+        protected override void AddToStateContoller(AIStateController _controller)
+        {
+            _controller.AddData(this);
         }
     }
 }

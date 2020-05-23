@@ -6,17 +6,15 @@ namespace EndGame.Test.AI
     /// <summary>
     /// Data class that contains actor instance data for a state. Each state should have it's own data.
     /// </summary>
-    public class AIStateData : ActorComponent
+    public abstract class AIStateData : ActorComponent
     {
-        /// <summary>
-        /// This Id is used to match datas with state. Meaning that each implementation of AIStateData matches a state.
-        /// </summary>
-        [SerializeField]
-        private string dataId = null;
-
-        protected virtual void Start()
+        public override void OnAwake(Actor _actor)
         {
-            GetOwner.GetComponent<AIStateController>().AddData(this);
+            base.OnAwake(_actor);
+
+            AddToStateContoller(_actor.GetComponent<AIStateController>());
         }
+
+        protected abstract void AddToStateContoller(AIStateController _controller);
     }
 }

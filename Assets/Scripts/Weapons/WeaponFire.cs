@@ -31,7 +31,7 @@ public class WeaponFire : ActorComponent
 
     public void OnFinishShootAnimtionEvent() => canShoot = true;
 
-    public void PullTrigger(Vector3 _direction)
+    public void FireWeapon(Vector3 _direction)
     {
         Quaternion targetRotation = Quaternion.LookRotation(_direction, Vector3.up);
         Bullet newBullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, targetRotation);

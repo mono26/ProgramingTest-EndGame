@@ -7,12 +7,12 @@ namespace EndGame.Test.AI
     [CreateAssetMenu(menuName = "PluggableAI/Decisions/ReachedPatrolPoint")]
     public class ReachedPatrolPoint : Decision
     {
-        public override bool Decide(AIStateController _controller)
+        public override bool Decide(AIView _controller)
         {
             return HasReachedPatrolPoint(_controller);
         }
 
-        private bool HasReachedPatrolPoint(AIStateController _controller)
+        private bool HasReachedPatrolPoint(AIView _controller)
         {
             Actor _actor = _controller.GetOwner;
             PatrolData _data = _controller.GetStateData<PatrolData>();
@@ -21,9 +21,11 @@ namespace EndGame.Test.AI
 
             Vector3 currentPosition = _actor.transform.position;
             Vector3 patrolPosition = _data.GetPatrolPosition;
+            // So the vector is flat and in the same plane as the character.
+            patrolPosition.y = currentPosition.y;
             float sqrdistance = (patrolPosition - currentPosition).sqrMagnitude;
 
-            if (currentPosition.Equals(patrolPosition) || sqrdistance < 0.1f)
+            if (currentPosition.Equals(patrolPosition) || sqrdistance <= 0.1f)
             {
                 reachedPatrolPoint = true;
 

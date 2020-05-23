@@ -5,8 +5,6 @@ using UnityEngine;
 public class WeaponFire : ActorComponent
 {
     [SerializeField]
-    private float fireRate = 1.0f;
-    [SerializeField]
     private Bullet bulletPrefab = null;
     [SerializeField]
     private Transform bulletSpawnPoint = null;

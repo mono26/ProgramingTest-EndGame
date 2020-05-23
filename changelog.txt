@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Animation flicker fix.
 - Use delegates instead of anonymous.
 
+## [14] 23-05-2020
+### Added
+- Created Player View and Actor health updte events.
+- Nav mesh agent to the AI actor.
+- Nav mesh obstacles to the map.
+- AI rotator component.
+
 ## [13] 23-05-2020
 ### Added
 - Colliders to map.

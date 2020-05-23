@@ -5,7 +5,7 @@ namespace EndGame.Test.AI
     [CreateAssetMenu(menuName = "PluggableAI/Decisions/LostTarget")]
     public class LostTarget : TargetInSight
     {
-        public override bool Decide(AIStateController _controller)
+        public override bool Decide(AIView _controller)
         {
             bool lostTarget = false;
             if (!base.Decide(_controller))

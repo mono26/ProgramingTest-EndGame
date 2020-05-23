@@ -8,12 +8,12 @@ namespace EndGame.Test.AI
     [CreateAssetMenu(menuName = "PluggableAI/Decisions/TargetInShootRange")]
     public class TargetInShootRange : TargetInSight
     {
-        public override bool Decide(AIStateController _controller)
+        public override bool Decide(AIView _controller)
         {
             return IsTargetInShootRange(_controller);
         }
 
-        protected bool IsTargetInShootRange(AIStateController _controller)
+        protected bool IsTargetInShootRange(AIView _controller)
         {
             bool inRange = false;
 
@@ -32,7 +32,7 @@ namespace EndGame.Test.AI
             {
                 ShootData data = _controller.GetStateData<ShootData>();
 
-                Vector3 directionToHit = hitTarget.transform.position - actor.transform.position;
+                Vector3 directionToHit = hitTarget.GetCenterOfBodyPosition - startPosition;
                 inRange = directionToHit.sqrMagnitude <= data.GetShootRange * data.GetShootRange;
 
                 Debug.DrawLine(startPosition, hitTarget.transform.position, Color.green, 3.0f);

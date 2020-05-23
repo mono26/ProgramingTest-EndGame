@@ -16,6 +16,9 @@ public class BuildingHideableWall : MonoBehaviour
 
     private void Start()
     {
+        ActivateWallSprite(true);
+
+        // TODO use event system.
         hideTrigger.OnTriggerEntered += OnBuildingEntered;
         hideTrigger.OnTriggerExited += OnBuildingExited;
     }

@@ -1,10 +1,30 @@
 ﻿using EndGame.Test.Events;
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace EndGame.Test.Actors
 {
-    public class PlayerInput : ActorComponent
+    public class PlayerView : ActorComponent
     {
+        private Action<IEventArgs> OnActorHealthUpdated;
+
+        [SerializeField]
+        private Image healthBarFillComponent = null;
+
+        private void Start()
+        {
+            OnActorHealthUpdated = (args) => UpdateHealthBar((OnActorHealthUpdated)args);
+
+            EventController.SubscribeToEvent(ActorEvents.ACTOR_HEALTH_UPDATED, OnActorHealthUpdated);
+            EventController.SubscribeToEvent(ActorEvents.ACTOR_DEATH, (args) => OnActorDeath((OnActorDeath)args));
+        }
+
+        private void OnDestroy()
+        {
+            EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_HEALTH_UPDATED, OnActorHealthUpdated);
+        }
+
         private void Update()
         {
             // Get the horizontal and vertical input.
@@ -51,6 +71,25 @@ namespace EndGame.Test.Actors
                 };
 
                 EventController.PushEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
+            }
+        }
+
+        private void UpdateHealthBar(OnActorHealthUpdated _args)
+        {
+            if (GetOwner == _args.actor)
+            {
+                int currentHealth = _args.healthComponent.GetCurrentHitPoints;
+                int maxHealth = _args.healthComponent.GetMaxHitPoints;
+                healthBarFillComponent.fillAmount = currentHealth / maxHealth;
+            }
+        }
+
+        private void OnActorDeath(OnActorDeath _args)
+        {
+            if (GetOwner == _args.actor)
+            {
+                // TODO send to pull.
+                Debug.LogError("Player is dead!!!");
             }
         }
     }

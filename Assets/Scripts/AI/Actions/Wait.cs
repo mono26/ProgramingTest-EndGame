@@ -7,12 +7,12 @@ namespace EndGame.Test.AI
     [CreateAssetMenu(menuName = "PluggableAI/Actions/Wait")]
     public class Wait : AIAction
     {
-        public override void DoAction(AIStateController _controller)
+        public override void DoAction(AIView _controller)
         {
             WaitAction(_controller);
         }
 
-        private void WaitAction(AIStateController _controller)
+        private void WaitAction(AIView _controller)
         {
             Actor actor = _controller.GetOwner;
             Debug.Log("Actor: " + actor.gameObject.name + " waiting");

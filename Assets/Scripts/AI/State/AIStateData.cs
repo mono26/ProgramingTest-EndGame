@@ -12,9 +12,9 @@ namespace EndGame.Test.AI
         {
             base.OnAwake(_actor);
 
-            AddToStateContoller(_actor.GetComponent<AIStateController>());
+            AddToStateContoller(_actor.GetComponent<AIView>());
         }
 
-        protected abstract void AddToStateContoller(AIStateController _controller);
+        protected abstract void AddToStateContoller(AIView _controller);
     }
 }

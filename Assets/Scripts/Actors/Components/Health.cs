@@ -6,10 +6,17 @@ namespace EndGame.Test.Actors
     public class Health : ActorComponent
     {
         [SerializeField]
-        private int hitPoints = 3;
+        private int maxHitPoints = 3;
+
+        private int currentHitPoints = 3;
+
+        public int GetMaxHitPoints { get => maxHitPoints; }
+        public int GetCurrentHitPoints { get => currentHitPoints; }
 
         private void Start()
         {
+            currentHitPoints = maxHitPoints;
+
             EventController.SubscribeToEvent(ActorEvents.ACTOR_HIT_BY_BULLET, (args) => OnBulletHitActor((OnBulletHitActor)args));
         }
 
@@ -17,7 +24,27 @@ namespace EndGame.Test.Actors
         {
             if (GetOwner == _args.actor)
             {
-                hitPoints--;
+                currentHitPoints--;
+
+                if (currentHitPoints > 0)
+                {
+                    OnActorHealthUpdated args = new OnActorHealthUpdated()
+                    {
+                        actor = GetOwner,
+                        healthComponent = this
+                    };
+
+                    EventController.PushEvent(ActorEvents.ACTOR_HEALTH_UPDATED, args);
+                }
+                else
+                {
+                    OnActorDeath args = new OnActorDeath()
+                    {
+                        actor = GetOwner
+                    };
+
+                    EventController.PushEvent(ActorEvents.ACTOR_DEATH, args);
+                }
             }
         }
     }

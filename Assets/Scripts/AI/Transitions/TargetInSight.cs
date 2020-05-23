@@ -13,7 +13,7 @@ namespace EndGame.Test.AI
         protected LayerMask rayCastLayers;
 
         // TODO check if is best to use actor instead AIStateController.
-        public override bool Decide(AIStateController _controller)
+        public override bool Decide(AIView _controller)
         {
             Actor actor = _controller.GetOwner;
             AIDetector targeter = actor.GetComponent<AIDetector>();

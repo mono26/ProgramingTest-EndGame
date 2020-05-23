@@ -36,7 +36,7 @@ namespace EndGame.Test.AI
             }
         }
 
-        protected override void AddToStateContoller(AIStateController _controller)
+        protected override void AddToStateContoller(AIView _controller)
         {
             _controller.AddData(this);
         }

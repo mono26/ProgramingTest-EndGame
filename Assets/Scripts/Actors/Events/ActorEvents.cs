@@ -12,6 +12,8 @@ namespace EndGame.Test.Actors
         public const string ACTOR_FIRE_WEAPON = "event.actor.weapon.fire";
         public const string ACTOR_TRIGGER_RELEASED = "event.actor.trigger.released";
         public const string ACTOR_HIT_BY_BULLET = "event.actor.bullet.hit";
+        public const string ACTOR_HEALTH_UPDATED = "event.actor.health.updated";
+        public const string ACTOR_DEATH = "event.actor.death";
     }
 
     public struct OnActorCommandReceiveEventArgs : IEventArgs
@@ -50,6 +52,17 @@ namespace EndGame.Test.Actors
     }
 
     public struct OnBulletHitActor : IEventArgs
+    {
+        public Actor actor;
+    }
+
+    public struct OnActorHealthUpdated : IEventArgs
+    {
+        public Actor actor;
+        public Health healthComponent;
+    }
+
+    public struct OnActorDeath : IEventArgs
     {
         public Actor actor;
     }

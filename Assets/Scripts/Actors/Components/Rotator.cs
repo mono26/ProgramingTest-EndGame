@@ -5,13 +5,13 @@ namespace EndGame.Test.Actors
 {
     public class Rotator : ActorComponent
     {
-        private void Start()
+        protected virtual void Start()
         {
             EventController.SubscribeToEvent(ActorEvents.ACTOR_MOVEMENT, (args) => OnActorMovement((OnActorMovement)args));
             EventController.SubscribeToEvent(ActorEvents.ACTOR_FIRE_WEAPON, (args) => OnActorFireWeapon((OnActorFireWeapon)args));
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
             // TODO store as delegates ??
             EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_MOVEMENT, (args) => OnActorMovement((OnActorMovement)args));
@@ -32,7 +32,7 @@ namespace EndGame.Test.Actors
         }
 
         // TODO see if is beter to when is aiming or aim command.
-        private void OnActorFireWeapon(OnActorFireWeapon _args)
+        protected void OnActorFireWeapon(OnActorFireWeapon _args)
         {
             if (GetOwner == _args.actor)
             {

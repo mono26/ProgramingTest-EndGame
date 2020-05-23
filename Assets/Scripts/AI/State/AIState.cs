@@ -18,13 +18,13 @@ namespace EndGame.Test.AI
         [SerializeField]
         private Transition[] transitions = null;
 
-        public void OnUpdate(AIStateController _controller)
+        public void OnUpdate(AIView _controller)
         {
             DoActions(_controller);
             CheckTransitions(_controller);
         }
 
-        private void DoActions(AIStateController _controller)
+        private void DoActions(AIView _controller)
         {
             for (int i = 0; i < actions.Length; i++)
             {
@@ -32,7 +32,7 @@ namespace EndGame.Test.AI
             }
         }
 
-        private void CheckTransitions(AIStateController _controller)
+        private void CheckTransitions(AIView _controller)
         {
             List<AIState> trueStates = new List<AIState>();
             List<AIState> falseStates = new List<AIState>();

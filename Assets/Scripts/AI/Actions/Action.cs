@@ -6,6 +6,6 @@ namespace EndGame.Test.AI
 {
     public abstract class AIAction : ScriptableObject
     {
-        public abstract void DoAction(AIStateController _controller);
+        public abstract void DoAction(AIView _controller);
     }
 }

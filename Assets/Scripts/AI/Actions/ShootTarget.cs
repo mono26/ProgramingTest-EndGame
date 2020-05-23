@@ -7,7 +7,7 @@ namespace EndGame.Test.AI
     [CreateAssetMenu(menuName = "PluggableAI/Actions/ShootTarget")]
     public class ShootTarget : AIAction
     {
-        public override void DoAction(AIStateController _controller)
+        public override void DoAction(AIView _controller)
         {
             DoShoot(_controller.GetOwner);
         }

@@ -8,11 +8,10 @@ namespace EndGame.Test.Actors
         [SerializeField]
         private Rigidbody bodyComponent = null;
         [SerializeField]
-        private float movementSpeed = 3.0f;
+        protected float movementSpeed = 3.0f;
 
-        [SerializeField]
         private Vector3 targetDirection = Vector3.zero;
-        private Vector3 lastPosition = Vector3.zero;
+        protected Vector3 lastPosition = Vector3.zero;
 
         private int frame = 0;
 
@@ -35,26 +34,36 @@ namespace EndGame.Test.Actors
             bodyComponent = _actor.GetComponent<Rigidbody>();
         }
 
-        private void Start()
+        protected virtual void Start()
         {
             EventController.SubscribeToEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, (args) => OnActorCommandReceive((OnActorCommandReceiveEventArgs)args));
 
             lastPosition = GetOwner.transform.position;
         }
 
-        private void FixedUpdate()
+        protected virtual void FixedUpdate()
         {
+            Vector3 currentPosition = GetOwner.transform.position;
+
             if (!targetDirection.Equals(Vector3.zero))
             {
-                MoveTowardsDirection(targetDirection);
+                //Debug.Log("Posicion before movement: " + GetOwner.transform.position.ToString());
+
+                Vector3 nextPosition = currentPosition + targetDirection * movementSpeed * Time.fixedDeltaTime;
+
+                MoveTowardsTarget(nextPosition);
 
                 targetDirection = Vector3.zero;
 
-                Debug.Log("Actor is moving");
+                //Debug.Log("Actor is moving");
             }
 
-            Vector3 currentPosition = GetOwner.transform.position;
-            if (lastPosition == currentPosition)
+            // Update position after movement.
+            currentPosition = GetOwner.transform.position;
+
+            //Debug.Log("Posicion before movement: " + GetOwner.transform.position.ToString());
+
+            if (lastPosition.Equals(currentPosition))
             {
                 // TODO create base actor event.
                 OnActorStoppedMovement args = new OnActorStoppedMovement()
@@ -64,14 +73,14 @@ namespace EndGame.Test.Actors
 
                 EventController.PushEvent(ActorEvents.ACTOR_MOVEMENT_STOPPED, args);
 
-                Debug.Log("Actor is stopped");
+                //Debug.Log("Actor is stopped");
             }
 
             lastPosition = currentPosition;
             frame++;
         }
 
-        private void OnActorCommandReceive(OnActorCommandReceiveEventArgs _args)
+        protected virtual void OnActorCommandReceive(OnActorCommandReceiveEventArgs _args)
         {
             if (GetOwner == _args.actor)
             {
@@ -82,23 +91,22 @@ namespace EndGame.Test.Actors
             }
         }
 
-        private void MoveTowardsDirection(Vector3 _directionVector)
+        protected void MoveTowardsTarget(Vector3 _nextPosition)
         {
-            Vector3 currentPosition = GetOwner.transform.position;
-            Vector3 nextPosition = currentPosition + _directionVector * movementSpeed * Time.fixedDeltaTime;
+            Vector3 directionVector = _nextPosition - GetOwner.transform.position;
 
-            MoveTowardsTargetPosition(nextPosition);
+            MoveTowardsTargetPosition(_nextPosition);
 
             OnActorMovement args = new OnActorMovement()
             {
                 actor = GetOwner,
-                direction = _directionVector
+                direction = directionVector
             };
 
             EventController.PushEvent(ActorEvents.ACTOR_MOVEMENT, args);
         }
 
-        private void MoveTowardsTargetPosition(Vector3 _nextPosition)
+        protected virtual void MoveTowardsTargetPosition(Vector3 _nextPosition)
         {
             bodyComponent.MovePosition(_nextPosition);
         }

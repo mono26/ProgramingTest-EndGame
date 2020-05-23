@@ -9,7 +9,8 @@ namespace EndGame.Test.Actors
 {
     public class PlayerView : ActorComponent
     {
-        private Action<IEventArgs> OnActorHealthUpdated;
+        private Action<IEventArgs> OnActorHealthUpdatedEvent;
+        private Action<IEventArgs> OnActorDeathEvent;
 
         [SerializeField]
         private TouchJoystick movementJoystick = null;
@@ -24,15 +25,21 @@ namespace EndGame.Test.Actors
 
         private void Start()
         {
-            OnActorHealthUpdated = (args) => UpdateHealthBar((OnActorHealthUpdated)args);
+#if UNITY_ANDROID
+            forceMobileInput = true;
+#endif
 
-            EventController.SubscribeToEvent(ActorEvents.ACTOR_HEALTH_UPDATED, OnActorHealthUpdated);
-            EventController.SubscribeToEvent(ActorEvents.ACTOR_DEATH, (args) => OnActorDeath((OnActorDeath)args));
+            OnActorHealthUpdatedEvent = (args) => UpdateHealthBar((OnActorHealthUpdated)args);
+            OnActorDeathEvent = (args) => OnActorDeath((OnActorDeath)args);
+
+            EventController.SubscribeToEvent(ActorEvents.ACTOR_HEALTH_UPDATED, OnActorHealthUpdatedEvent);
+            EventController.SubscribeToEvent(ActorEvents.ACTOR_DEATH, OnActorDeathEvent);
         }
 
         private void OnDestroy()
         {
-            EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_HEALTH_UPDATED, OnActorHealthUpdated);
+            EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_HEALTH_UPDATED, OnActorHealthUpdatedEvent);
+            EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_DEATH, OnActorDeathEvent);
         }
 
         private void Update()

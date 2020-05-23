@@ -77,7 +77,7 @@ namespace EndGame.Test.AI
             if (GetOwner == _args.actor)
             {
                 // TODO send to pull.
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         }
     }

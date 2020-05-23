@@ -12,12 +12,5 @@ namespace EndGame.Test.Utils
             Physics.Raycast(_startPosition, _direction, out hit, _distance, _layers);
             return hit;
         }
-
-        public static RaycastHit CastCameraRay(Ray _cameraRay, float _distance)
-        {
-            RaycastHit hit;
-            Physics.Raycast(_cameraRay, out hit, _distance);
-            return hit;
-        }
     }
 }

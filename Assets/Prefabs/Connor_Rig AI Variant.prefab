@@ -71,6 +71,19 @@ MonoBehaviour:
   bodyComponent: {fileID: 1506476843990859291}
   movementSpeed: 1.5
   navigationComponent: {fileID: 8870519098824932500}
+--- !u!114 &6701779881061901266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5454476634795328182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb6657fb40dc7184886b7075cc28829f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropPrefab: {fileID: 0}
 --- !u!114 &7755856352187752038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,6 +116,18 @@ MonoBehaviour:
   currentTarget: {fileID: 0}
   nearTargets: []
   viewAngle: 60
+--- !u!114 &8384282811665609187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5454476634795328182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daee12b5bdcaf604d8745c4a478bb452, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!195 &8870519098824932500
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -125,18 +150,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &8384282811665609187
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5454476634795328182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daee12b5bdcaf604d8745c4a478bb452, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1506476843178557404
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1420,12 +1433,17 @@ PrefabInstance:
     - target: {fileID: 6870845055111183722, guid: c5c9d2d2c3e6c8744a32c15e194e2822,
         type: 3}
       propertyPath: m_Name
-      value: Connor_Rig AI Variant
+      value: Connor_Rig AI
       objectReference: {fileID: 0}
     - target: {fileID: 6870845055111183722, guid: c5c9d2d2c3e6c8744a32c15e194e2822,
         type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6870845055111183722, guid: c5c9d2d2c3e6c8744a32c15e194e2822,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6872424208277323570, guid: c5c9d2d2c3e6c8744a32c15e194e2822,
         type: 3}
@@ -1937,6 +1955,7 @@ PrefabInstance:
     - {fileID: 5453467543051493301, guid: c5c9d2d2c3e6c8744a32c15e194e2822, type: 3}
     - {fileID: 3078692227378051769, guid: c5c9d2d2c3e6c8744a32c15e194e2822, type: 3}
     - {fileID: 7770106286789814139, guid: c5c9d2d2c3e6c8744a32c15e194e2822, type: 3}
+    - {fileID: 8494006297615467487, guid: c5c9d2d2c3e6c8744a32c15e194e2822, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c5c9d2d2c3e6c8744a32c15e194e2822, type: 3}
 --- !u!1 &5454476634795328182 stripped
 GameObject:

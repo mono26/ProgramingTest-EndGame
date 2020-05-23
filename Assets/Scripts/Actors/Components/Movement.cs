@@ -49,6 +49,8 @@ namespace EndGame.Test.Actors
                 MoveTowardsDirection(targetDirection);
 
                 targetDirection = Vector3.zero;
+
+                Debug.Log("Actor is moving");
             }
             else
             {
@@ -59,6 +61,8 @@ namespace EndGame.Test.Actors
                 };
 
                 EventController.PushEvent(ActorEvents.ACTOR_MOVEMENT_STOPPED, args);
+
+                Debug.Log("Actor is stopped");
             }
         }
 

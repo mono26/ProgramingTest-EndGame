@@ -12,10 +12,12 @@ public class WeaponHandler : ActorComponent
 
     public override void OnAwake(Actor _actor)
     {
+        base.OnAwake(_actor);
+
         targeter = GetComponent<Detector>();
     }
 
-    protected void Start()
+    private void Start()
     {
         // TODO subscribe to on target in sight.
         EventController.SubscribeToEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, (args) => OnShootCommand((OnActorCommandReceiveEventArgs)args));
@@ -66,7 +68,16 @@ public class WeaponHandler : ActorComponent
     /// </summary>
     private void OnShootAnimationInit()
     {
-        weaponToShoot.FireWeapon(targeter.GetTargetDirection);
+        Vector3 targetDirection = targeter.GetTargetDirection;
+        weaponToShoot.FireWeapon(targetDirection);
+
+        OnActorFireWeapon args = new OnActorFireWeapon()
+        {
+            actor = GetOwner,
+            aimDirection = targetDirection
+        };
+
+        EventController.PushEvent(ActorEvents.ACTOR_FIRE_WEAPON, args);
     }
 
     /// <summary>

@@ -24,6 +24,7 @@ namespace EndGame.Test.Actors
                     value = inputVector
                 };
 
+                // TODO Pack commands into one.
                 EventController.PushEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
             }
 

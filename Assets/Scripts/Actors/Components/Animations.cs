@@ -14,8 +14,10 @@ namespace EndGame.Test
         private const string IS_MOVING_PARAMETER = "IsMoving";
         private const string IS_SHOOTING_PARAMETER = "IsShootingBool";
 
-        private void Awake()
+        public override void OnAwake(Actor _actor)
         {
+            base.OnAwake(_actor);
+
             movementComponent = GetComponent<Movement>();
         }
 

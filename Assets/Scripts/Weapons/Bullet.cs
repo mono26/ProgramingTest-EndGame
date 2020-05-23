@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using EndGame.Test.Actors;
+using EndGame.Test.Events;
+using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
@@ -14,6 +16,17 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Actor hitActor = other.GetComponent<Actor>();
+        if (hitActor)
+        {
+            OnBulletHitActor args = new OnBulletHitActor()
+            {
+                actor = hitActor
+            };
+
+            EventController.PushEvent(ActorEvents.ACTOR_HIT_BY_BULLET, args);
+        }
+
         Destroy(gameObject);
     }
 }

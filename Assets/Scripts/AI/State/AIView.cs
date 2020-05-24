@@ -1,12 +1,11 @@
 ﻿using EndGame.Test.Actors;
-using EndGame.Test.Events;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace EndGame.Test.AI
 {
-    public class AIView : ActorComponent
+    public class AIView : ActorView
     {
         [SerializeField]
         private AIState startingState = null;
@@ -22,16 +21,11 @@ namespace EndGame.Test.AI
         public AIState GetRemainState { get => remainInState; }
         public AIData GetAIData { get => aiData; }
 
-        public override void OnAwake(Actor _actor)
+        protected override void Start()
         {
-            base.OnAwake(_actor);
-        }
+            base.Start();
 
-        private void Start()
-        {
             TransitionToState(startingState);
-
-            EventController.SubscribeToEvent(ActorEvents.ACTOR_DEATH, (args) => OnActorDeath((OnActorDeath)args));
         }
 
         private void Update()
@@ -73,7 +67,7 @@ namespace EndGame.Test.AI
             return dataToReturn as T;
         }
 
-        private void OnActorDeath(OnActorDeath _args)
+        protected override void OnActorDeath(OnActorDeath _args)
         {
             if (GetOwner == _args.actor)
             {

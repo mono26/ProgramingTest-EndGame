@@ -176,9 +176,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4e856f2c70d4bd44bce68c1ca497d92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthBarFillComponent: {fileID: 0}
   movementJoystick: {fileID: 0}
   aimJoystick: {fileID: 0}
-  healthBarFillComponent: {fileID: 0}
   playerCamera: {fileID: 0}
   forceMobileInput: 0
 --- !u!114 &7770106286789814139
@@ -6767,7 +6767,7 @@ PrefabInstance:
     - target: {fileID: 2493409736501985526, guid: 9305edefbc446df459f05b722b4140c4,
         type: 3}
       propertyPath: bulletToFire
-      value: Bullet_Scar
+      value: Player_Bullet
       objectReference: {fileID: 0}
     - target: {fileID: 2493409736501985526, guid: 9305edefbc446df459f05b722b4140c4,
         type: 3}

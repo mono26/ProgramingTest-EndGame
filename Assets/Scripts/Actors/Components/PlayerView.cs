@@ -1,46 +1,27 @@
 ﻿using EndGame.Test.Events;
 using EndGame.Test.Game;
 using EndGame.Test.UI;
-using EndGame.Test.Utils;
-using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace EndGame.Test.Actors
 {
-    public class PlayerView : ActorComponent
+    public class PlayerView : ActorView
     {
-        private Action<IEventArgs> OnActorHealthUpdatedEvent;
-        private Action<IEventArgs> OnActorDeathEvent;
-
         [SerializeField]
         private TouchJoystick movementJoystick = null;
         [SerializeField]
         private TouchJoystick aimJoystick = null;
         [SerializeField]
-        private Image healthBarFillComponent = null;
-        [SerializeField]
         private Camera playerCamera = null;
         [SerializeField]
         private bool forceMobileInput = false;
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
 #if UNITY_ANDROID
             forceMobileInput = true;
 #endif
-
-            OnActorHealthUpdatedEvent = (args) => UpdateHealthBar((OnActorHealthUpdated)args);
-            OnActorDeathEvent = (args) => OnActorDeath((OnActorDeath)args);
-
-            EventController.SubscribeToEvent(ActorEvents.ACTOR_HEALTH_UPDATED, OnActorHealthUpdatedEvent);
-            EventController.SubscribeToEvent(ActorEvents.ACTOR_DEATH, OnActorDeathEvent);
-        }
-
-        private void OnDestroy()
-        {
-            EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_HEALTH_UPDATED, OnActorHealthUpdatedEvent);
-            EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_DEATH, OnActorDeathEvent);
         }
 
         private void Update()
@@ -228,17 +209,7 @@ namespace EndGame.Test.Actors
             }
         }
 
-        private void UpdateHealthBar(OnActorHealthUpdated _args)
-        {
-            if (GetOwner == _args.actor)
-            {
-                int currentHealth = _args.healthComponent.GetCurrentHitPoints;
-                int maxHealth = _args.healthComponent.GetMaxHitPoints;
-                healthBarFillComponent.fillAmount = (float)currentHealth / (float)maxHealth;
-            }
-        }
-
-        private void OnActorDeath(OnActorDeath _args)
+        protected override void OnActorDeath(OnActorDeath _args)
         {
             if (GetOwner == _args.actor)
             {

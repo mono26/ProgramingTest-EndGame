@@ -52,6 +52,7 @@ namespace EndGame.Test.Game
             if (count > 0)
             {
                 objectToReturn = Objects[count - 1];
+                Objects.Remove(objectToReturn);
             }
             else
             {

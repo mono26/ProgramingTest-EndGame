@@ -1,6 +1,4 @@
-﻿using EndGame.Test.Actors;
-using EndGame.Test.Events;
-using EndGame.Test.Game;
+﻿using EndGame.Test.Game;
 using UnityEngine;
 
 namespace EndGame.Test.Weapons
@@ -9,8 +7,6 @@ namespace EndGame.Test.Weapons
     {
         [SerializeField]
         private string bulletToFire = null;
-        [SerializeField]
-        private Bullet bulletPrefab = null;
         [SerializeField]
         private Transform bulletSpawnPoint = null;
         [SerializeField]

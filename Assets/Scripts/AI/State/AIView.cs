@@ -12,12 +12,15 @@ namespace EndGame.Test.AI
         private AIState startingState = null;
         [SerializeField]
         private AIState remainInState = null;
+        [SerializeField]
+        private AIData aiData;
 
         [SerializeField]
         private AIState currentState;
         private Dictionary<Type, AIStateData> stateDatas = new Dictionary<Type, AIStateData>();
 
         public AIState GetRemainState { get => remainInState; }
+        public AIData GetAIData { get => aiData; }
 
         public override void OnAwake(Actor _actor)
         {

@@ -17,20 +17,17 @@ namespace EndGame.Test.AI
         {
             bool inRange = false;
 
-            Actor actor = _controller.GetOwner;
-            // TODO remove detector from here and other places.
-            Detector targeter = actor.GetComponent<Detector>();
+            ShootData data = _controller.GetStateData<ShootData>();
 
-            Vector3 startPosition = actor.GetCenterOfBodyPosition;
-            Vector3 directionToTarget = targeter.GetTargetDirection;
-            float viewDistance = targeter.GetViewDistance;
+            Vector3 startPosition = _controller.GetOwner.GetCenterOfBodyPosition;
+            Vector3 targetPosition = data.GetCurrentTarget.transform.position;
+            Vector3 vectorToTarget = targetPosition - startPosition;
+            float viewDistance = _controller.GetAIData.GetViewRange;
 
-            Actor hitTarget = RayScan(startPosition, directionToTarget.normalized, viewDistance, rayCastLayers);
+            Actor hitTarget = RayScan(startPosition, vectorToTarget.normalized, viewDistance, rayCastLayers);
             // TODO use chase targe data.
-            if (targeter.GetCurrenTarget == hitTarget)
+            if (data.GetCurrentTarget == hitTarget)
             {
-                ShootData data = _controller.GetStateData<ShootData>();
-
                 Vector3 directionToHit = hitTarget.GetCenterOfBodyPosition - startPosition;
                 inRange = directionToHit.sqrMagnitude <= data.GetShootRange * data.GetShootRange;
 
@@ -38,7 +35,7 @@ namespace EndGame.Test.AI
 
                 OnTargetInShootRange args = new OnTargetInShootRange()
                 {
-                    actor = actor,
+                    actor = data.GetOwner,
                     target = hitTarget
                 };
 

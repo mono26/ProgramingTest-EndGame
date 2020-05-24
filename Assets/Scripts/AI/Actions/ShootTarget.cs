@@ -24,7 +24,7 @@ namespace EndGame.Test.AI
             Vector3 targetPosition = data.GetCurrentTarget.transform.position;
             Vector3 vectorToTarget = targetPosition - startPosition;
 
-            OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
+            OnActorCommandReceiveEventArgs aimArgs = new OnActorCommandReceiveEventArgs()
             {
                 actor = _controller.GetOwner,
                 command = ActorCommands.Aim,
@@ -32,9 +32,9 @@ namespace EndGame.Test.AI
                 value = vectorToTarget.normalized
             };
 
-            EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
+            EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, aimArgs);
 
-            OnActorCommandReceiveEventArgs args2 = new OnActorCommandReceiveEventArgs()
+            OnActorCommandReceiveEventArgs shootArgs = new OnActorCommandReceiveEventArgs()
             {
                 actor = _controller.GetOwner,
                 command = ActorCommands.Shoot,
@@ -42,7 +42,7 @@ namespace EndGame.Test.AI
                 value = 1.0f
             };
 
-            EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args2);
+            EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, shootArgs);
         }
     }
 }

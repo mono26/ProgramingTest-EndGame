@@ -6,6 +6,9 @@ namespace EndGame.Test.Actors
 {
     public class Rotator : ActorComponent
     {
+        [SerializeField]
+        private Detector detectorComponent;
+
         protected virtual void Start()
         {
             //EventController.SubscribeToEvent(ActorEvents.ACTOR_MOVEMENT, (args) => OnActorMovement((OnActorMovement)args));
@@ -52,6 +55,12 @@ namespace EndGame.Test.Actors
                     Debug.Log("Rotating towards: " + (Vector3)_args.value);
 
                     RotateTowardsTargetDirection((Vector3)_args.value);
+                }
+                else if (_args.command.Equals(ActorCommands.AutoAim))
+                {
+                    // TODO get targeted current target direction.
+                    Vector3 targetDirection = detectorComponent.GetTargetDirection;
+                    RotateTowardsTargetDirection(targetDirection);
                 }
             }
         }

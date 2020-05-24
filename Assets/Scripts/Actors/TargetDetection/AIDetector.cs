@@ -1,4 +1,5 @@
-﻿using EndGame.Test.Events;
+﻿using EndGame.Test.AI;
+using EndGame.Test.Events;
 using EndGame.Test.Events.AI;
 using UnityEngine;
 
@@ -6,21 +7,14 @@ namespace EndGame.Test.Actors
 {
     public class AIDetector : Detector
     {
-        [SerializeField]
-        private float viewAngle = 60.0f;
-
-        public float GetViewAngle { get => viewAngle; }
         public override Vector3 GetTargetDirection { get => currentTarget.transform.position - GetOwner.transform.position; }
-
-        //private void OnDrawGizmos()
-        //{
-
-        //}
 
         public override void OnAwake(Actor _owner)
         {
             base.OnAwake(_owner);
 
+
+            viewDistance = GetComponent<AIData>().GetViewRange;
             detectorTrigger.radius = viewDistance;
         }
 

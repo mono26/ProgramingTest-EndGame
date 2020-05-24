@@ -46,6 +46,7 @@ namespace EndGame.Test.Actors
         private void Update()
         {
             CatchMovementInput();
+            // Weapon input.
             CatchAimInput();
             CatchShootInput();
         }
@@ -125,7 +126,15 @@ namespace EndGame.Test.Actors
             {
                 if (aimJoystick.GetIsTapped)
                 {
-                    OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
+                    OnActorCommandReceiveEventArgs aimArgs = new OnActorCommandReceiveEventArgs()
+                    {
+                        actor = GetOwner,
+                        command = ActorCommands.AutoAim
+                    };
+
+                    EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, aimArgs);
+
+                    OnActorCommandReceiveEventArgs shootArgs = new OnActorCommandReceiveEventArgs()
                     {
                         actor = GetOwner,
                         command = ActorCommands.Shoot,
@@ -133,7 +142,7 @@ namespace EndGame.Test.Actors
                         value = 1.0f
                     };
 
-                    EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
+                    EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, shootArgs);
                 }
                 if (aimJoystick.GetIsUp)
                 {

@@ -15,21 +15,23 @@ namespace EndGame.Test.AI
         // TODO check if is best to use actor instead AIStateController.
         public override bool Decide(AIView _controller)
         {
-            Actor actor = _controller.GetOwner;
-            AIDetector targeter = actor.GetComponent<AIDetector>();
-            return HasTargetInSight(actor, targeter);
+            return HasTargetInSight(_controller);
         }
 
-        private bool HasTargetInSight(Actor _actor, AIDetector _targeter)
+        private bool HasTargetInSight(AIView _controller)
         {
+            // TODO get targeter from patrol data.
+            PatrolData data = _controller.GetStateData<PatrolData>();
+            AIDetector _detector = (AIDetector)data.GetDetectorComponent;
+
             bool hasTarget = false;
-            if (_targeter.GetNearTargets != null && _targeter.GetNearTargets.Count > 0)
+            if (_detector.GetNearTargets != null && _detector.GetNearTargets.Count > 0)
             {
-                foreach (Actor target in _targeter.GetNearTargets)
+                foreach (Actor target in _detector.GetNearTargets)
                 {
-                    if (IsPotentialTargetInFieldOfView(_actor, target, _targeter.GetViewAngle))
+                    if (IsPotentialTargetInFieldOfView(_controller.GetOwner, target, _controller.GetAIData.GetViewAngle))
                     {
-                        hasTarget = IsPotentialTargetInSight(_actor, target, _targeter.GetViewDistance);
+                        hasTarget = IsPotentialTargetInSight(_controller.GetOwner, target, _controller.GetAIData.GetViewRange);
                         break;
                     }
                 }

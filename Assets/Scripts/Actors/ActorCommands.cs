@@ -6,6 +6,6 @@ namespace EndGame.Test.Actors
 {
     public enum ActorCommands
     {
-        Move, Shoot, Aim
+        Move, Shoot, Aim, AutoAim
     }
 }

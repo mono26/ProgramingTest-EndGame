@@ -16,9 +16,9 @@ namespace EndGame.Test.Actors
         [SerializeField]
         protected List<Actor> nearTargets = new List<Actor>();
 
-        public float GetViewDistance { get => viewDistance; }
+        //public float GetViewDistance { get => viewDistance; }
         public List<Actor> GetNearTargets { get => nearTargets; }
-        public virtual Actor GetCurrenTarget { get => currentTarget; }
+        //public virtual Actor GetCurrenTarget { get => currentTarget; }
         public virtual Vector3 GetTargetDirection { get; }
 
         public override void OnAwake(Actor _owner)

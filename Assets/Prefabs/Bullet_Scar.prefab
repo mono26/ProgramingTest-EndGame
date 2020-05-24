@@ -129,12 +129,17 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: d27ac20de42fa11459d67a65b12e38d2,
         type: 3}
       propertyPath: m_Name
-      value: Weapon_Bullet Variant
+      value: Bullet_Scar
       objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: d27ac20de42fa11459d67a65b12e38d2,
         type: 3}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: d27ac20de42fa11459d67a65b12e38d2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1401006494575068746, guid: d27ac20de42fa11459d67a65b12e38d2,
         type: 3}

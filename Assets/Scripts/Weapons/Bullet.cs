@@ -1,32 +1,51 @@
 ﻿using EndGame.Test.Actors;
 using EndGame.Test.Events;
+using EndGame.Test.Game;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+namespace EndGame.Test.Weapons
 {
-    [SerializeField]
-    private float bulletInitialSpeed = 3.0f;
-    [SerializeField]
-    private Rigidbody bulletBody;
-
-    public void OnWeaponShoot()
+    public class Bullet : Poolable
     {
-        bulletBody.AddForce(transform.forward * bulletInitialSpeed, ForceMode.Impulse);
-    }
+        [SerializeField]
+        private float bulletInitialSpeed = 3.0f;
+        [SerializeField]
+        private Rigidbody bulletBody;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        Actor hitActor = other.GetComponent<Actor>();
-        if (hitActor)
+        public void OnWeaponShoot()
         {
-            OnBulletHitActor args = new OnBulletHitActor()
-            {
-                actor = hitActor
-            };
-
-            EventController.QueueEvent(ActorEvents.ACTOR_HIT_BY_BULLET, args);
+            bulletBody.AddForce(transform.forward * bulletInitialSpeed, ForceMode.Impulse);
         }
 
-        Destroy(gameObject);
+        public override void PoolEntered()
+        {
+            bulletBody.velocity = Vector3.zero;
+            bulletBody.angularVelocity = Vector3.zero;
+
+            gameObject.SetActive(false);
+        }
+
+        public override void PoolExited()
+        {
+            gameObject.SetActive(true);
+
+            OnWeaponShoot();
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            Actor hitActor = other.GetComponent<Actor>();
+            if (hitActor)
+            {
+                OnBulletHitActor args = new OnBulletHitActor()
+                {
+                    actor = hitActor
+                };
+
+                EventController.QueueEvent(ActorEvents.ACTOR_HIT_BY_BULLET, args);
+            }
+
+            ReturnToPool();
+        }
     }
 }

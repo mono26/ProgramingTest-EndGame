@@ -8,7 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Animation flicker fix.
 - Use delegates instead of anonymous.
 
-## [17] 23-05-2020
+## [18] 24-05-2020
+### Added
+- Bullet pool
+- Weapon vfx and souds.
+- Coffee shop key randomizer.
+
+## [18] 24-05-2020
 ### Added
 - Tooltip when the player collects the key and when it tries to enter the coffee shop without a key.
 - Auto aim for the player when the aim joystick is tapped.

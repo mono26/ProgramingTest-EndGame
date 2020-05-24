@@ -9,9 +9,11 @@ namespace EndGame.Test.Actors
         private Action<IEventArgs> OnActorDeathEvent;
 
         [SerializeField]
-        private GameObject dropPrefab;
+        private GameObject dropObject;
 
         private bool canDrop = true;
+
+        public GameObject SetDropObject { set => dropObject = value; }
 
         private void Start()
         {
@@ -43,8 +45,15 @@ namespace EndGame.Test.Actors
 
         private void CreateDrop()
         {
-            // Instantiate the drop.
-            Instantiate(dropPrefab, GetOwner.transform.position, GetOwner.transform.rotation);
+            if (dropObject)
+            {
+                // Instantiate the drop.
+                dropObject.SetActive(true);
+                dropObject.transform.position = GetOwner.transform.position;
+                dropObject.transform.rotation = GetOwner.transform.rotation;
+
+                // Instantiate(dropObject, GetOwner.transform.position, GetOwner.transform.rotation);
+            }
         }
     }
 }

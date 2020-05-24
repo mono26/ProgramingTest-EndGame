@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 1266790629304146297}
   - component: {fileID: 3471340870006686579}
   - component: {fileID: 4637401896465688272}
-  m_Layer: 0
+  - component: {fileID: 1850146362}
+  m_Layer: 14
   m_Name: Goal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,12 +72,12 @@ SpriteRenderer:
   m_SortingLayerID: 1541026993
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c60edc9c565a024479c3009fb086bd3d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 65eac028c22291c4bb2b9524a0f64431, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.12, y: 4.89}
+  m_Size: {x: 10.24, y: 10.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -90,8 +91,20 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2868742958342040426}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.56
-  m_Center: {x: 0, y: 0, z: -0.00000047683716}
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1850146362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2868742958342040426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 675858a76a39423409d3053ac517bd57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

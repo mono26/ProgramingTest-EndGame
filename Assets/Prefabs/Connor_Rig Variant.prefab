@@ -1979,6 +1979,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6597252847254604528}
     m_Modifications:
+    - target: {fileID: 2493409736501985526, guid: 9305edefbc446df459f05b722b4140c4,
+        type: 3}
+      propertyPath: bulletToFire
+      value: Bullet_Scar
+      objectReference: {fileID: 0}
     - target: {fileID: 4078411967426470405, guid: 9305edefbc446df459f05b722b4140c4,
         type: 3}
       propertyPath: m_Layer

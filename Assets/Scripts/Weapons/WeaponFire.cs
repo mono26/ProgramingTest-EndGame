@@ -1,5 +1,6 @@
 ﻿using EndGame.Test.Actors;
 using EndGame.Test.Events;
+using EndGame.Test.Game;
 using UnityEngine;
 
 namespace EndGame.Test.Weapons
@@ -7,13 +8,15 @@ namespace EndGame.Test.Weapons
     public class WeaponFire : MonoBehaviour
     {
         [SerializeField]
+        private string bulletToFire = null;
+        [SerializeField]
         private Bullet bulletPrefab = null;
         [SerializeField]
         private Transform bulletSpawnPoint = null;
         [SerializeField]
         private WeaponEffects effectsComponent = null;
         [SerializeField]
-        private WeaponEffects soundsComponent = null;
+        private WeaponSounds soundsComponent = null;
 
         private bool canShoot = true;
 
@@ -39,9 +42,18 @@ namespace EndGame.Test.Weapons
         {
             if (canShoot)
             {
+                Poolable bullet = PoolOfPools.GetObjectFromPool(bulletToFire);
+
+                bullet.transform.position = bulletSpawnPoint.position;
                 Quaternion targetRotation = Quaternion.LookRotation(_direction, Vector3.up);
-                Bullet newBullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, targetRotation);
-                newBullet.OnWeaponShoot();
+                bullet.transform.rotation = targetRotation;
+
+                bullet.PoolExited();
+
+                //Bullet newBullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, targetRotation);
+                //newBullet.OnWeaponShoot();
+
+                soundsComponent.PlayShootSound();
 
                 canShoot = false;
             }

@@ -9,15 +9,19 @@ public class ActionTrigger : MonoBehaviour
         Actor hitActor = other.GetComponent<Actor>();
         if (hitActor)
         {
-
-            OnTriggerEntered args = new OnTriggerEntered()
-            {
-                actor = hitActor,
-                trigger = this
-            };
-
-            EventController.PushEvent(ActionTriggerEvents.TRIGGER_ENTERED, args);
+            OnActorEnter(hitActor);
         }
+    }
+
+    protected virtual void OnActorEnter(Actor _actor)
+    {
+        OnTriggerEntered args = new OnTriggerEntered()
+        {
+            actor = _actor,
+            trigger = this
+        };
+
+        EventController.PushEvent(ActionTriggerEvents.TRIGGER_ENTERED, args);
     }
 
     private void OnTriggerExit(Collider other)
@@ -25,14 +29,18 @@ public class ActionTrigger : MonoBehaviour
         Actor hitActor = other.GetComponent<Actor>();
         if (hitActor)
         {
-
-            OnTriggerExited args = new OnTriggerExited()
-            {
-                actor = hitActor,
-                trigger = this
-            };
-
-            EventController.PushEvent(ActionTriggerEvents.TRIGGER_EXITED, args);
+            OnActorExit(hitActor);
         }
+    }
+
+    protected virtual void OnActorExit(Actor _actor)
+    {
+        OnTriggerExited args = new OnTriggerExited()
+        {
+            actor = _actor,
+            trigger = this
+        };
+
+        EventController.PushEvent(ActionTriggerEvents.TRIGGER_EXITED, args);
     }
 }

@@ -13,6 +13,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Virtual touch joystick.
 - Aim command.
 - Respawner for the AI.
+- Game state menus.
+- Loading screen.
+- Game state manager.
+- Menu scene.
+- Victory trigger.
 
 ### Changed
 - Actor rotation is now separated from movement.

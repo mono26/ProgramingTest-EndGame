@@ -43,7 +43,7 @@ namespace EndGame.Test.Actors
                         actor = GetOwner
                     };
 
-                    EventController.PushEvent(ActorEvents.ACTOR_DEATH, args);
+                    EventController.PushEventImmediately(ActorEvents.ACTOR_DEATH, args);
                 }
             }
         }

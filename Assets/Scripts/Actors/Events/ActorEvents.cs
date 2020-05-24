@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace EndGame.Test.Actors
 {
-    public class ActorEvents : MonoBehaviour
+    public class ActorEvents
     {
         public const string ACTOR_COMMAND_RECEIVE = "event.actor.command.receive";
         public const string ACTOR_MOVEMENT = "event.actor.movement";

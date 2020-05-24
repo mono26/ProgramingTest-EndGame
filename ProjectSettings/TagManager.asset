@@ -41,6 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Floor
+    uniqueID: 2723256927
+    locked: 0
+  - name: Pickable
+    uniqueID: 1541026993
+    locked: 0
   - name: Building
     uniqueID: 3729297675
     locked: 0

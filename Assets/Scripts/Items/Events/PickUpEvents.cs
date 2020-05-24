@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace EndGame.Test.Items
 {
-    public class PickUpEvents : MonoBehaviour
+    public class PickUpEvents
     {
         public const string PICKUP_PICKED = "events.pickup.picked";
     }

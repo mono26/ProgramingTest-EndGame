@@ -1,4 +1,5 @@
 ﻿using EndGame.Test.Events;
+using EndGame.Test.Game;
 using EndGame.Test.UI;
 using EndGame.Test.Utils;
 using System;
@@ -141,6 +142,13 @@ namespace EndGame.Test.Actors
             {
                 // TODO send to pull.
                 Debug.LogError("Player is dead!!!");
+
+                OnPlayerDeathEventArgs args = new OnPlayerDeathEventArgs()
+                {
+
+                };
+
+                EventController.PushEvent(GameEvents.PLAYER_DEATH, args);
             }
         }
     }

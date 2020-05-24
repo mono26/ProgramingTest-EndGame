@@ -16,40 +16,28 @@ namespace EndGame.Test.Weapons
 
         private bool canShoot = true;
 
-        //private void Start()
-        //{
-        //    EventController.SubscribeToEvent(ActorEvents.ACTOR_TRIGGER_PULLED, (args) => OnActorPullingTrigger((OnActorPulledTrigger)args));
-        //}
-
-        //private void OnActorPullingTrigger(OnActorPulledTrigger _args)
-        //{
-        //    if (canShoot)
-        //    {
-        //        if (GetOwner == _args.actor)
-        //        {
-        //            FireWeapon(_args.aimDirection);
-        //        }
-        //    }
-        //}
-
+        /// <summary>
+        /// Called when the shooting animation reaches the last frame.
+        /// </summary>
         public void OnFinishShootAnimtionEvent() => canShoot = true;
 
-        public void FireWeapon(Vector3 _direction)
+        /// <summary>
+        /// Fire the weapon. Pools a bullet and the plays the sound and weapon vfx.
+        /// </summary>
+        public void FireWeapon()
         {
             if (canShoot)
             {
                 Poolable bullet = PoolOfPools.GetObjectFromPool(bulletToFire);
 
                 bullet.transform.position = bulletSpawnPoint.position;
-                Quaternion targetRotation = Quaternion.LookRotation(_direction, Vector3.up);
-                bullet.transform.rotation = targetRotation;
+                bullet.transform.rotation = bulletSpawnPoint.rotation;
 
                 bullet.PoolExited();
 
-                //Bullet newBullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, targetRotation);
-                //newBullet.OnWeaponShoot();
-
                 soundsComponent.PlayShootSound();
+
+                effectsComponent.PlayParticleEffect();
 
                 canShoot = false;
             }

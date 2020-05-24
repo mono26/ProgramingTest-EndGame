@@ -1,4 +1,5 @@
 ﻿using EndGame.Test.Actors;
+using EndGame.Test.Events;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,6 +26,22 @@ namespace EndGame.Test.AI
         {
             base.Start();
 
+            EventController.SubscribeToEvent(ActorEvents.ACTOR_RESPAWN, (args) => OnActorRespawn((OnActorRespawn)args));
+
+            InitAI();
+        }
+
+        private void OnDestroy()
+        {
+            EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_RESPAWN, (args) => OnActorRespawn((OnActorRespawn)args));
+        }
+
+        /// <summary>
+        /// Initializes the AI in the starting state.
+        /// </summary>
+        private void InitAI()
+        {
+
             TransitionToState(startingState);
         }
 
@@ -33,6 +50,10 @@ namespace EndGame.Test.AI
             currentState.OnUpdate(this);
         }
 
+        /// <summary>
+        /// Transitions to a state that is not the same as the current one or the remain state.
+        /// </summary>
+        /// <param name="_nextState"></param>
         public void TransitionToState(AIState _nextState)
         {
             if (currentState != _nextState && _nextState != remainInState)
@@ -42,6 +63,11 @@ namespace EndGame.Test.AI
             }
         }
 
+        /// <summary>
+        /// Adds state data to the data map.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="_stateData">State data to add.</param>
         public void AddData<T>(T _stateData) where T : AIStateData
         {
             Type type = typeof(T);
@@ -51,6 +77,11 @@ namespace EndGame.Test.AI
             }
         }
 
+        /// <summary>
+        /// Gets a specific type of state data. Returns null if there is not one.
+        /// </summary>
+        /// <typeparam name="T">Type of state data.</typeparam>
+        /// <returns></returns>
         public T GetStateData<T>() where T : AIStateData
         {
             AIStateData dataToReturn = null;
@@ -67,12 +98,25 @@ namespace EndGame.Test.AI
             return dataToReturn as T;
         }
 
+        /// <summary>
+        /// Called when an AI actor dies.
+        /// </summary>
+        /// <param name="_args">AI actor that died.</param>
         protected override void OnActorDeath(OnActorDeath _args)
         {
             if (GetOwner == _args.actor)
             {
                 // TODO send to pull.
                 gameObject.SetActive(false);
+            }
+        }
+
+
+        private void OnActorRespawn(OnActorRespawn _args)
+        {
+            if (GetOwner == _args.actor)
+            {
+                InitAI();
             }
         }
     }

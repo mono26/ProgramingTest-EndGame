@@ -8,22 +8,16 @@ namespace EndGame.Test.Actors
     {
         [SerializeField]
         private WeaponFire weaponToShoot = null;
-        [SerializeField]
-        private Detector targeter = null;
-
-        public override void OnAwake(Actor _actor)
-        {
-            base.OnAwake(_actor);
-
-            targeter = GetComponent<Detector>();
-        }
 
         private void Start()
         {
-            // TODO subscribe to on target in sight.
             EventController.SubscribeToEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, (args) => OnShootCommand((OnActorCommandReceiveEventArgs)args));
         }
 
+        /// <summary>
+        /// Called when the actor receibes a shoot command.
+        /// </summary>
+        /// <param name="_args"></param>
         private void OnShootCommand(OnActorCommandReceiveEventArgs _args)
         {
             if (GetOwner == _args.actor)
@@ -31,6 +25,7 @@ namespace EndGame.Test.Actors
                 if (_args.command.Equals(ActorCommands.Shoot))
                 {
                     float inputValue = (float)_args.value;
+                    // If the value is grater than 0.0f it means the button is pressed.
                     if (inputValue > 0.0f)
                     {
                         Debug.Log("shooting");
@@ -45,6 +40,9 @@ namespace EndGame.Test.Actors
             }
         }
 
+        /// <summary>
+        /// Fires a pull trigger event.
+        /// </summary>
         private void PullTrigger()
         {
             OnActorPulledTrigger args = new OnActorPulledTrigger()
@@ -55,6 +53,9 @@ namespace EndGame.Test.Actors
             EventController.QueueEvent(ActorEvents.ACTOR_TRIGGER_PULLED, args);
         }
 
+        /// <summary>
+        /// Fires a release trigger event.
+        /// </summary>
         private void ReleaseTrigger()
         {
             OnActorReleasedTrigger args = new OnActorReleasedTrigger()
@@ -70,16 +71,7 @@ namespace EndGame.Test.Actors
         /// </summary>
         private void OnShootAnimationInit()
         {
-            Vector3 targetDirection = targeter.GetTargetDirection;
-            weaponToShoot.FireWeapon(targetDirection);
-
-            //OnActorFireWeapon args = new OnActorFireWeapon()
-            //{
-            //    actor = GetOwner,
-            //    aimDirection = targetDirection
-            //};
-
-            //EventController.QueueEvent(ActorEvents.ACTOR_FIRE_WEAPON, args);
+            weaponToShoot.FireWeapon();
         }
 
         /// <summary>

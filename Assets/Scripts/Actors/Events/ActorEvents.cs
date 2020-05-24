@@ -14,6 +14,7 @@ namespace EndGame.Test.Actors
         public const string ACTOR_HIT_BY_BULLET = "event.actor.bullet.hit";
         public const string ACTOR_HEALTH_UPDATED = "event.actor.health.updated";
         public const string ACTOR_DEATH = "event.actor.death";
+        public const string ACTOR_RESPAWN = "event.actor.respawn";
     }
 
     public struct OnActorCommandReceiveEventArgs : IEventArgs
@@ -63,6 +64,11 @@ namespace EndGame.Test.Actors
     }
 
     public struct OnActorDeath : IEventArgs
+    {
+        public Actor actor;
+    }
+
+    public struct OnActorRespawn : IEventArgs
     {
         public Actor actor;
     }

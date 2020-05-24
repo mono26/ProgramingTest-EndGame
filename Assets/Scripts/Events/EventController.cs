@@ -126,27 +126,23 @@ namespace EndGame.Test.Events
         }
 
         /// <summary>
-        /// Pushes a event into the event queue.
+        /// Queues a event into the next event queue.
         /// </summary>
         /// <param name="_id">Id of the event to push.</param>
         /// <param name="_args">Event data.</param>
         public static void QueueEvent(string _id, IEventArgs _args)
         {
-            // Debug.Log("Pushing event: " + _id);
-
             int queueIndex = (GetUniqueInstance.activeQueue + 1) % 2;
             GetUniqueInstance.queues[queueIndex].Enqueue(new KeyValuePair<string, IEventArgs>(_id, _args));
         }
 
         /// <summary>
-        /// Pushes a event into the event queue.
+        /// Pushes a event into the current event queue.
         /// </summary>
         /// <param name="_id">Id of the event to push.</param>
         /// <param name="_args">Event data.</param>
         public static void PushEvent(string _id, IEventArgs _args)
         {
-            // Debug.Log("Pushing event: " + _id);
-
             GetUniqueInstance.queues[GetUniqueInstance.activeQueue].Enqueue(new KeyValuePair<string, IEventArgs>(_id, _args));
         }
     }

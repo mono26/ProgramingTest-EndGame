@@ -41,12 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Floor
-    uniqueID: 2723256927
-    locked: 0
-  - name: Pickable
-    uniqueID: 1541026993
-    locked: 0
-  - name: Building
+  - name: BottomLayer
     uniqueID: 3729297675
+    locked: 0
+  - name: MiddleLayer
+    uniqueID: 1111725547
+    locked: 0
+  - name: TopLayer
+    uniqueID: 366274921
     locked: 0

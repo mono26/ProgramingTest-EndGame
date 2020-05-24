@@ -13,6 +13,11 @@ namespace EndGame.Test.AI
             return IsTargetInShootRange(_controller);
         }
 
+        /// <summary>
+        /// Cast a ray in the target direction and check if its at shooting distance.
+        /// </summary>
+        /// <param name="_controller">AIActor reference.</param>
+        /// <returns></returns>
         protected bool IsTargetInShootRange(AIView _controller)
         {
             bool inRange = false;
@@ -24,16 +29,14 @@ namespace EndGame.Test.AI
             Vector3 vectorToTarget = targetPosition - startPosition;
             float viewDistance = _controller.GetAIData.GetViewRange;
 
+            // Raycast in the target direction to see if there is no obstacle.
             Actor hitTarget = RayScan(startPosition, vectorToTarget.normalized, viewDistance, rayCastLayers);
-            // TODO use chase targe data.
             if (data.GetCurrentTarget == hitTarget)
             {
                 Vector3 directionToHit = hitTarget.GetCenterOfBodyPosition - startPosition;
                 inRange = directionToHit.sqrMagnitude <= _controller.GetAIData.GetShootRange * _controller.GetAIData.GetShootRange;
                 if (inRange)
                 {
-                    Debug.DrawLine(startPosition, hitTarget.transform.position, Color.green, 3.0f);
-
                     OnTargetInShootRange args = new OnTargetInShootRange()
                     {
                         actor = data.GetOwner,
@@ -41,9 +44,7 @@ namespace EndGame.Test.AI
                     };
 
                     EventController.PushEvent(DecisionEvents.TARGET_IN_SHOOT_RANGE, args);
-                }
-                
-                // TODO fire target in shoot range event.
+                }            
             }
 
             return inRange;

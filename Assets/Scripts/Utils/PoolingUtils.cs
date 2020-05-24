@@ -1,4 +1,5 @@
 ﻿using EndGame.Test.Utils;
+using System;
 using UnityEngine;
 
 namespace EndGame.Test.Game
@@ -15,8 +16,7 @@ namespace EndGame.Test.Game
             }
             else
             {
-                // TODO throw can't make copy of null exception.
-                throw new System.Exception();
+                throw new NullReferenceException("There is no poolable to copy!");
             }
         }
 
@@ -29,8 +29,7 @@ namespace EndGame.Test.Game
             }
             else
             {
-                // TODO throw can't make copy of null id.
-                throw new System.Exception();
+                throw new NullReferenceException("There is no poolable to copy!");
             }
         }
 
@@ -50,7 +49,7 @@ namespace EndGame.Test.Game
             }
             else
             {
-                Debug.LogError($"No resource found for { _resourceId }");
+                throw new NullReferenceException($"No resource found for { _resourceId }");
             }
             return poolableToReturn;
         }

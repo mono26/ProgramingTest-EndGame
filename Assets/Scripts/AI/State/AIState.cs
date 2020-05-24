@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using UnityEditorInternal;
 using UnityEngine;
 
 namespace EndGame.Test.AI

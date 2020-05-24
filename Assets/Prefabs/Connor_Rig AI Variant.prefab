@@ -28,6 +28,7 @@ MonoBehaviour:
   patrolPoints:
   - {fileID: 0}
   - {fileID: 0}
+  detectorComponent: {fileID: 0}
 --- !u!114 &1567401607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42,6 +43,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootRange: 5
   currentTarget: {fileID: 0}
+  navigationComponent: {fileID: 0}
 --- !u!114 &4185114311241045270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56,6 +58,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxChaseTime: 0
   currentTarget: {fileID: 0}
+  targeterComponent: {fileID: 0}
+  navigationComponent: {fileID: 0}
 --- !u!114 &4343321120461387504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,6 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingState: {fileID: 11400000, guid: 0203f80003827e147af6955431381a3d, type: 2}
   remainInState: {fileID: 11400000, guid: 408033498a87409499cb9c6b0d1d005e, type: 2}
+  aiData: {fileID: 0}
   currentState: {fileID: 0}
 --- !u!114 &7951734906785682678
 MonoBehaviour:
@@ -115,19 +120,6 @@ MonoBehaviour:
   detectorTrigger: {fileID: 1506476844795054140}
   currentTarget: {fileID: 0}
   nearTargets: []
-  viewAngle: 60
---- !u!114 &8384282811665609187
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5454476634795328182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daee12b5bdcaf604d8745c4a478bb452, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!195 &8870519098824932500
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1433,7 +1425,7 @@ PrefabInstance:
     - target: {fileID: 6870845055111183722, guid: c5c9d2d2c3e6c8744a32c15e194e2822,
         type: 3}
       propertyPath: m_Name
-      value: Connor_Rig AI
+      value: Connor_Rig AI Variant
       objectReference: {fileID: 0}
     - target: {fileID: 6870845055111183722, guid: c5c9d2d2c3e6c8744a32c15e194e2822,
         type: 3}
@@ -1655,6 +1647,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 7770106286789814139, guid: c5c9d2d2c3e6c8744a32c15e194e2822,
+        type: 3}
+      propertyPath: detectorComponent
+      value: 
+      objectReference: {fileID: 7951734906785682678}
     - target: {fileID: 7778985282960577820, guid: c5c9d2d2c3e6c8744a32c15e194e2822,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1954,7 +1951,6 @@ PrefabInstance:
     - {fileID: 3949316602554184938, guid: c5c9d2d2c3e6c8744a32c15e194e2822, type: 3}
     - {fileID: 5453467543051493301, guid: c5c9d2d2c3e6c8744a32c15e194e2822, type: 3}
     - {fileID: 3078692227378051769, guid: c5c9d2d2c3e6c8744a32c15e194e2822, type: 3}
-    - {fileID: 7770106286789814139, guid: c5c9d2d2c3e6c8744a32c15e194e2822, type: 3}
     - {fileID: 8494006297615467487, guid: c5c9d2d2c3e6c8744a32c15e194e2822, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c5c9d2d2c3e6c8744a32c15e194e2822, type: 3}
 --- !u!1 &5454476634795328182 stripped

@@ -88,12 +88,25 @@ namespace EndGame.Test.Actors
 
         private void CatchAimInput()
         {
-            Vector3 aimDirection = Vector2.zero;
+            Vector3 aimDirection;
             if (forceMobileInput)
             {
                 if (aimJoystick.GetIsDragged)
                 {
                     aimDirection = new Vector3(aimJoystick.GetJoystickValue.x, 0, aimJoystick.GetJoystickValue.y);
+
+                    if (aimDirection.x != 0.0f || aimDirection.y != 0.0f)
+                    {
+                        OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
+                        {
+                            actor = GetOwner,
+                            command = ActorCommands.Aim,
+                            // Means the shoot button is pressed.
+                            value = aimDirection
+                        };
+
+                        EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
+                    }
                 }
             }
             else
@@ -104,19 +117,19 @@ namespace EndGame.Test.Actors
                 aimDirection = mouseOnScreen - positionOnScreen;
                 aimDirection.z = aimDirection.y;
                 aimDirection.y = 0;
-            }
 
-            if (aimDirection.x != 0.0f || aimDirection.y != 0.0f)
-            {
-                OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
+                if (aimDirection.x != 0.0f || aimDirection.y != 0.0f)
                 {
-                    actor = GetOwner,
-                    command = ActorCommands.Aim,
-                    // Means the shoot button is pressed.
-                    value = aimDirection
-                };
+                    OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
+                    {
+                        actor = GetOwner,
+                        command = ActorCommands.Aim,
+                        // Means the shoot button is pressed.
+                        value = aimDirection
+                    };
 
-                EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
+                    EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
+                }
             }
         }
 
@@ -124,37 +137,52 @@ namespace EndGame.Test.Actors
         {
             if (forceMobileInput)
             {
-                if (aimJoystick.GetIsTapped)
-                {
-                    OnActorCommandReceiveEventArgs aimArgs = new OnActorCommandReceiveEventArgs()
-                    {
-                        actor = GetOwner,
-                        command = ActorCommands.AutoAim
-                    };
-
-                    EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, aimArgs);
-
-                    OnActorCommandReceiveEventArgs shootArgs = new OnActorCommandReceiveEventArgs()
-                    {
-                        actor = GetOwner,
-                        command = ActorCommands.Shoot,
-                        // Means the shoot button is pressed.
-                        value = 1.0f
-                    };
-
-                    EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, shootArgs);
-                }
                 if (aimJoystick.GetIsUp)
                 {
-                    OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
+                    if (aimJoystick.GetIsTapped)
                     {
-                        actor = GetOwner,
-                        command = ActorCommands.Shoot,
-                        // Means the shoot button has been released.
-                        value = 0.0f
-                    };
+                        OnActorCommandReceiveEventArgs aimArgs = new OnActorCommandReceiveEventArgs()
+                        {
+                            actor = GetOwner,
+                            command = ActorCommands.AutoAim
+                        };
 
-                    EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
+                        EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, aimArgs);
+
+                        OnActorCommandReceiveEventArgs shootArgs = new OnActorCommandReceiveEventArgs()
+                        {
+                            actor = GetOwner,
+                            command = ActorCommands.Shoot,
+                            // Means the shoot button is pressed.
+                            value = 1.0f
+                        };
+
+                        EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, shootArgs);
+                    }
+                    else if (aimJoystick.GetIsDragged)
+                    {
+                        OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
+                        {
+                            actor = GetOwner,
+                            command = ActorCommands.Shoot,
+                            // Means the shoot button has been released.
+                            value = 1f
+                        };
+
+                        EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
+                    }
+                    else
+                    {
+                        OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
+                        {
+                            actor = GetOwner,
+                            command = ActorCommands.Shoot,
+                            // Means the shoot button has been released.
+                            value = 0.0f
+                        };
+
+                        EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
+                    }
                 }
             }
             else

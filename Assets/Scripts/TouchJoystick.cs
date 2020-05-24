@@ -21,8 +21,11 @@ namespace EndGame.Test.UI
         private Vector3 newJoystickPosition;
 
         private float clickedTime = 0.0f;
+        [SerializeField]
         private bool isTapped = false;
+        [SerializeField]
         private bool isDragged = false;
+        [SerializeField]
         private bool isUp = false;
 
         public Vector2 GetJoystickValue { get => joystickValue; }
@@ -37,13 +40,19 @@ namespace EndGame.Test.UI
 
         private void LateUpdate()
         {
-            isTapped = false;
-            isDragged = false;
-            isUp = false;
+            if (isUp)
+            {
+                isTapped = false;
+                isDragged = false;
+            }
         }
 
         public void OnDrag(PointerEventData eventData)
         {
+            clickedTime += Time.deltaTime;
+
+            Debug.Log("Dragging joystick");
+
             if (clickedTime >= minTimeForDrag)
             {
                 isDragged = true;
@@ -69,21 +78,21 @@ namespace EndGame.Test.UI
 
         public void OnPointerDown(PointerEventData eventData)
         {
+            isUp = false;
+
+            Debug.Log("Down joystick");
+        }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
             if (clickedTime < minTimeForDrag)
             {
                 isTapped = true;
-
-                clickedTime += Time.deltaTime;
             }
             else
             {
                 isTapped = false;
             }
-        }
-
-        public void OnPointerUp(PointerEventData eventData)
-        {
-            isTapped = false;
 
             isUp = true;
 
@@ -92,8 +101,6 @@ namespace EndGame.Test.UI
 
         private float EvaluateInputValue(float vectorPosition)
         {
-            Debug.Log("Evaluating value: " + vectorPosition);
-
             return Mathf.InverseLerp(0, maxJoystickValue, Mathf.Abs(vectorPosition)) * Mathf.Sign(vectorPosition);
         }
     }

@@ -33,6 +33,8 @@ namespace EndGame.Test.Actors
                     float inputValue = (float)_args.value;
                     if (inputValue > 0.0f)
                     {
+                        Debug.Log("shooting");
+
                         PullTrigger();
                     }
                     else
@@ -71,19 +73,19 @@ namespace EndGame.Test.Actors
             Vector3 targetDirection = targeter.GetTargetDirection;
             weaponToShoot.FireWeapon(targetDirection);
 
-            OnActorFireWeapon args = new OnActorFireWeapon()
-            {
-                actor = GetOwner,
-                aimDirection = targetDirection
-            };
+            //OnActorFireWeapon args = new OnActorFireWeapon()
+            //{
+            //    actor = GetOwner,
+            //    aimDirection = targetDirection
+            //};
 
-            EventController.QueueEvent(ActorEvents.ACTOR_FIRE_WEAPON, args);
+            //EventController.QueueEvent(ActorEvents.ACTOR_FIRE_WEAPON, args);
         }
 
         /// <summary>
         /// Called by an animation event at the end of the shooting animation.
         /// </summary>
-        private void OnFinishShootAnimtionEvent() => weaponToShoot.OnFinishShootAnimtionEvent();
+        private void OnShootAnimationFinish() => weaponToShoot.OnFinishShootAnimtionEvent();
     }
 
 }

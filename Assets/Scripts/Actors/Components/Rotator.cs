@@ -60,6 +60,9 @@ namespace EndGame.Test.Actors
                 {
                     // TODO get targeted current target direction.
                     Vector3 targetDirection = detectorComponent.GetTargetDirection;
+
+                    Debug.Log("auto aiming");
+
                     RotateTowardsTargetDirection(targetDirection);
                 }
             }

@@ -20,7 +20,7 @@ namespace EndGame.Test.Game
         /// <returns>Id to return.</returns>
         public virtual string GetId()
         {
-            return gameObject.name.Replace("Clone", string.Empty);
+            return gameObject.name.Replace("(Clone)", string.Empty);
         }
         /// <summary>
         /// Called by the Pool when the object exits the pool.

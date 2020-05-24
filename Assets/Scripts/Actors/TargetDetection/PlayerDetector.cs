@@ -25,7 +25,7 @@ public class PlayerDetector : Detector
     private Vector3 GetNearesTargetDirection()
     {
         Vector3 targetDirection = Vector3.zero;
-        float nearestSqrDistance = 0.0f;
+        float nearestSqrDistance = float.MaxValue;
         Vector3 directionVector;
         foreach (Actor target in nearTargets)
         {

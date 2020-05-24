@@ -43,8 +43,6 @@ namespace EndGame.Test.AI
         {
             if (currentState != _nextState && _nextState != remainInState)
             {
-                Debug.Log("Transition to: " + _nextState.name);
-
                 currentState = _nextState;
                 // OnExitState();
             }

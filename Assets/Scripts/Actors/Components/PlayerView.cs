@@ -172,18 +172,19 @@ namespace EndGame.Test.Actors
 
                         EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, shootArgs);
                     }
-                    else if (aimJoystick.GetIsDragged)
-                    {
-                        OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
-                        {
-                            actor = GetOwner,
-                            command = ActorCommands.Shoot,
-                            // Means the shoot button has been released.
-                            value = 1f
-                        };
+                    // Releasing the joystick after a drag.
+                    //else if (aimJoystick.GetIsDragged)
+                    //{
+                    //    OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
+                    //    {
+                    //        actor = GetOwner,
+                    //        command = ActorCommands.Shoot,
+                    //        // Means the shoot button has been released.
+                    //        value = 1f
+                    //    };
 
-                        EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
-                    }
+                    //    EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
+                    //}
                     else
                     {
                         OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()

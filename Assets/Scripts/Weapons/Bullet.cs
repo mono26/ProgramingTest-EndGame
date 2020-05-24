@@ -10,7 +10,7 @@ namespace EndGame.Test.Weapons
         [SerializeField]
         private float bulletInitialSpeed = 3.0f;
         [SerializeField]
-        private Rigidbody bulletBody;
+        private Rigidbody bulletBody = null;
 
         public void OnWeaponShoot()
         {

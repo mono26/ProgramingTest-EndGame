@@ -3919,7 +3919,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 967942235}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 69c39b6ea75f7c444b49186dcbc48456, type: 3}
   m_Name: 
@@ -7840,7 +7840,7 @@ PrefabInstance:
     - target: {fileID: 5454476634795328182, guid: 498e9d49b5344ac458643d18e9a5d559,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6701779881061901266, guid: 498e9d49b5344ac458643d18e9a5d559,
         type: 3}
@@ -7914,7 +7914,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 361280582, guid: c5c9d2d2c3e6c8744a32c15e194e2822, type: 3}
       propertyPath: maxHitPoints
-      value: 6
+      value: 999
       objectReference: {fileID: 0}
     - target: {fileID: 812597703, guid: c5c9d2d2c3e6c8744a32c15e194e2822, type: 3}
       propertyPath: m_Constraints

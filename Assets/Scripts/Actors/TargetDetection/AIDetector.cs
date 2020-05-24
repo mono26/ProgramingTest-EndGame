@@ -13,7 +13,6 @@ namespace EndGame.Test.Actors
         {
             base.OnAwake(_owner);
 
-
             viewDistance = GetComponent<AIData>().GetViewRange;
             detectorTrigger.radius = viewDistance;
         }

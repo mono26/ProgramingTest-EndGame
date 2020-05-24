@@ -53,10 +53,14 @@ namespace EndGame.Test.UI
 
             Debug.Log("Dragging joystick");
 
-            if (clickedTime >= minTimeForDrag)
-            {
-                isDragged = true;
-            }
+            //if (clickedTime >= minTimeForDrag)
+            //{
+            //    isDragged = true;
+            //}
+
+            isDragged = true;
+
+            isTapped = false;
 
             newTargetPosition = eventData.position;
             newTargetPosition = Vector3.ClampMagnitude(newTargetPosition - joystickHolder.position, knobRange);
@@ -78,6 +82,8 @@ namespace EndGame.Test.UI
 
         public void OnPointerDown(PointerEventData eventData)
         {
+            isTapped = true;
+
             isUp = false;
 
             Debug.Log("Down joystick");
@@ -85,15 +91,6 @@ namespace EndGame.Test.UI
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            if (clickedTime < minTimeForDrag)
-            {
-                isTapped = true;
-            }
-            else
-            {
-                isTapped = false;
-            }
-
             isUp = true;
 
             clickedTime = 0.0f;

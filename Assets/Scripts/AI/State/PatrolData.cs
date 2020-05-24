@@ -2,6 +2,7 @@
 using EndGame.Test.Events;
 using EndGame.Test.Events.AI;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace EndGame.Test.AI
 {
@@ -9,8 +10,6 @@ namespace EndGame.Test.AI
     {
         [SerializeField]
         private Transform[] patrolPoints = null;
-        [SerializeField]
-        private Detector detectorComponent = null;
 
         private int currentPatrolPoint = 0;
 
@@ -19,7 +18,6 @@ namespace EndGame.Test.AI
         /// </summary>
         /// <returns></returns>
         public Vector3 GetPatrolPosition { get => patrolPoints[currentPatrolPoint].position; }
-        public Detector GetDetectorComponent { get => detectorComponent; }
 
         private void Start()
         {

@@ -15,14 +15,17 @@ namespace EndGame.Test.AI
         // TODO patrol and chase are very similar.
         private void PatrolAction(AIView _controller)
         {
-            Actor actor = _controller.GetOwner;
-            PatrolData data = _controller.GetStateData<PatrolData>();
+            if (_controller.GetAIData.GetNavigationComponent.isStopped)
+            {
+                _controller.GetAIData.GetNavigationComponent.isStopped = false;
+            }
 
+            PatrolData data = _controller.GetStateData<PatrolData>();
             Vector3 targetPosition = data.GetPatrolPosition;
 
             OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
             {
-                actor = actor,
+                actor = _controller.GetOwner,
                 command = ActorCommands.Move,
                 value = targetPosition
             };

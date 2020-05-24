@@ -15,22 +15,12 @@ namespace EndGame.Test.AI
         private float shootRange = 3.0f;
         [SerializeField]
         private Actor currentTarget = null;
-        [SerializeField]
-        private NavMeshAgent navigationComponent = null;
 
         // TODO add targeter component ?
 
         public float GetShootRange { get => shootRange; }
 
         public Actor GetCurrentTarget { get => currentTarget; }
-        public NavMeshAgent GetNavigationComponent { get => navigationComponent; }
-
-        public override void OnAwake(Actor _actor)
-        {
-            base.OnAwake(_actor);
-
-            navigationComponent = GetComponent<NavMeshAgent>();
-        }
 
         private void Start()
         {

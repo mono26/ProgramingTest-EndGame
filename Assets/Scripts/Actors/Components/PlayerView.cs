@@ -220,7 +220,7 @@ namespace EndGame.Test.Actors
             {
                 int currentHealth = _args.healthComponent.GetCurrentHitPoints;
                 int maxHealth = _args.healthComponent.GetMaxHitPoints;
-                healthBarFillComponent.fillAmount = currentHealth / maxHealth;
+                healthBarFillComponent.fillAmount = (float)currentHealth / (float)maxHealth;
             }
         }
 

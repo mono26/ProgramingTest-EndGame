@@ -17,10 +17,10 @@ namespace EndGame.Test.AI
         {
             bool inRange = false;
 
-            ShootData data = _controller.GetStateData<ShootData>();
+            ChaseData data = _controller.GetStateData<ChaseData>();
 
             Vector3 startPosition = _controller.GetOwner.GetCenterOfBodyPosition;
-            Vector3 targetPosition = data.GetCurrentTarget.transform.position;
+            Vector3 targetPosition = data.GetCurrentTarget.GetCenterOfBodyPosition;
             Vector3 vectorToTarget = targetPosition - startPosition;
             float viewDistance = _controller.GetAIData.GetViewRange;
 
@@ -29,17 +29,20 @@ namespace EndGame.Test.AI
             if (data.GetCurrentTarget == hitTarget)
             {
                 Vector3 directionToHit = hitTarget.GetCenterOfBodyPosition - startPosition;
-                inRange = directionToHit.sqrMagnitude <= data.GetShootRange * data.GetShootRange;
-
-                Debug.DrawLine(startPosition, hitTarget.transform.position, Color.green, 3.0f);
-
-                OnTargetInShootRange args = new OnTargetInShootRange()
+                inRange = directionToHit.sqrMagnitude <= _controller.GetAIData.GetShootRange * _controller.GetAIData.GetShootRange;
+                if (inRange)
                 {
-                    actor = data.GetOwner,
-                    target = hitTarget
-                };
+                    Debug.DrawLine(startPosition, hitTarget.transform.position, Color.green, 3.0f);
 
-                EventController.QueueEvent(DecisionEvents.TARGET_IN_SHOOT_RANGE, args);
+                    OnTargetInShootRange args = new OnTargetInShootRange()
+                    {
+                        actor = data.GetOwner,
+                        target = hitTarget
+                    };
+
+                    EventController.PushEvent(DecisionEvents.TARGET_IN_SHOOT_RANGE, args);
+                }
+                
                 // TODO fire target in shoot range event.
             }
 

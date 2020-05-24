@@ -14,12 +14,12 @@ namespace EndGame.Test.AI
 
         private void DoShoot(AIView _controller)
         {
-            ShootData data = _controller.GetStateData<ShootData>();
-            if (!data.GetNavigationComponent.isStopped)
+            if (!_controller.GetAIData.GetNavigationComponent.isStopped)
             {
-                data.GetNavigationComponent.isStopped = true;
+                _controller.GetAIData.GetNavigationComponent.isStopped = true;
             }
 
+            ShootData data = _controller.GetStateData<ShootData>();
             Vector3 startPosition = _controller.GetOwner.GetCenterOfBodyPosition;
             Vector3 targetPosition = data.GetCurrentTarget.transform.position;
             Vector3 vectorToTarget = targetPosition - startPosition;

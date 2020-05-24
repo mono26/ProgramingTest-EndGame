@@ -52,7 +52,7 @@ namespace EndGame.Test.Actors
             {
                 if (_args.command.Equals(ActorCommands.Aim))
                 {
-                    Debug.Log("Rotating towards: " + (Vector3)_args.value);
+                    //Debug.Log("Rotating towards: " + (Vector3)_args.value);
 
                     RotateTowardsTargetDirection((Vector3)_args.value);
                 }

@@ -20,10 +20,7 @@ namespace EndGame.Test.AI
 
         private bool HasTargetInSight(AIView _controller)
         {
-            // TODO get targeter from patrol data.
-            PatrolData data = _controller.GetStateData<PatrolData>();
-            AIDetector _detector = (AIDetector)data.GetDetectorComponent;
-
+            AIDetector _detector = _controller.GetAIData.GetDetectorComponent;
             bool hasTarget = false;
             if (_detector.GetNearTargets != null && _detector.GetNearTargets.Count > 0)
             {

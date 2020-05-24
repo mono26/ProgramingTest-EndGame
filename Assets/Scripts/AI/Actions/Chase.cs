@@ -16,18 +16,17 @@ namespace EndGame.Test.AI
 
         private void ChaseTarget(AIView _controller)
         {
-            Actor actor = _controller.GetOwner;
-            ChaseData data = _controller.GetStateData<ChaseData>();
-            if (data.GetNavigationComponent.isStopped)
+            if (_controller.GetAIData.GetNavigationComponent.isStopped)
             {
-                data.GetNavigationComponent.isStopped = false;
+                _controller.GetAIData.GetNavigationComponent.isStopped = false;
             }
 
+            ChaseData data = _controller.GetStateData<ChaseData>();
             Vector3 targetPosition = data.GetCurrentTarget.transform.position;
 
             OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
             {
-                actor = actor,
+                actor = _controller.GetOwner,
                 command = ActorCommands.Move,
                 value = targetPosition
             };

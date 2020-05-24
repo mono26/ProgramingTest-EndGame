@@ -14,13 +14,12 @@ namespace EndGame.Test.AI
 
         private void WaitAction(AIView _controller)
         {
-            Actor actor = _controller.GetOwner;
-            Debug.Log("Actor: " + actor.gameObject.name + " waiting");
+            // Debug.Log("Actor: " + actor.gameObject.name + " waiting");
 
             // TODO trigger actor waited event.
             OnWaitedActionEventArgs args = new OnWaitedActionEventArgs()
             {
-                actor = actor,
+                actor = _controller.GetOwner,
                 waitedTime = Time.deltaTime
             };
 

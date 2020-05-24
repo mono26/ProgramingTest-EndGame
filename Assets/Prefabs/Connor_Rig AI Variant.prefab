@@ -70,6 +70,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bodyComponent: {fileID: 1506476843990859291}
   movementSpeed: 1.5
+  targetDirection: {x: 0, y: 0, z: 0}
   navigationComponent: {fileID: 8870519098824932500}
 --- !u!114 &4958179793854091895
 MonoBehaviour:
@@ -142,7 +143,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 5454476634795328182}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.1445251
+  m_Radius: 0.2
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50

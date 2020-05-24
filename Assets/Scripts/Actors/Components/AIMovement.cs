@@ -52,6 +52,8 @@ namespace EndGame.Test.AI
                 //Debug.Log("Actor is moving");
             }
 
+            currentPosition = GetOwner.transform.position;
+
             if (lastPosition.Equals(currentPosition))
             {
                 // TODO create base actor event.

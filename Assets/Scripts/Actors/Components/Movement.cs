@@ -10,6 +10,7 @@ namespace EndGame.Test.Actors
         [SerializeField]
         protected float movementSpeed = 3.0f;
 
+        [SerializeField]
         private Vector3 targetDirection = Vector3.zero;
         protected Vector3 lastPosition = Vector3.zero;
 
@@ -49,6 +50,8 @@ namespace EndGame.Test.Actors
 
                 Vector3 nextPosition = currentPosition + targetDirection * movementSpeed * Time.fixedDeltaTime;
 
+                //Debug.Log("Posicion after movement: " + nextPosition);
+
                 MoveTowardsTarget(nextPosition);
 
                 targetDirection = Vector3.zero;
@@ -84,7 +87,8 @@ namespace EndGame.Test.Actors
                 if (_args.command.Equals(ActorCommands.Move))
                 {
                     targetDirection = (Vector3)_args.value;
-                    Debug.Log("Receibed movement command.");
+
+                    // Debug.Log("Receibed movement command: " + (Vector3)_args.value);
                 }
             }
         }

@@ -74,6 +74,8 @@ namespace EndGame.Test.Actors
                 // Vertical input is mapped out to the z axis.
                 Vector3 inputVector = new Vector3(horizontalInput, 0, verticalInput);
 
+                //Debug.Log("Sending movement command: " + inputVector);
+
                 OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
                 {
                     actor = GetOwner,
@@ -97,7 +99,7 @@ namespace EndGame.Test.Actors
 
                     if (aimDirection.x != 0.0f || aimDirection.y != 0.0f)
                     {
-                        OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
+                        OnActorCommandReceiveEventArgs aimArgs = new OnActorCommandReceiveEventArgs()
                         {
                             actor = GetOwner,
                             command = ActorCommands.Aim,
@@ -105,7 +107,18 @@ namespace EndGame.Test.Actors
                             value = aimDirection
                         };
 
-                        EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
+                        EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, aimArgs);
+
+
+                        OnActorCommandReceiveEventArgs shootArgs = new OnActorCommandReceiveEventArgs()
+                        {
+                            actor = GetOwner,
+                            command = ActorCommands.Shoot,
+                            // Means the shoot button is pressed.
+                            value = 1.0f
+                        };
+
+                        EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, shootArgs);
                     }
                 }
             }

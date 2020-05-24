@@ -39,7 +39,7 @@ namespace EndGame.Test.Actors
             {
                 AddPickUpToInventory(_args.pickup);
 
-                if (_args.pickup.GetPickupId.Equals("CoffeeShop"))
+                if (_args.pickup.GetPickupId.Equals("CoffeeKey"))
                 {
                     OnPickUpCoffeeKeyEventArgs args = new OnPickUpCoffeeKeyEventArgs
                     {

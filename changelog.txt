@@ -13,11 +13,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Tooltip when the player collects the key and when it tries to enter the coffee shop without a key.
 - Auto aim for the player when the aim joystick is tapped.
 - Aim and fire joystick. [WIP].
+- Weapon effects.
+- Weapon sounds.
 
 ### Changed
 - Rotation is now handled by the aim command.
 - Shoot target action also sends aim command.
 - Stop navigation when shooting and resumen when patrolling or chasing.
+- player can shoot at the same time itt aims with the joystick.
 
 ## [17] 23-05-2020
 ### Added

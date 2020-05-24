@@ -15,10 +15,13 @@ namespace EndGame.Test.Game
         public Action<IEventArgs> OnPlayerWonListener;
         public Action<IEventArgs> OnPlayerDeathListener;
         public Action<IEventArgs> OnPlayerHasNoKeyListener;
-        private Action<IEventArgs> OnPickUpPickedListener = null;
+        private Action<IEventArgs> OnPickUpCoffeeKeyListener = null;
 
         [SerializeField]
         private LoadingScreen loadingScreen = null;
+
+        private const string GAME_SCENE = "GameScene";
+        private const string MENU_SCENE = "MenuScene";
 
         private const string WIN_TEXT = "Victory!";
         private const string DEFEAT_TEXT = "Defeat.";
@@ -31,13 +34,13 @@ namespace EndGame.Test.Game
             OnPlayerWonListener = (args) => OnPlayerWon((OnPlayerWonEventArgs)args);
             OnPlayerDeathListener = (args) => OnPlayerDeath((OnPlayerDeathEventArgs)args);
             OnPlayerHasNoKeyListener = (args) => OnPlayerHasNoKey((OnPlayerHasNoKeyEventArgs)args);
-            OnPickUpPickedListener = (args) => OnPickUpCoffeeKey((OnPickUpCoffeeKeyEventArgs)args);
+            OnPickUpCoffeeKeyListener = (args) => OnPickUpCoffeeKey((OnPickUpCoffeeKeyEventArgs)args);
 
             EventController.SubscribeToEvent(UIEvents.BUTTON_PRESSED, OnUIButtonPressedListener);
             EventController.SubscribeToEvent(GameEvents.PLAYER_WON, OnPlayerWonListener);
             EventController.SubscribeToEvent(GameEvents.PLAYER_DEATH, OnPlayerDeathListener);
             EventController.SubscribeToEvent(GameEvents.PLAYER_HAS_NO_KEY, OnPlayerHasNoKeyListener);
-            EventController.SubscribeToEvent(PickUpEvents.PICKUP_COFFEE_KEY, OnPickUpPickedListener);
+            EventController.SubscribeToEvent(PickUpEvents.PICKUP_COFFEE_KEY, OnPickUpCoffeeKeyListener);
         }
 
         private void OnDestroy()
@@ -48,7 +51,7 @@ namespace EndGame.Test.Game
             EventController.UnSubscribeFromEvent(GameEvents.PLAYER_WON, OnPlayerWonListener);
             EventController.UnSubscribeFromEvent(GameEvents.PLAYER_DEATH, OnPlayerDeathListener);
             EventController.UnSubscribeFromEvent(GameEvents.PLAYER_HAS_NO_KEY, OnPlayerHasNoKeyListener);
-            EventController.UnSubscribeFromEvent(PickUpEvents.PICKUP_PICKED, OnPickUpPickedListener);
+            EventController.UnSubscribeFromEvent(PickUpEvents.PICKUP_COFFEE_KEY, OnPickUpCoffeeKeyListener);
         }
 
         private void OnUIButtonPressed(OnUIButtonPressedEventArgs _args)
@@ -82,7 +85,7 @@ namespace EndGame.Test.Game
         {
             Time.timeScale = 1.0f;
 
-            StartCoroutine(LoadScene("GameScene"));
+            StartCoroutine(LoadScene(GAME_SCENE));
         }
 
         private IEnumerator LoadScene(string _sceneName)
@@ -108,7 +111,7 @@ namespace EndGame.Test.Game
         {
             Time.timeScale = 1.0f;
 
-            StartCoroutine(LoadScene("MainMenu"));
+            StartCoroutine(LoadScene(MENU_SCENE));
         }
 
         private void OnReplayGame()

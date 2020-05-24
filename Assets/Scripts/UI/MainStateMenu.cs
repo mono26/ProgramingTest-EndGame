@@ -14,7 +14,7 @@ namespace EndGame.Test.UI
                 buttonPressed = "playgame"
             };
 
-            EventController.PushEvent(UIEvents.BUTTON_PRESSED, args);
+            EventController.QueueEvent(UIEvents.BUTTON_PRESSED, args);
         }
 
         public void OnQuitPressed()
@@ -24,7 +24,7 @@ namespace EndGame.Test.UI
                 buttonPressed = "quit"
             };
 
-            EventController.PushEvent(UIEvents.BUTTON_PRESSED, args);
+            EventController.QueueEvent(UIEvents.BUTTON_PRESSED, args);
         }
     }
 }

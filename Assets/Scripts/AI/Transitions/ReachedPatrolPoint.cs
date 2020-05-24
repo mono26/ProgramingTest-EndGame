@@ -34,7 +34,7 @@ namespace EndGame.Test.AI
                     actor = _actor
                 };
 
-                EventController.PushEvent(DecisionEvents.PATROL_POINT_REACHED, args);
+                EventController.QueueEvent(DecisionEvents.PATROL_POINT_REACHED, args);
             }
 
             return reachedPatrolPoint;

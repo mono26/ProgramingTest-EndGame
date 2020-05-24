@@ -15,13 +15,13 @@ namespace EndGame.Test.Items
             Actor hitActor = other.GetComponent<Actor>();
             if (hitActor)
             {
-                OnPickUpPicked args = new OnPickUpPicked()
+                OnPickUpPickedEvetArgs args = new OnPickUpPickedEvetArgs()
                 {
                     picker = hitActor,
                     pickup = this
                 };
 
-                EventController.PushEvent(PickUpEvents.PICKUP_PICKED, args);
+                EventController.QueueEvent(PickUpEvents.PICKUP_PICKED, args);
 
                 gameObject.SetActive(false);
             }

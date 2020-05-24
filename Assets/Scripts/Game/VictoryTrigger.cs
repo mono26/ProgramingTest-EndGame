@@ -10,12 +10,15 @@ namespace EndGame.Test.Triggers
     {
         protected override void OnActorEnter(Actor _actor)
         {
-            OnPlayerWonEventArgs args = new OnPlayerWonEventArgs()
+            if (_actor.CompareTag("Player"))
             {
+                OnPlayerWonEventArgs args = new OnPlayerWonEventArgs()
+                {
 
-            };
+                };
 
-            EventController.PushEvent(GameEvents.PLAYER_WON, args);
+                EventController.QueueEvent(GameEvents.PLAYER_WON, args);
+            }
         }
     }
 }

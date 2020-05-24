@@ -1,5 +1,6 @@
 ﻿using EndGame.Test.AI;
 using EndGame.Test.Events;
+using EndGame.Test.Items;
 using EndGame.Test.UI;
 using System;
 using System.Collections;
@@ -10,7 +11,11 @@ namespace EndGame.Test.Game
 {
     public class GameStateManager : Singleton<GameStateManager>
     {
-        public Action<IEventArgs> OnUIButtonPressedEvent;
+        public Action<IEventArgs> OnUIButtonPressedListener;
+        public Action<IEventArgs> OnPlayerWonListener;
+        public Action<IEventArgs> OnPlayerDeathListener;
+        public Action<IEventArgs> OnPlayerHasNoKeyListener;
+        private Action<IEventArgs> OnPickUpPickedListener = null;
 
         [SerializeField]
         private LoadingScreen loadingScreen = null;
@@ -18,19 +23,32 @@ namespace EndGame.Test.Game
         private const string WIN_TEXT = "Victory!";
         private const string DEFEAT_TEXT = "Defeat.";
         private const string NO_KEY_TOOLTIP = "Get the key from one of the guards.";
+        private const string UNLOCK_COFFEE_SHOP = "Go and unlock the coffee shop";
 
         private void Start()
         {
-            OnUIButtonPressedEvent = (args) => OnUIButtonPressed((OnUIButtonPressedEventArgs)args);
+            OnUIButtonPressedListener = (args) => OnUIButtonPressed((OnUIButtonPressedEventArgs)args);
+            OnPlayerWonListener = (args) => OnPlayerWon((OnPlayerWonEventArgs)args);
+            OnPlayerDeathListener = (args) => OnPlayerDeath((OnPlayerDeathEventArgs)args);
+            OnPlayerHasNoKeyListener = (args) => OnPlayerHasNoKey((OnPlayerHasNoKeyEventArgs)args);
+            OnPickUpPickedListener = (args) => OnPickUpCoffeeKey((OnPickUpCoffeeKeyEventArgs)args);
 
-            EventController.SubscribeToEvent(UIEvents.BUTTON_PRESSED, OnUIButtonPressedEvent);
+            EventController.SubscribeToEvent(UIEvents.BUTTON_PRESSED, OnUIButtonPressedListener);
+            EventController.SubscribeToEvent(GameEvents.PLAYER_WON, OnPlayerWonListener);
+            EventController.SubscribeToEvent(GameEvents.PLAYER_DEATH, OnPlayerDeathListener);
+            EventController.SubscribeToEvent(GameEvents.PLAYER_HAS_NO_KEY, OnPlayerHasNoKeyListener);
+            EventController.SubscribeToEvent(PickUpEvents.PICKUP_COFFEE_KEY, OnPickUpPickedListener);
         }
 
         private void OnDestroy()
         {
-            OnUIButtonPressedEvent = (args) => OnUIButtonPressed((OnUIButtonPressedEventArgs)args);
+            OnUIButtonPressedListener = (args) => OnUIButtonPressed((OnUIButtonPressedEventArgs)args);
 
-            EventController.UnSubscribeFromEvent(UIEvents.BUTTON_PRESSED, OnUIButtonPressedEvent);
+            EventController.UnSubscribeFromEvent(UIEvents.BUTTON_PRESSED, OnUIButtonPressedListener);
+            EventController.UnSubscribeFromEvent(GameEvents.PLAYER_WON, OnPlayerWonListener);
+            EventController.UnSubscribeFromEvent(GameEvents.PLAYER_DEATH, OnPlayerDeathListener);
+            EventController.UnSubscribeFromEvent(GameEvents.PLAYER_HAS_NO_KEY, OnPlayerHasNoKeyListener);
+            EventController.UnSubscribeFromEvent(PickUpEvents.PICKUP_PICKED, OnPickUpPickedListener);
         }
 
         private void OnUIButtonPressed(OnUIButtonPressedEventArgs _args)
@@ -98,23 +116,28 @@ namespace EndGame.Test.Game
             OnPlayGame();
         }
 
-        private void OnPlayerWon()
+        private void OnPlayerWon(OnPlayerWonEventArgs _args)
         {
-            Time.timeScale = 0.1f;
+            Time.timeScale = 0.0f;
 
             InGameStateMenu.ShowStateScreen(WIN_TEXT);
         }
 
-        private void OnPlayerLoose()
+        private void OnPlayerDeath(OnPlayerDeathEventArgs _args)
         {
-            Time.timeScale = 0.1f;
+            Time.timeScale = 0.0f;
 
             InGameStateMenu.ShowStateScreen(DEFEAT_TEXT);
         }
 
-        private void OnPlayerHasNoKey()
+        private void OnPlayerHasNoKey(OnPlayerHasNoKeyEventArgs _args)
         {
             ToolTip.DisplayToolTip(NO_KEY_TOOLTIP);
+        }
+
+        private void OnPickUpCoffeeKey(OnPickUpCoffeeKeyEventArgs _args)
+        {
+            ToolTip.DisplayToolTip(UNLOCK_COFFEE_SHOP);
         }
     }
 }

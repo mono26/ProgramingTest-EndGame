@@ -60,7 +60,7 @@ namespace EndGame.Test.AI
                     actor = GetOwner
                 };
 
-                EventController.PushEvent(ActorEvents.ACTOR_MOVEMENT_STOPPED, args);
+                EventController.QueueEvent(ActorEvents.ACTOR_MOVEMENT_STOPPED, args);
 
                 //Debug.Log("Actor is stopped");
             }

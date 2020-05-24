@@ -1,6 +1,5 @@
 ﻿using EndGame.Test.Actors;
 using EndGame.Test.Events;
-using System;
 using UnityEngine;
 
 public class WeaponHandler : ActorComponent
@@ -20,7 +19,6 @@ public class WeaponHandler : ActorComponent
     private void Start()
     {
         // TODO subscribe to on target in sight.
-        EventController.SubscribeToEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, (args) => OnShootCommand((OnActorCommandReceiveEventArgs)args));
         EventController.SubscribeToEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, (args) => OnShootCommand((OnActorCommandReceiveEventArgs)args));
     }
 
@@ -50,7 +48,7 @@ public class WeaponHandler : ActorComponent
             actor = GetOwner
         };
 
-        EventController.PushEvent(ActorEvents.ACTOR_TRIGGER_PULLED, args);
+        EventController.QueueEvent(ActorEvents.ACTOR_TRIGGER_PULLED, args);
     }
 
     private void ReleaseTrigger()
@@ -60,7 +58,7 @@ public class WeaponHandler : ActorComponent
             actor = GetOwner
         };
 
-        EventController.PushEvent(ActorEvents.ACTOR_TRIGGER_RELEASED, args);
+        EventController.QueueEvent(ActorEvents.ACTOR_TRIGGER_RELEASED, args);
     }
 
     /// <summary>
@@ -77,7 +75,7 @@ public class WeaponHandler : ActorComponent
             aimDirection = targetDirection
         };
 
-        EventController.PushEvent(ActorEvents.ACTOR_FIRE_WEAPON, args);
+        EventController.QueueEvent(ActorEvents.ACTOR_FIRE_WEAPON, args);
     }
 
     /// <summary>

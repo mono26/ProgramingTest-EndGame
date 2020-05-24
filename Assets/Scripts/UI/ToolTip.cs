@@ -10,19 +10,21 @@ namespace EndGame.Test.UI
         private float displayDuration = 3.0f;
         [SerializeField]
         private TextMeshProUGUI textComponent = null;
+        [SerializeField]
+        private GameObject uiContainer = null;
 
         private WaitForSeconds activationWait = null;
 
         private void Start()
         {
-            activationWait = new WaitForSeconds(3.0f);
+            activationWait = new WaitForSeconds(displayDuration);
         }
 
         private void DisplayTextObject(string _textToDisplay)
         {
             textComponent.text = _textToDisplay;
 
-            gameObject.SetActive(true);
+            uiContainer.SetActive(true);
 
             StartCoroutine(TimedActivation());
         }
@@ -31,7 +33,7 @@ namespace EndGame.Test.UI
         {
             yield return activationWait;
 
-            gameObject.SetActive(false);
+            uiContainer.SetActive(false);
         }
 
         public static void DisplayToolTip(string _textToDisplay)

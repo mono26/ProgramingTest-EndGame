@@ -7,8 +7,6 @@ namespace EndGame.Test
     public class Animations : ActorComponent
     {
         [SerializeField]
-        private Movement movementComponent = null;
-        [SerializeField]
         private Animator animationController = null;
 
         private const string IS_MOVING_PARAMETER = "IsMoving";
@@ -17,8 +15,6 @@ namespace EndGame.Test
         public override void OnAwake(Actor _actor)
         {
             base.OnAwake(_actor);
-
-            movementComponent = GetComponent<Movement>();
         }
 
         private void Start()

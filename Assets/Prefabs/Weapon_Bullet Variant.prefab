@@ -30,8 +30,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletInitialSpeed: 9
   bulletBody: {fileID: 6181510885295442231}
---- !u!135 &5948278387249286074
-SphereCollider:
+--- !u!136 &779923964217900730
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -40,9 +40,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.00072486396
-  m_Center: {x: -7.203e-42, y: 4.802132e-10, z: 0.0000000014260877}
+  m_Radius: 0.0005584647
+  m_Height: 0.0014407445
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &6406779585742522305
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -123,7 +124,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: d27ac20de42fa11459d67a65b12e38d2,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 85.7972
+      value: 312.30942
       objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: d27ac20de42fa11459d67a65b12e38d2,
         type: 3}
@@ -150,6 +151,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5218053877760515484, guid: d27ac20de42fa11459d67a65b12e38d2,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9e027542be7bad142961d38d4e8b954c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d27ac20de42fa11459d67a65b12e38d2, type: 3}
 --- !u!1 &3154939767949827784 stripped

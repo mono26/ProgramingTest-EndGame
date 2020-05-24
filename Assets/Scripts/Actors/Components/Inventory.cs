@@ -1,5 +1,6 @@
 ﻿using EndGame.Test.Events;
 using EndGame.Test.Items;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,8 @@ namespace EndGame.Test.Actors
 {
     public class Inventory : ActorComponent
     {
+        private Action<IEventArgs> OnPickUpPickedListener = null;
+
         [SerializeField]
         private List<Pickup> iventoryItems = new List<Pickup>();
 
@@ -20,19 +23,31 @@ namespace EndGame.Test.Actors
 
         private void Start()
         {
-            EventController.SubscribeToEvent(PickUpEvents.PICKUP_PICKED, (args) => OnPickUpPicked((OnPickUpPicked)args));
+            OnPickUpPickedListener = (args) => OnPickUpPicked((OnPickUpPickedEvetArgs)args);
+
+            EventController.SubscribeToEvent(PickUpEvents.PICKUP_PICKED, OnPickUpPickedListener);
         }
 
         private void OnDestroy()
         {
-            EventController.UnSubscribeFromEvent(PickUpEvents.PICKUP_PICKED, (args) => OnPickUpPicked((OnPickUpPicked)args));
+            EventController.UnSubscribeFromEvent(PickUpEvents.PICKUP_PICKED, OnPickUpPickedListener);
         }
 
-        private void OnPickUpPicked(OnPickUpPicked _args)
+        private void OnPickUpPicked(OnPickUpPickedEvetArgs _args)
         {
             if (GetOwner == _args.picker)
             {
                 AddPickUpToInventory(_args.pickup);
+
+                if (_args.pickup.GetPickupId.Equals("CoffeeShop"))
+                {
+                    OnPickUpCoffeeKeyEventArgs args = new OnPickUpCoffeeKeyEventArgs
+                    {
+
+                    };
+
+                    EventController.QueueEvent(PickUpEvents.PICKUP_COFFEE_KEY, args);
+                }
             }
         }
 

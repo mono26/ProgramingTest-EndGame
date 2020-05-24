@@ -27,7 +27,7 @@ namespace EndGame.Test.AI
                 value = targetPosition
             };
 
-            EventController.PushEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
+            EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
         }
     }
 }

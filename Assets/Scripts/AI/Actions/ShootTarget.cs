@@ -9,20 +9,40 @@ namespace EndGame.Test.AI
     {
         public override void DoAction(AIView _controller)
         {
-            DoShoot(_controller.GetOwner);
+            DoShoot(_controller);
         }
 
-        private void DoShoot(Actor _actor)
+        private void DoShoot(AIView _controller)
         {
+            ShootData data = _controller.GetStateData<ShootData>();
+            if (!data.GetNavigationComponent.isStopped)
+            {
+                data.GetNavigationComponent.isStopped = true;
+            }
+
+            Vector3 startPosition = _controller.GetOwner.GetCenterOfBodyPosition;
+            Vector3 targetPosition = data.GetCurrentTarget.transform.position;
+            Vector3 vectorToTarget = targetPosition - startPosition;
+
             OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
             {
-                actor = _actor,
+                actor = _controller.GetOwner,
+                command = ActorCommands.Aim,
+                // Means the shoot button is pressed.
+                value = vectorToTarget.normalized
+            };
+
+            EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
+
+            OnActorCommandReceiveEventArgs args2 = new OnActorCommandReceiveEventArgs()
+            {
+                actor = _controller.GetOwner,
                 command = ActorCommands.Shoot,
                 // Means the shoot button is pressed.
                 value = 1.0f
             };
 
-            EventController.PushEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
+            EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args2);
         }
     }
 }

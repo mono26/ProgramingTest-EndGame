@@ -24,7 +24,7 @@ namespace EndGame.Test.AI
                     value = 0.0f
                 };
 
-                EventController.PushEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
+                EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
             }
 
             return keepShooting;

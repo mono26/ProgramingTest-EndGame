@@ -1,9 +1,11 @@
-﻿using EndGame.Test.AI;
+﻿using EndGame.Test.Actors;
+using EndGame.Test.AI;
 using EndGame.Test.Events;
 using EndGame.Test.Events.AI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace EndGame.Test.AI
 {
@@ -13,12 +15,22 @@ namespace EndGame.Test.AI
         private float shootRange = 3.0f;
         [SerializeField]
         private Actor currentTarget = null;
+        [SerializeField]
+        private NavMeshAgent navigationComponent = null;
 
-        // TODO listen to target in shoot range.
+        // TODO add targeter component ?
 
         public float GetShootRange { get => shootRange; }
 
         public Actor GetCurrentTarget { get => currentTarget; }
+        public NavMeshAgent GetNavigationComponent { get => navigationComponent; }
+
+        public override void OnAwake(Actor _actor)
+        {
+            base.OnAwake(_actor);
+
+            navigationComponent = GetComponent<NavMeshAgent>();
+        }
 
         private void Start()
         {

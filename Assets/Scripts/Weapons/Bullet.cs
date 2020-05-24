@@ -24,7 +24,7 @@ public class Bullet : MonoBehaviour
                 actor = hitActor
             };
 
-            EventController.PushEvent(ActorEvents.ACTOR_HIT_BY_BULLET, args);
+            EventController.QueueEvent(ActorEvents.ACTOR_HIT_BY_BULLET, args);
         }
 
         Destroy(gameObject);

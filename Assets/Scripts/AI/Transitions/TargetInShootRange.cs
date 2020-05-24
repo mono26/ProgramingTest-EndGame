@@ -17,7 +17,6 @@ namespace EndGame.Test.AI
         {
             bool inRange = false;
 
-            //TODO use weapon range instead?
             Actor actor = _controller.GetOwner;
             // TODO remove detector from here and other places.
             Detector targeter = actor.GetComponent<Detector>();
@@ -43,7 +42,7 @@ namespace EndGame.Test.AI
                     target = hitTarget
                 };
 
-                EventController.PushEvent(DecisionEvents.TARGET_IN_SHOOT_RANGE, args);
+                EventController.QueueEvent(DecisionEvents.TARGET_IN_SHOOT_RANGE, args);
                 // TODO fire target in shoot range event.
             }
 

@@ -24,7 +24,7 @@ namespace EndGame.Test.AI
                 waitedTime = Time.deltaTime
             };
 
-            EventController.PushEvent(ActionEvents.WAITED_ACTION, args);
+            EventController.QueueEvent(ActionEvents.WAITED_ACTION, args);
         }
     }
 }

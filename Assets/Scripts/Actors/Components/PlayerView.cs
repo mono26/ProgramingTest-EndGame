@@ -45,29 +45,26 @@ namespace EndGame.Test.Actors
 
         private void Update()
         {
+            CatchMovementInput();
+            CatchAimInput();
+            CatchShootInput();
+        }
+
+        private void CatchMovementInput()
+        {
             // Get the horizontal and vertical input.
             float horizontalInput = 0.0f;
             float verticalInput = 0.0f;
-            Vector3 aimDirection = Vector2.zero;
             if (forceMobileInput)
             {
                 Vector2 virtualjoystickValue = movementJoystick.GetJoystickValue;
                 horizontalInput = virtualjoystickValue.x;
                 verticalInput = virtualjoystickValue.y;
-
-                aimDirection = new Vector3(aimJoystick.GetJoystickValue.x, 0, aimJoystick.GetJoystickValue.y);
             }
             else
             {
                 horizontalInput = Input.GetAxis("Horizontal");
                 verticalInput = Input.GetAxis("Vertical");
-
-                Vector2 positionOnScreen = playerCamera.WorldToScreenPoint(GetOwner.transform.position);
-                Vector2 mouseOnScreen = Input.mousePosition;
-
-                aimDirection = mouseOnScreen - positionOnScreen;
-                aimDirection.z = aimDirection.y;
-                aimDirection.y = 0;
             }
 
             // Only calculate the target position if there's movement input.
@@ -84,7 +81,28 @@ namespace EndGame.Test.Actors
                 };
 
                 // TODO Pack commands into one.
-                EventController.PushEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
+                EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
+            }
+        }
+
+        private void CatchAimInput()
+        {
+            Vector3 aimDirection = Vector2.zero;
+            if (forceMobileInput)
+            {
+                if (aimJoystick.GetIsDragged)
+                {
+                    aimDirection = new Vector3(aimJoystick.GetJoystickValue.x, 0, aimJoystick.GetJoystickValue.y);
+                }
+            }
+            else
+            {
+                Vector2 positionOnScreen = playerCamera.WorldToScreenPoint(GetOwner.transform.position);
+                Vector2 mouseOnScreen = Input.mousePosition;
+
+                aimDirection = mouseOnScreen - positionOnScreen;
+                aimDirection.z = aimDirection.y;
+                aimDirection.y = 0;
             }
 
             if (aimDirection.x != 0.0f || aimDirection.y != 0.0f)
@@ -97,32 +115,65 @@ namespace EndGame.Test.Actors
                     value = aimDirection
                 };
 
-                EventController.PushEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
+                EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
             }
+        }
 
-            if (Input.GetButtonDown("Fire1"))
+        private void CatchShootInput()
+        {
+            if (forceMobileInput)
             {
-                OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
+                if (aimJoystick.GetIsTapped)
                 {
-                    actor = GetOwner,
-                    command = ActorCommands.Shoot,
-                    // Means the shoot button is pressed.
-                    value = 1.0f
-                };
+                    OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
+                    {
+                        actor = GetOwner,
+                        command = ActorCommands.Shoot,
+                        // Means the shoot button is pressed.
+                        value = 1.0f
+                    };
 
-                EventController.PushEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
+                    EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
+                }
+                if (aimJoystick.GetIsUp)
+                {
+                    OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
+                    {
+                        actor = GetOwner,
+                        command = ActorCommands.Shoot,
+                        // Means the shoot button has been released.
+                        value = 0.0f
+                    };
+
+                    EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
+                }
             }
-            if (Input.GetButtonUp("Fire1"))
+            else
             {
-                OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
+                if (Input.GetButtonDown("Fire1"))
                 {
-                    actor = GetOwner,
-                    command = ActorCommands.Shoot,
-                    // Means the shoot button has been released.
-                    value = 0.0f
-                };
+                    OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
+                    {
+                        actor = GetOwner,
+                        command = ActorCommands.Shoot,
+                        // Means the shoot button is pressed.
+                        value = 1.0f
+                    };
 
-                EventController.PushEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
+                    EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
+                }
+                if (Input.GetButtonUp("Fire1"))
+                {
+                    OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
+                    {
+                        actor = GetOwner,
+                        command = ActorCommands.Shoot,
+                        // Means the shoot button has been released.
+                        value = 0.0f
+                    };
+
+                    EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
+                }
             }
         }
 
@@ -148,7 +199,7 @@ namespace EndGame.Test.Actors
 
                 };
 
-                EventController.PushEvent(GameEvents.PLAYER_DEATH, args);
+                EventController.QueueEvent(GameEvents.PLAYER_DEATH, args);
             }
         }
     }

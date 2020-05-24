@@ -130,7 +130,7 @@ namespace EndGame.Test.Events
         /// </summary>
         /// <param name="_id">Id of the event to push.</param>
         /// <param name="_args">Event data.</param>
-        public static void PushEvent(string _id, IEventArgs _args)
+        public static void QueueEvent(string _id, IEventArgs _args)
         {
             // Debug.Log("Pushing event: " + _id);
 
@@ -143,7 +143,7 @@ namespace EndGame.Test.Events
         /// </summary>
         /// <param name="_id">Id of the event to push.</param>
         /// <param name="_args">Event data.</param>
-        public static void PushEventImmediately(string _id, IEventArgs _args)
+        public static void PushEvent(string _id, IEventArgs _args)
         {
             // Debug.Log("Pushing event: " + _id);
 

@@ -1,5 +1,6 @@
 ﻿using EndGame.Test.Actors;
 using EndGame.Test.Events;
+using EndGame.Test.Game;
 using EndGame.Test.Triggers;
 using UnityEngine;
 
@@ -43,6 +44,13 @@ public class BuildingDoor : MonoBehaviour
                 if (!playerInventory.HasKeyItem(keyId))
                 {
                     opendDoor = false;
+
+                    OnPlayerHasNoKeyEventArgs args = new OnPlayerHasNoKeyEventArgs()
+                    {
+
+                    };
+
+                    EventController.QueueEvent(GameEvents.PLAYER_HAS_NO_KEY, args);
                 }
 
             }

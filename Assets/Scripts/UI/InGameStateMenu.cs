@@ -7,7 +7,9 @@ namespace EndGame.Test.UI
     public class InGameStateMenu : Singleton<InGameStateMenu>
     {
         [SerializeField]
-        private TextMeshProUGUI stateTitle;
+        private TextMeshProUGUI stateTitle = null;
+        [SerializeField]
+        private GameObject uiContainer = null;
 
         public void OnMainMenuPressed()
         {
@@ -16,9 +18,9 @@ namespace EndGame.Test.UI
                 buttonPressed = "mainmenu"
             };
 
-            EventController.PushEvent(UIEvents.BUTTON_PRESSED, args);
+            EventController.QueueEvent(UIEvents.BUTTON_PRESSED, args);
 
-            gameObject.SetActive(false);
+            uiContainer.SetActive(false);
         }
 
         public void OnReplayPressed()
@@ -28,15 +30,15 @@ namespace EndGame.Test.UI
                 buttonPressed = "replay"
             };
 
-            EventController.PushEvent(UIEvents.BUTTON_PRESSED, args);
+            EventController.QueueEvent(UIEvents.BUTTON_PRESSED, args);
 
-            gameObject.SetActive(false);
+            uiContainer.SetActive(false);
         }
 
         public static void ShowStateScreen(string _stateTitle)
         {
             GetUniqueInstance.stateTitle.text = _stateTitle;
-            GetUniqueInstance.gameObject.SetActive(true);
+            GetUniqueInstance.uiContainer.SetActive(true);
         }
     }
 }

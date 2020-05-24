@@ -21,7 +21,7 @@ public class ActionTrigger : MonoBehaviour
             trigger = this
         };
 
-        EventController.PushEvent(ActionTriggerEvents.TRIGGER_ENTERED, args);
+        EventController.QueueEvent(ActionTriggerEvents.TRIGGER_ENTERED, args);
     }
 
     private void OnTriggerExit(Collider other)
@@ -41,6 +41,6 @@ public class ActionTrigger : MonoBehaviour
             trigger = this
         };
 
-        EventController.PushEvent(ActionTriggerEvents.TRIGGER_EXITED, args);
+        EventController.QueueEvent(ActionTriggerEvents.TRIGGER_EXITED, args);
     }
 }

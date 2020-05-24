@@ -74,7 +74,7 @@ namespace EndGame.Test.AI
                     target = hitTarget
                 };
 
-                EventController.PushEventImmediately(DecisionEvents.TARGET_IN_SIGHT, args);
+                EventController.PushEvent(DecisionEvents.TARGET_IN_SIGHT, args);
             }
 
             return inSight;

@@ -27,7 +27,7 @@ namespace EndGame.Test.AI
                     actor = actor,
                 };
 
-                EventController.PushEvent(DecisionEvents.WAIT_FINISH, args);
+                EventController.QueueEvent(DecisionEvents.WAIT_FINISH, args);
             }
 
             return finishedWaiting;

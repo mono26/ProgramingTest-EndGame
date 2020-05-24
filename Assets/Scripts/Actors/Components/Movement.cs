@@ -69,7 +69,7 @@ namespace EndGame.Test.Actors
                     actor = GetOwner
                 };
 
-                EventController.PushEvent(ActorEvents.ACTOR_MOVEMENT_STOPPED, args);
+                EventController.QueueEvent(ActorEvents.ACTOR_MOVEMENT_STOPPED, args);
 
                 //Debug.Log("Actor is stopped");
             }
@@ -101,7 +101,7 @@ namespace EndGame.Test.Actors
                 direction = directionVector
             };
 
-            EventController.PushEvent(ActorEvents.ACTOR_MOVEMENT, args);
+            EventController.QueueEvent(ActorEvents.ACTOR_MOVEMENT, args);
         }
 
         protected virtual void MoveTowardsTargetPosition(Vector3 _nextPosition)

@@ -34,7 +34,7 @@ namespace EndGame.Test.Actors
                         healthComponent = this
                     };
 
-                    EventController.PushEvent(ActorEvents.ACTOR_HEALTH_UPDATED, args);
+                    EventController.QueueEvent(ActorEvents.ACTOR_HEALTH_UPDATED, args);
                 }
                 else
                 {
@@ -43,7 +43,7 @@ namespace EndGame.Test.Actors
                         actor = GetOwner
                     };
 
-                    EventController.PushEventImmediately(ActorEvents.ACTOR_DEATH, args);
+                    EventController.PushEvent(ActorEvents.ACTOR_DEATH, args);
                 }
             }
         }

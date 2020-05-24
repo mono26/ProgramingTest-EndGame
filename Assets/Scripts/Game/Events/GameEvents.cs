@@ -1,7 +1,4 @@
 ﻿using EndGame.Test.Events;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace EndGame.Test.Game
 {
@@ -9,6 +6,7 @@ namespace EndGame.Test.Game
     {
         public const string PLAYER_DEATH = "event.game.player.death";
         public const string PLAYER_WON = "event.game.player.won";
+        public const string PLAYER_HAS_NO_KEY = "evet.game.player.no.key";
     }
 
     public struct OnPlayerDeathEventArgs : IEventArgs
@@ -17,6 +15,11 @@ namespace EndGame.Test.Game
     }
 
     public struct OnPlayerWonEventArgs : IEventArgs
+    {
+
+    }
+
+    public struct OnPlayerHasNoKeyEventArgs : IEventArgs
     {
 
     }

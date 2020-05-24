@@ -64,7 +64,8 @@ public class BuildingDoor : MonoBehaviour
 
     private void OpenDoor()
     {
-        doorController.SetTrigger("Open");
+        doorController.SetBool("Open", true);
+        doorController.SetBool("Close", false);
 
         doorCollider.enabled = false;
     }
@@ -79,7 +80,8 @@ public class BuildingDoor : MonoBehaviour
 
     private void CloseDoor()
     {
-        doorController.SetTrigger("Close");
+        doorController.SetBool("Open", false);
+        doorController.SetBool("Close", true);
 
         doorCollider.enabled = true;
     }

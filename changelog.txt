@@ -8,6 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Animation flicker fix.
 - Use delegates instead of anonymous.
 
+## [19] 24-05-2020
+### Added
+- Enemy health bar.
+- Billboard transform component.
+- Enemy healthbar updates when the actor respawns.
+
+### Changed
+- Enemy respawn time increased.
+
 ## [18] 24-05-2020
 ### Added
 - Bullet pool

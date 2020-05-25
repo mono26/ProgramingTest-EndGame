@@ -4,6 +4,9 @@ using UnityEngine.AI;
 
 namespace EndGame.Test.AI
 {
+    /// <summary>
+    /// Specific data to be used by the ai sistem.
+    /// </summary>
     public class AIData : ActorComponent
     {
         [SerializeField]

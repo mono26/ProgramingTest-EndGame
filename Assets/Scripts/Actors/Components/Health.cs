@@ -1,10 +1,14 @@
 ﻿using EndGame.Test.Events;
+using System;
 using UnityEngine;
 
 namespace EndGame.Test.Actors
 {
     public class Health : ActorComponent
     {
+        private Action<IEventArgs> OnBulletHitActorListener;
+        private Action<IEventArgs> OnActorRespawnListener;
+
         /// <summary>
         /// Max health value.
         /// </summary>
@@ -23,8 +27,17 @@ namespace EndGame.Test.Actors
         {
             currentHitPoints = maxHitPoints;
 
-            EventController.SubscribeToEvent(ActorEvents.ACTOR_HIT_BY_BULLET, (args) => OnBulletHitActor((OnActorEventEventArgs)args));
-            EventController.SubscribeToEvent(ActorEvents.ACTOR_RESPAWN, (args) => OnActorRespawn((OnActorEventEventArgs)args));
+            OnBulletHitActorListener = (args) => OnBulletHitActor((OnActorEventEventArgs)args);
+            OnActorRespawnListener = (args) => OnActorRespawn((OnActorEventEventArgs)args);
+
+            EventController.SubscribeToEvent(ActorEvents.ACTOR_HIT_BY_BULLET, OnBulletHitActorListener);
+            EventController.SubscribeToEvent(ActorEvents.ACTOR_RESPAWN, OnActorRespawnListener);
+        }
+
+        private void OnDestroy()
+        {
+            EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_HIT_BY_BULLET, OnBulletHitActorListener);
+            EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_RESPAWN, OnActorRespawnListener);
         }
 
         /// <summary>

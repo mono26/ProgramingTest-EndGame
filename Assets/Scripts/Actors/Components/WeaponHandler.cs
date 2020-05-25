@@ -1,17 +1,27 @@
 ﻿using EndGame.Test.Events;
 using EndGame.Test.Weapons;
+using System;
 using UnityEngine;
 
 namespace EndGame.Test.Actors
 {
     public class WeaponHandler : ActorComponent
     {
+        private Action<IEventArgs> OnActorCommandReceiveListener;
+
         [SerializeField]
         private WeaponFire weaponToShoot = null;
 
         private void Start()
         {
-            EventController.SubscribeToEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, (args) => OnShootCommand((OnActorCommandReceiveEventArgs)args));
+            OnActorCommandReceiveListener = (args) => OnShootCommand((OnActorCommandReceiveEventArgs)args);
+
+            EventController.SubscribeToEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, OnActorCommandReceiveListener);
+        }
+
+        private void OnDestroy()
+        {
+            EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, OnActorCommandReceiveListener);
         }
 
         /// <summary>

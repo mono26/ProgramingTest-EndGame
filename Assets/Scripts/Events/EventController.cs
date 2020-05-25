@@ -65,16 +65,8 @@ namespace EndGame.Test.Events
             }
             else
             {
-                // TODO throw trying to fire and event that doesn't exist.
+                Debug.LogError("Trying to fire a event that is not registered.");
             }
-        }
-
-        /// <summary>
-        /// Clears the event map.
-        /// </summary>
-        private void ClearAllEvents()
-        {
-            eventsMap.Clear();
         }
 
         /// <summary>

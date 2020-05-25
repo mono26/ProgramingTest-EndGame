@@ -37,6 +37,11 @@ namespace EndGame.Test.Game
         }
         #endregion
 
+        /// <summary>
+        /// Initializes the pool content.
+        /// </summary>
+        /// <param name="_objectToPool">Object to copy in the pool.</param>
+        /// <param name="_initialSize">Initial amount of objects in the pool.</param>
         private void InitializePool(Poolable _objectToPool, uint _initialSize)
         {
             for (int i = 0; i < _initialSize; i++)
@@ -45,6 +50,10 @@ namespace EndGame.Test.Game
             }
         }
 
+        /// <summary>
+        /// Get a object from the pool.
+        /// </summary>
+        /// <returns></returns>
         public Poolable GetObjectFromPool()
         {
             Poolable objectToReturn;
@@ -61,6 +70,10 @@ namespace EndGame.Test.Game
             return objectToReturn;
         }
 
+        /// <summary>
+        /// Return a object to the pool.
+        /// </summary>
+        /// <param name="_objectToReturn">Object to return.</param>
         public void ReturnObjectToPool(Poolable _objectToReturn)
         {
             if (_objectToReturn != null)

@@ -8,6 +8,8 @@ namespace EndGame.Test.AI
 {
     public class AIView : ActorView
     {
+        private Action<IEventArgs> OnActorRespawnListener;
+
         /// <summary>
         /// AI starting state.
         /// </summary>
@@ -41,14 +43,16 @@ namespace EndGame.Test.AI
         {
             base.Start();
 
-            EventController.SubscribeToEvent(ActorEvents.ACTOR_RESPAWN, (args) => OnActorRespawn((OnActorEventEventArgs)args));
+            OnActorRespawnListener = (args) => OnActorRespawn((OnActorEventEventArgs)args);
+
+            EventController.SubscribeToEvent(ActorEvents.ACTOR_RESPAWN, OnActorRespawnListener);
 
             InitAI();
         }
 
         private void OnDestroy()
         {
-            EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_RESPAWN, (args) => OnActorRespawn((OnActorEventEventArgs)args));
+            EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_RESPAWN, OnActorRespawnListener);
         }
 
         /// <summary>

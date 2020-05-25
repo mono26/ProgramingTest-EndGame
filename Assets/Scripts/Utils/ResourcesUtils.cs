@@ -21,7 +21,6 @@ namespace EndGame.Test.Utils
             }
             catch (Exception _exception)
             {
-                // TODO throw no resource found exception.
                 throw new Exception($"Can't find a resource: { _exception.Message }", _exception);
             }
             return resourceToReturn;
@@ -41,7 +40,6 @@ namespace EndGame.Test.Utils
             }
             else
             {
-                // TODO throw can't get path of null id.
                 throw new Exception("Can't get path of a null id.");
             }
         }

@@ -10,7 +10,9 @@ namespace EndGame.Test.Events.AI
         public const string TARGET_IN_SHOOT_RANGE = "event.decision.target.in.shoot.range";
     }
 
-
+    /// <summary>
+    /// Args containing information of an AI that finished waiting.
+    /// </summary>
     public struct OnWaitFinishedEventArgs : IEventArgs
     {
         public Actor actor;

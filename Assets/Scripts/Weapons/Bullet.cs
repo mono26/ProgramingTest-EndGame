@@ -17,6 +17,9 @@ namespace EndGame.Test.Weapons
             bulletBody.AddForce(transform.forward * bulletInitialSpeed, ForceMode.Impulse);
         }
 
+        /// <summary>
+        /// Deativate the bullet and put it in a clean state.
+        /// </summary>
         public override void PoolEntered()
         {
             bulletBody.velocity = Vector3.zero;
@@ -25,6 +28,9 @@ namespace EndGame.Test.Weapons
             gameObject.SetActive(false);
         }
 
+        /// <summary>
+        /// Activate the bullet object and shoot it.
+        /// </summary>
         public override void PoolExited()
         {
             gameObject.SetActive(true);

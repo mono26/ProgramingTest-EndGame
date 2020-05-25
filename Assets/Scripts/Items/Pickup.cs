@@ -15,7 +15,7 @@ namespace EndGame.Test.Items
             Actor hitActor = other.GetComponent<Actor>();
             if (hitActor)
             {
-                OnPickUpPickedEvetArgs args = new OnPickUpPickedEvetArgs()
+                OnPickUpPickedEventArgs args = new OnPickUpPickedEventArgs()
                 {
                     picker = hitActor,
                     pickup = this

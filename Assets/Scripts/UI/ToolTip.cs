@@ -36,6 +36,10 @@ namespace EndGame.Test.UI
             uiContainer.SetActive(false);
         }
 
+        /// <summary>
+        /// Displays a tool message for the player.
+        /// </summary>
+        /// <param name="_textToDisplay"></param>
         public static void DisplayToolTip(string _textToDisplay)
         {
             GetUniqueInstance.DisplayTextObject(_textToDisplay);

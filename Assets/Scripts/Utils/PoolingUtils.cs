@@ -8,6 +8,11 @@ namespace EndGame.Test.Game
     {
         public static string poolablesFolder = "Poolables";
 
+        /// <summary>
+        /// Create a copy of a poolable prefab.
+        /// </summary>
+        /// <param name="_poolable">Poolable prefab</param>
+        /// <returns></returns>
         public static Poolable CreateCopy(Poolable _poolable)
         {
             if (_poolable != null)
@@ -20,6 +25,11 @@ namespace EndGame.Test.Game
             }
         }
 
+        /// <summary>
+        /// Create a copy of a prefab by its id.
+        /// </summary>
+        /// <param name="_poolableId">Id of the prefab to copy.</param>
+        /// <returns></returns>
         public static Poolable CreateCopy(string _poolableId)
         {
             if (_poolableId.HasAValue())
@@ -33,9 +43,13 @@ namespace EndGame.Test.Game
             }
         }
 
+        /// <summary>
+        /// Gets a poolable prefab from the resources folder.
+        /// </summary>
+        /// <param name="_resourceId">Id of the resource.</param>
+        /// <returns></returns>
         private static Poolable GetPoolableResource(string _resourceId)
         {
-            // TODO put inside try/catch ???
             Poolable poolableToReturn = null;
             GameObject poolableGameObject = ResourcesUtils.GetResourceGameObject(_resourceId, poolablesFolder);
             if (poolableGameObject)
@@ -43,7 +57,6 @@ namespace EndGame.Test.Game
                 poolableToReturn = poolableGameObject.GetComponent<Poolable>();
                 if (!poolableGameObject.HasComponent(out poolableToReturn))
                 {
-                    // TODO throw found resource but no poolable component exception.
                     Debug.LogError($"Found resource GameObject, but it has no { nameof(Poolable) } component.");
                 }
             }

@@ -15,6 +15,9 @@ namespace EndGame.Test.Game
             InitializePools();
         }
 
+        /// <summary>
+        /// Initialize all the registered pools.
+        /// </summary>
         private void InitializePools()
         {
             if (registeredPools != null && registeredPools.Count > 0)
@@ -39,6 +42,11 @@ namespace EndGame.Test.Game
             }
         }
 
+        /// <summary>
+        /// Gets and object from a pool.
+        /// </summary>
+        /// <param name="_id">Id of the object. Matche the id of the pool.</param>
+        /// <returns></returns>
         public static Poolable GetObjectFromPool(string _id)
         {
             Poolable objectToReturn = null;
@@ -54,6 +62,10 @@ namespace EndGame.Test.Game
             return objectToReturn;
         }
 
+        /// <summary>
+        /// Returns a object to a pool.
+        /// </summary>
+        /// <param name="_objectToReturn">Object to return.</param>
         public static void ReturnObjectToPool(Poolable _objectToReturn)
         {
             if (_objectToReturn != null)

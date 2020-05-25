@@ -12,6 +12,11 @@ namespace EndGame.Test.AI
             return HasReachedPatrolPoint(_controller);
         }
 
+        /// <summary>
+        /// Check if the ai has reached the current patrol point, if so send an event.
+        /// </summary>
+        /// <param name="_controller">Patrolling ai.</param>
+        /// <returns></returns>
         private bool HasReachedPatrolPoint(AIView _controller)
         {
             Actor _actor = _controller.GetOwner;

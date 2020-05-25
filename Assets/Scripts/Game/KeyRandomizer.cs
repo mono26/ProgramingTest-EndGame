@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace EndGame.Test.AI
 {
+    /// <summary>
+    /// Class that pick a random actor, using unity random, to spawn the coffee shop key.
+    /// </summary>
     public class KeyRandomizer : MonoBehaviour
     {
         [SerializeField]

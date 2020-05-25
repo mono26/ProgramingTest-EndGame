@@ -9,34 +9,23 @@ namespace EndGame.Test.UI
         private float knobRange = 1.5f;
         [SerializeField, Range(0, 1.0f)]
         private float maxJoystickValue = 1.0f;
-        [SerializeField]
-        private float minTimeForDrag = 0.3f;
 
         [SerializeField]
         private RectTransform joystickHolder;
 
-        [SerializeField]
         private Vector2 joystickValue;
         private Vector3 newTargetPosition;
         private Vector3 newJoystickPosition;
 
-        private float clickedTime = 0.0f;
-        [SerializeField]
+
         private bool isTapped = false;
-        [SerializeField]
         private bool isDragged = false;
-        [SerializeField]
         private bool isUp = false;
 
         public Vector2 GetJoystickValue { get => joystickValue; }
         public bool GetIsTapped { get => isTapped; }
         public bool GetIsDragged { get => isDragged; }
         public bool GetIsUp { get => isUp; }
-
-        private void Start()
-        {
-            clickedTime = 0.0f;
-        }
 
         private void LateUpdate()
         {
@@ -49,15 +38,6 @@ namespace EndGame.Test.UI
 
         public void OnDrag(PointerEventData eventData)
         {
-            clickedTime += Time.deltaTime;
-
-            Debug.Log("Dragging joystick");
-
-            //if (clickedTime >= minTimeForDrag)
-            //{
-            //    isDragged = true;
-            //}
-
             isDragged = true;
 
             isTapped = false;
@@ -65,6 +45,7 @@ namespace EndGame.Test.UI
             newTargetPosition = eventData.position;
             newTargetPosition = Vector3.ClampMagnitude(newTargetPosition - joystickHolder.position, knobRange);
 
+            // Evaluate the values based on the position of the knob and the knob range.
             joystickValue.x = EvaluateInputValue(newTargetPosition.x / knobRange);
             joystickValue.y = EvaluateInputValue(newTargetPosition.y / knobRange);
 
@@ -72,6 +53,10 @@ namespace EndGame.Test.UI
             transform.position = newJoystickPosition;
         }
 
+        /// <summary>
+        /// Reset the know position and value.
+        /// </summary>
+        /// <param name="eventData"></param>
         public void OnEndDrag(PointerEventData eventData)
         {
             newJoystickPosition = joystickHolder.position;
@@ -80,6 +65,10 @@ namespace EndGame.Test.UI
             joystickValue.y = 0f;
         }
 
+        /// <summary>
+        /// The first time the player taps the joystick.
+        /// </summary>
+        /// <param name="eventData"></param>
         public void OnPointerDown(PointerEventData eventData)
         {
             isTapped = true;
@@ -89,11 +78,13 @@ namespace EndGame.Test.UI
             Debug.Log("Down joystick");
         }
 
+        /// <summary>
+        /// When the player stops tapping the joystick.
+        /// </summary>
+        /// <param name="eventData"></param>
         public void OnPointerUp(PointerEventData eventData)
         {
             isUp = true;
-
-            clickedTime = 0.0f;
         }
 
         private float EvaluateInputValue(float vectorPosition)

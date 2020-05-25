@@ -16,7 +16,7 @@ namespace EndGame.Test.Actors
 
         private void Start()
         {
-            OnPickUpPickedListener = (args) => OnPickUpPicked((OnPickUpPickedEvetArgs)args);
+            OnPickUpPickedListener = (args) => OnPickUpPicked((OnPickUpPickedEventArgs)args);
 
             EventController.SubscribeToEvent(PickUpEvents.PICKUP_PICKED, OnPickUpPickedListener);
         }
@@ -30,21 +30,11 @@ namespace EndGame.Test.Actors
         /// Adds a pickup to the actor invetory and sends a event when is the coffee key.
         /// </summary>
         /// <param name="_args"></param>
-        private void OnPickUpPicked(OnPickUpPickedEvetArgs _args)
+        private void OnPickUpPicked(OnPickUpPickedEventArgs _args)
         {
             if (GetOwner == _args.picker)
             {
                 AddPickUpToInventory(_args.pickup);
-
-                if (_args.pickup.GetPickupId.Equals("CoffeeKey"))
-                {
-                    OnPickUpCoffeeKeyEventArgs args = new OnPickUpCoffeeKeyEventArgs
-                    {
-
-                    };
-
-                    EventController.QueueEvent(PickUpEvents.PICKUP_COFFEE_KEY, args);
-                }
             }
         }
 

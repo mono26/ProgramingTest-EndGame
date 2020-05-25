@@ -12,6 +12,11 @@ namespace EndGame.Test.AI
             return HasFinishedWaiting(_controller);
         }
 
+        /// <summary>
+        /// Checks iff the AI finished waiting in the current point.
+        /// </summary>
+        /// <param name="_controller"></param>
+        /// <returns></returns>
         private bool HasFinishedWaiting(AIView _controller)
         {
             Actor actor = _controller.GetOwner;

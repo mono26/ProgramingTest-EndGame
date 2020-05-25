@@ -27,7 +27,7 @@ namespace EndGame.Test.Actors
 
         private void OnDestroy()
         {
-            EventController.SubscribeToEvent(ActorEvents.ACTOR_DEATH, OnActorDeathEvent);
+            EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_DEATH, OnActorDeathEvent);
         }
 
         /// <summary>

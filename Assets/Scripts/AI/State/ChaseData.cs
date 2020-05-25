@@ -1,6 +1,7 @@
 ﻿using EndGame.Test.Actors;
 using EndGame.Test.Events;
 using EndGame.Test.Events.AI;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,6 +9,12 @@ namespace EndGame.Test.AI
 {
     public class ChaseData : AIStateData
     {
+        private Action<IEventArgs> OnTargetInSightListener;
+        private Action<IEventArgs> OnTargetInShootRangeListener;
+
+        /// <summary>
+        /// Max duration of a chase after loosing the target.
+        /// </summary>
         [SerializeField]
         private float maxChaseTime;
         [SerializeField]
@@ -27,7 +34,17 @@ namespace EndGame.Test.AI
         {
             base.Start();
 
-            EventController.SubscribeToEvent(DecisionEvents.TARGET_IN_SIGHT, (args) => OnTargetInSight((OnTargetInSightEventArgs)args));
+            OnTargetInSightListener = (args) => OnTargetInSight((OnTargetInSightEventArgs)args);
+            OnTargetInShootRangeListener = (args) => OnTargetInShootRange((OnTargetInShootRange)args);
+
+            EventController.SubscribeToEvent(DecisionEvents.TARGET_IN_SIGHT, OnTargetInSightListener);
+            EventController.SubscribeToEvent(DecisionEvents.TARGET_IN_SHOOT_RANGE, OnTargetInShootRangeListener);
+        }
+
+        private void OnDestroy()
+        {
+            EventController.UnSubscribeFromEvent(DecisionEvents.TARGET_IN_SIGHT, OnTargetInSightListener);
+            EventController.UnSubscribeFromEvent(DecisionEvents.TARGET_IN_SHOOT_RANGE, OnTargetInShootRangeListener);
         }
 
         private void Update()
@@ -35,6 +52,10 @@ namespace EndGame.Test.AI
             currentChaseTime++;
         }
 
+        /// <summary>
+        /// Sets the current chase target to the target in sight.
+        /// </summary>
+        /// <param name="_args">Target in sight args.</param>
         private void OnTargetInSight(OnTargetInSightEventArgs _args)
         {
             if (_args.actor == GetOwner)
@@ -42,8 +63,19 @@ namespace EndGame.Test.AI
                 currentChaseTime = 0;
 
                 currentTarget = _args.target;
+            }
+        }
 
-                Debug.DrawLine(GetOwner.transform.position, _args.target.transform.position, Color.magenta, 3.0f);
+        /// <summary>
+        /// Resets the chase time every time we can shoot a target.
+        /// </summary>
+        /// <param name="_args">Target in shoot range args.</param>
+        private void OnTargetInShootRange(OnTargetInShootRange _args)
+        {
+            if (_args.actor == GetOwner)
+            {
+                // Reset timer every time we can shoot.
+                currentChaseTime = 0;
             }
         }
 

@@ -1,5 +1,4 @@
-﻿using EndGame.Test.AI;
-using EndGame.Test.Events;
+﻿using EndGame.Test.Events;
 using EndGame.Test.Items;
 using EndGame.Test.UI;
 using System;
@@ -34,13 +33,13 @@ namespace EndGame.Test.Game
             OnPlayerWonListener = (args) => OnPlayerWon((OnPlayerWonEventArgs)args);
             OnPlayerDeathListener = (args) => OnPlayerDeath((OnPlayerDeathEventArgs)args);
             OnPlayerHasNoKeyListener = (args) => OnPlayerHasNoKey((OnPlayerHasNoKeyEventArgs)args);
-            OnPickUpCoffeeKeyListener = (args) => OnPickUpCoffeeKey((OnPickUpCoffeeKeyEventArgs)args);
+            OnPickUpCoffeeKeyListener = (args) => OnPickUpPicked((OnPickUpPickedEventArgs)args);
 
             EventController.SubscribeToEvent(UIEvents.BUTTON_PRESSED, OnUIButtonPressedListener);
             EventController.SubscribeToEvent(GameEvents.PLAYER_WON, OnPlayerWonListener);
             EventController.SubscribeToEvent(GameEvents.PLAYER_DEATH, OnPlayerDeathListener);
             EventController.SubscribeToEvent(GameEvents.PLAYER_HAS_NO_KEY, OnPlayerHasNoKeyListener);
-            EventController.SubscribeToEvent(PickUpEvents.PICKUP_COFFEE_KEY, OnPickUpCoffeeKeyListener);
+            EventController.SubscribeToEvent(PickUpEvents.PICKUP_PICKED, OnPickUpCoffeeKeyListener);
         }
 
         private void OnDestroy()
@@ -49,7 +48,7 @@ namespace EndGame.Test.Game
             EventController.UnSubscribeFromEvent(GameEvents.PLAYER_WON, OnPlayerWonListener);
             EventController.UnSubscribeFromEvent(GameEvents.PLAYER_DEATH, OnPlayerDeathListener);
             EventController.UnSubscribeFromEvent(GameEvents.PLAYER_HAS_NO_KEY, OnPlayerHasNoKeyListener);
-            EventController.UnSubscribeFromEvent(PickUpEvents.PICKUP_COFFEE_KEY, OnPickUpCoffeeKeyListener);
+            EventController.UnSubscribeFromEvent(PickUpEvents.PICKUP_PICKED, OnPickUpCoffeeKeyListener);
         }
 
         private void OnUIButtonPressed(OnUIButtonPressedEventArgs _args)
@@ -136,9 +135,12 @@ namespace EndGame.Test.Game
             ToolTip.DisplayToolTip(NO_KEY_TOOLTIP);
         }
 
-        private void OnPickUpCoffeeKey(OnPickUpCoffeeKeyEventArgs _args)
+        private void OnPickUpPicked(OnPickUpPickedEventArgs _args)
         {
-            ToolTip.DisplayToolTip(UNLOCK_COFFEE_SHOP);
+            if (_args.pickup.GetPickupId.Equals("CoffeeKey"))
+            {
+                ToolTip.DisplayToolTip(UNLOCK_COFFEE_SHOP);
+            }
         }
     }
 }

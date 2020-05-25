@@ -1,23 +1,27 @@
 ﻿using EndGame.Test.Events;
+using System;
 using UnityEngine;
 
 namespace EndGame.Test.Actors
 {
     public class Rotator : ActorComponent
     {
+        private Action<IEventArgs> OnActorCommandReceiveListener;
+
         [SerializeField]
         private Detector detectorComponent;
 
         protected virtual void Start()
         {
-            EventController.SubscribeToEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, (args) => OnActorCommandReceive((OnActorCommandReceiveEventArgs)args));
+            OnActorCommandReceiveListener = (args) => OnActorCommandReceive((OnActorCommandReceiveEventArgs)args);
+
+            EventController.SubscribeToEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, OnActorCommandReceiveListener);
         }
 
         protected virtual void OnDestroy()
         {
-            EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, (args) => OnActorCommandReceive((OnActorCommandReceiveEventArgs)args));
+            EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, OnActorCommandReceiveListener);
         }
-
 
         /// <summary>
         /// Rotates the actor towards the direction of fire.

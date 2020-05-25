@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace EndGame.Test.Game
 {
@@ -26,11 +24,15 @@ namespace EndGame.Test.Game
         /// Called by the Pool when the object exits the pool.
         /// </summary>
         public abstract void PoolExited();
+
         /// <summary>
         /// Called by the Pool when the object returns to the pool.
         /// </summary>
         public abstract void PoolEntered();
 
+        /// <summary>
+        /// Return to the pool.
+        /// </summary>
         public void ReturnToPool()
         {
             PoolOfPools.ReturnObjectToPool(this);

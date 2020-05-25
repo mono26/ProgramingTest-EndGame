@@ -1,6 +1,7 @@
 ﻿using EndGame.Test.Actors;
 using EndGame.Test.Events;
 using EndGame.Test.Events.AI;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,6 +9,8 @@ namespace EndGame.Test.AI
 {
     public class PatrolData : AIStateData
     {
+        private Action<IEventArgs> OnPatrolPointReachedListener;
+
         [SerializeField]
         private Transform[] patrolPoints = null;
 
@@ -23,7 +26,14 @@ namespace EndGame.Test.AI
         {
             base.Start();
 
-            EventController.SubscribeToEvent(DecisionEvents.PATROL_POINT_REACHED, (args) => OnPatrolPointReached((OnPatrolPointReachedEventArgs)args));
+            OnPatrolPointReachedListener = (args) => OnPatrolPointReached((OnPatrolPointReachedEventArgs)args);
+
+            EventController.SubscribeToEvent(DecisionEvents.PATROL_POINT_REACHED, OnPatrolPointReachedListener);
+        }
+
+        private void OnDestroy()
+        {
+            EventController.UnSubscribeFromEvent(DecisionEvents.PATROL_POINT_REACHED, OnPatrolPointReachedListener);
         }
 
         /// <summary>

@@ -2,45 +2,48 @@
 using EndGame.Test.Triggers;
 using UnityEngine;
 
-public class ActionTrigger : MonoBehaviour
+namespace EndGame.Test.Triggers
 {
-    private void OnTriggerEnter(Collider other)
+    public class ActionTrigger : MonoBehaviour
     {
-        Actor hitActor = other.GetComponent<Actor>();
-        if (hitActor)
+        private void OnTriggerEnter(Collider other)
         {
-            OnActorEnter(hitActor);
+            Actor hitActor = other.GetComponent<Actor>();
+            if (hitActor)
+            {
+                OnActorEnter(hitActor);
+            }
         }
-    }
 
-    protected virtual void OnActorEnter(Actor _actor)
-    {
-        OnTriggerEntered args = new OnTriggerEntered()
+        protected virtual void OnActorEnter(Actor _actor)
         {
-            actor = _actor,
-            trigger = this
-        };
+            OnTriggerEntered args = new OnTriggerEntered()
+            {
+                actor = _actor,
+                trigger = this
+            };
 
-        EventController.QueueEvent(ActionTriggerEvents.TRIGGER_ENTERED, args);
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        Actor hitActor = other.GetComponent<Actor>();
-        if (hitActor)
-        {
-            OnActorExit(hitActor);
+            EventController.QueueEvent(ActionTriggerEvents.TRIGGER_ENTERED, args);
         }
-    }
 
-    protected virtual void OnActorExit(Actor _actor)
-    {
-        OnTriggerExited args = new OnTriggerExited()
+        private void OnTriggerExit(Collider other)
         {
-            actor = _actor,
-            trigger = this
-        };
+            Actor hitActor = other.GetComponent<Actor>();
+            if (hitActor)
+            {
+                OnActorExit(hitActor);
+            }
+        }
 
-        EventController.QueueEvent(ActionTriggerEvents.TRIGGER_EXITED, args);
+        protected virtual void OnActorExit(Actor _actor)
+        {
+            OnTriggerExited args = new OnTriggerExited()
+            {
+                actor = _actor,
+                trigger = this
+            };
+
+            EventController.QueueEvent(ActionTriggerEvents.TRIGGER_EXITED, args);
+        }
     }
 }

@@ -12,12 +12,16 @@ namespace EndGame.Test.AI
         [SerializeField]
         protected LayerMask rayCastLayers;
 
-        // TODO check if is best to use actor instead AIStateController.
         public override bool Decide(AIView _controller)
         {
             return HasTargetInSight(_controller);
         }
 
+        /// <summary>
+        /// Check if there is any target in sight of the ai actor.
+        /// </summary>
+        /// <param name="_controller">Ai actor that is looking.</param>
+        /// <returns></returns>
         private bool HasTargetInSight(AIView _controller)
         {
             AIDetector _detector = _controller.GetAIData.GetDetectorComponent;
@@ -37,14 +41,20 @@ namespace EndGame.Test.AI
             return hasTarget;
         }
 
+        /// <summary>
+        /// Check if the ai is between the field of view.
+        /// </summary>
+        /// <param name="_actor">AI Actor that is watching.</param>
+        /// <param name="_target">Posible target.</param>
+        /// <param name="_viewAngle">AI actor view angle.</param>
+        /// <returns></returns>
         private bool IsPotentialTargetInFieldOfView(Actor _actor, Actor _target, float _viewAngle)
         {
             bool isInFieldOfView = false;
 
-            //Debug.DrawLine(_actor.transform.position, _target.transform.position, Color.cyan, 3.0f);
-
             Vector3 directionToTarget = _target.transform.position - _actor.transform.position;
             float dotProduct = Vector3.Dot(_actor.transform.forward, directionToTarget.normalized);
+            // If the dot product is less is becaus it is outside the view angle. Greater values mean inside field of view.
             if (dotProduct >= Mathf.Cos(_viewAngle / 2))
             {
                 isInFieldOfView = true;
@@ -52,6 +62,13 @@ namespace EndGame.Test.AI
             return isInFieldOfView;
         }
 
+        /// <summary>
+        /// Check if there is a ray cast that conects the ai actor and the target. With no obstacle in between.
+        /// </summary>
+        /// <param name="_actor">AI Actor that is watching.</param>
+        /// <param name="_target">Posible target.</param>
+        /// <param name="_viewAngle">AI actor view distance.</param>
+        /// <returns></returns>
         private bool IsPotentialTargetInSight(Actor _actor, Actor _target, float _viewDistance)
         {
             bool inSight = false;

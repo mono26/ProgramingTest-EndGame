@@ -22,9 +22,10 @@ namespace EndGame.Test.AI
 
         public Actor GetCurrentTarget { get => currentTarget; }
 
-        private void Start()
+        protected override void Start()
         {
-            // TODO subscribe to on target in sight.
+            base.Start();
+
             EventController.SubscribeToEvent(DecisionEvents.TARGET_IN_SHOOT_RANGE, (args) => OnTargetInShootRange((OnTargetInShootRange)args));
         }
 

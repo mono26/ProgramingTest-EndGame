@@ -45,8 +45,6 @@ namespace EndGame.Test.Game
 
         private void OnDestroy()
         {
-            OnUIButtonPressedListener = (args) => OnUIButtonPressed((OnUIButtonPressedEventArgs)args);
-
             EventController.UnSubscribeFromEvent(UIEvents.BUTTON_PRESSED, OnUIButtonPressedListener);
             EventController.UnSubscribeFromEvent(GameEvents.PLAYER_WON, OnPlayerWonListener);
             EventController.UnSubscribeFromEvent(GameEvents.PLAYER_DEATH, OnPlayerDeathListener);

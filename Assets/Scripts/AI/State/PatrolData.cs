@@ -19,8 +19,10 @@ namespace EndGame.Test.AI
         /// <returns></returns>
         public Vector3 GetPatrolPosition { get => patrolPoints[currentPatrolPoint].position; }
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
+
             EventController.SubscribeToEvent(DecisionEvents.PATROL_POINT_REACHED, (args) => OnPatrolPointReached((OnPatrolPointReachedEventArgs)args));
         }
 

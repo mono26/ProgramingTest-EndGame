@@ -23,9 +23,10 @@ namespace EndGame.Test.AI
         public float GetMaxChaseTime { get => maxChaseTime; }
         public float GetCurrentChaseTime { get => currentChaseTime; }
 
-        private void Start()
+        protected override void Start()
         {
-            // TODO subscribe to on target in sight.
+            base.Start();
+
             EventController.SubscribeToEvent(DecisionEvents.TARGET_IN_SIGHT, (args) => OnTargetInSight((OnTargetInSightEventArgs)args));
         }
 

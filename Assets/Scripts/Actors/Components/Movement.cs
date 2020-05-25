@@ -58,6 +58,7 @@ namespace EndGame.Test.Actors
         protected virtual void FixedUpdate()
         {
             Vector3 currentPosition = GetOwner.transform.position;
+            currentPosition.y = 0;
 
             // Only move if there is movement direction different from zero.
             if (!targetDirection.Equals(Vector3.zero))

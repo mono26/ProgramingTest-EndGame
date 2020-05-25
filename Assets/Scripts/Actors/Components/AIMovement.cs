@@ -42,6 +42,7 @@ namespace EndGame.Test.AI
         protected override void FixedUpdate()
         {
             Vector3 currentPosition = GetOwner.transform.position;
+            currentPosition.y = 0;
 
             if (!targetPosition.Equals(currentPosition))
             {

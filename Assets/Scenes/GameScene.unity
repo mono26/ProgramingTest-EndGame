@@ -8147,6 +8147,10 @@ PrefabInstance:
       propertyPath: m_Drag
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 812597703, guid: c5c9d2d2c3e6c8744a32c15e194e2822, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5453467543051493301, guid: c5c9d2d2c3e6c8744a32c15e194e2822,
         type: 3}
       propertyPath: healthBarFillComponent

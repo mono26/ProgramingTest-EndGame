@@ -138,6 +138,14 @@ namespace EndGame.Test.AI
             if (GetOwner == _args.actor)
             {
                 InitAI();
+
+                OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
+                {
+                    baseArgs = new OnActorEventEventArgs() { actor = GetOwner },
+                    command = ActorCommands.Shoot,
+                    // Means the shoot button has been released.
+                    value = 0.0f
+                };
             }
         }
     }

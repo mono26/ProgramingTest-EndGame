@@ -14,13 +14,6 @@ namespace EndGame.Test.Actors
         [SerializeField]
         private List<Pickup> iventoryItems = new List<Pickup>();
 
-        public override void OnAwake(Actor _actor)
-        {
-            base.OnAwake(_actor);
-
-            iventoryItems = new List<Pickup>();
-        }
-
         private void Start()
         {
             OnPickUpPickedListener = (args) => OnPickUpPicked((OnPickUpPickedEvetArgs)args);
@@ -33,6 +26,10 @@ namespace EndGame.Test.Actors
             EventController.UnSubscribeFromEvent(PickUpEvents.PICKUP_PICKED, OnPickUpPickedListener);
         }
 
+        /// <summary>
+        /// Adds a pickup to the actor invetory and sends a event when is the coffee key.
+        /// </summary>
+        /// <param name="_args"></param>
         private void OnPickUpPicked(OnPickUpPickedEvetArgs _args)
         {
             if (GetOwner == _args.picker)
@@ -51,12 +48,21 @@ namespace EndGame.Test.Actors
             }
         }
 
+        /// <summary>
+        /// Adds the pickup to the inventory list.
+        /// </summary>
+        /// <param name="_pickup"></param>
         private void AddPickUpToInventory(Pickup _pickup)
         {
             iventoryItems.Add(_pickup);
         }
 
-        public bool HasKeyItem(string _id)
+        /// <summary>
+        /// Checks if the actor has an item with a specific id.
+        /// </summary>
+        /// <param name="_id">Id to look.</param>
+        /// <returns></returns>
+        public bool HasItem(string _id)
         {
             bool hasItem = false;
             foreach (Pickup item in iventoryItems)

@@ -24,12 +24,12 @@ namespace EndGame.Test.AI
             }
         }
 
-        public override void OnAwake(Actor _actor)
+        protected override void Awake()
         {
-            base.OnAwake(_actor);
+            base.Awake();
 
             // Catch component references.
-            navigationComponent = _actor.GetComponent<NavMeshAgent>();
+            navigationComponent = GetComponent<NavMeshAgent>();
         }
 
         protected override void Start()
@@ -45,34 +45,31 @@ namespace EndGame.Test.AI
 
             if (!targetPosition.Equals(currentPosition))
             {
-                //Debug.Log("Posicion before movement: " + GetOwner.transform.position.ToString());
-
                 MoveTowardsTarget(targetPosition);
-
-                //Debug.Log("Actor is moving");
             }
 
             currentPosition = GetOwner.transform.position;
 
             if (lastPosition.Equals(currentPosition))
             {
-                // TODO create base actor event.
-                OnActorStoppedMovement args = new OnActorStoppedMovement()
+                OnActorEventEventArgs args = new OnActorEventEventArgs()
                 {
                     actor = GetOwner
                 };
 
                 EventController.QueueEvent(ActorEvents.ACTOR_MOVEMENT_STOPPED, args);
-
-                //Debug.Log("Actor is stopped");
             }
 
             lastPosition = currentPosition;
         }
 
+        /// <summary>
+        /// Sets the target position for the navigation agent.
+        /// </summary>
+        /// <param name="_args"></param>
         protected override void OnActorCommandReceive(OnActorCommandReceiveEventArgs _args)
         {
-            if (GetOwner == _args.actor)
+            if (GetOwner == _args.baseArgs.actor)
             {
                 if (_args.command.Equals(ActorCommands.Move))
                 {
@@ -81,11 +78,14 @@ namespace EndGame.Test.AI
             }
         }
 
+        /// <summary>
+        /// Sets the destination of the navigation agent.
+        /// </summary>
+        /// <param name="_nextPosition"></param>
         protected override void MoveTowardsTargetPosition(Vector3 _nextPosition)
         {
             _nextPosition.y = GetOwner.transform.position.y;
             navigationComponent.SetDestination(_nextPosition);
-            //bodyComponent.MovePosition(_nextPosition);
         }
     }
 }

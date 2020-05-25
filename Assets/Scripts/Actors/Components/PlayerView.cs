@@ -49,22 +49,19 @@ namespace EndGame.Test.Actors
                 verticalInput = Input.GetAxis("Vertical");
             }
 
-            // Only calculate the target position if there's movement input.
+            // Only send a movement command when there is movment input..
             if (!horizontalInput.Equals(0.0f) || !verticalInput.Equals(0.0f))
             {
                 // Vertical input is mapped out to the z axis.
                 Vector3 inputVector = new Vector3(horizontalInput, 0, verticalInput);
 
-                //Debug.Log("Sending movement command: " + inputVector);
-
                 OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
                 {
-                    actor = GetOwner,
+                    baseArgs = new OnActorEventEventArgs() { actor = GetOwner },
                     command = ActorCommands.Move,
                     value = inputVector
                 };
 
-                // TODO Pack commands into one.
                 EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
             }
         }
@@ -82,18 +79,17 @@ namespace EndGame.Test.Actors
                     {
                         OnActorCommandReceiveEventArgs aimArgs = new OnActorCommandReceiveEventArgs()
                         {
-                            actor = GetOwner,
+                            baseArgs = new OnActorEventEventArgs() { actor = GetOwner },
                             command = ActorCommands.Aim,
-                            // Means the shoot button is pressed.
                             value = aimDirection
                         };
 
                         EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, aimArgs);
 
-
+                        // Also shoot when the player aims with the joystick.
                         OnActorCommandReceiveEventArgs shootArgs = new OnActorCommandReceiveEventArgs()
                         {
-                            actor = GetOwner,
+                            baseArgs = new OnActorEventEventArgs() { actor = GetOwner },
                             command = ActorCommands.Shoot,
                             // Means the shoot button is pressed.
                             value = 1.0f
@@ -116,7 +112,7 @@ namespace EndGame.Test.Actors
                 {
                     OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
                     {
-                        actor = GetOwner,
+                        baseArgs = new OnActorEventEventArgs() { actor = GetOwner },
                         command = ActorCommands.Aim,
                         // Means the shoot button is pressed.
                         value = aimDirection
@@ -137,7 +133,7 @@ namespace EndGame.Test.Actors
                     {
                         OnActorCommandReceiveEventArgs aimArgs = new OnActorCommandReceiveEventArgs()
                         {
-                            actor = GetOwner,
+                            baseArgs = new OnActorEventEventArgs() { actor = GetOwner },
                             command = ActorCommands.AutoAim
                         };
 
@@ -145,7 +141,7 @@ namespace EndGame.Test.Actors
 
                         OnActorCommandReceiveEventArgs shootArgs = new OnActorCommandReceiveEventArgs()
                         {
-                            actor = GetOwner,
+                            baseArgs = new OnActorEventEventArgs() { actor = GetOwner },
                             command = ActorCommands.Shoot,
                             // Means the shoot button is pressed.
                             value = 1.0f
@@ -153,24 +149,11 @@ namespace EndGame.Test.Actors
 
                         EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, shootArgs);
                     }
-                    // Releasing the joystick after a drag.
-                    //else if (aimJoystick.GetIsDragged)
-                    //{
-                    //    OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
-                    //    {
-                    //        actor = GetOwner,
-                    //        command = ActorCommands.Shoot,
-                    //        // Means the shoot button has been released.
-                    //        value = 1f
-                    //    };
-
-                    //    EventController.QueueEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, args);
-                    //}
                     else
                     {
                         OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
                         {
-                            actor = GetOwner,
+                            baseArgs = new OnActorEventEventArgs() { actor = GetOwner },
                             command = ActorCommands.Shoot,
                             // Means the shoot button has been released.
                             value = 0.0f
@@ -186,7 +169,7 @@ namespace EndGame.Test.Actors
                 {
                     OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
                     {
-                        actor = GetOwner,
+                        baseArgs = new OnActorEventEventArgs() { actor = GetOwner },
                         command = ActorCommands.Shoot,
                         // Means the shoot button is pressed.
                         value = 1.0f
@@ -198,7 +181,7 @@ namespace EndGame.Test.Actors
                 {
                     OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
                     {
-                        actor = GetOwner,
+                        baseArgs = new OnActorEventEventArgs() { actor = GetOwner },
                         command = ActorCommands.Shoot,
                         // Means the shoot button has been released.
                         value = 0.0f
@@ -209,13 +192,14 @@ namespace EndGame.Test.Actors
             }
         }
 
-        protected override void OnActorDeath(OnActorDeath _args)
+        /// <summary>
+        /// Sends a player death event when the player health reeaches zero.
+        /// </summary>
+        /// <param name="_args">Player death args.</param>
+        protected override void OnActorDeath(OnActorEventEventArgs _args)
         {
             if (GetOwner == _args.actor)
             {
-                // TODO send to pull.
-                Debug.LogError("Player is dead!!!");
-
                 OnPlayerDeathEventArgs args = new OnPlayerDeathEventArgs()
                 {
 

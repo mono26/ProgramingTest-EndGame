@@ -7,28 +7,27 @@ namespace EndGame.Test.Actors
 {
     public class AIDetector : Detector
     {
+        private Actor currentTarget = null;
+
         public override Vector3 GetTargetDirection { get => currentTarget.transform.position - GetOwner.transform.position; }
-
-        public override void OnAwake(Actor _owner)
-        {
-            base.OnAwake(_owner);
-
-            viewDistance = GetComponent<AIData>().GetViewRange;
-            detectorTrigger.radius = viewDistance;
-        }
 
         private void Start()
         {
+            viewDistance = GetComponent<AIData>().GetViewRange;
+            detectorTrigger.radius = viewDistance;
+
             EventController.SubscribeToEvent(DecisionEvents.TARGET_IN_SIGHT, (args) => OnTargetInSight((OnTargetInSightEventArgs)args));
         }
 
+        /// <summary>
+        /// Stores a reference of the target in sight.
+        /// </summary>
+        /// <param name="_args">Target in sight args.</param>
         private void OnTargetInSight(OnTargetInSightEventArgs _args)
         {
             if (_args.actor == GetOwner)
             {
                 currentTarget = _args.target;
-
-                Debug.DrawLine(GetOwner.transform.position, _args.target.transform.position, Color.magenta, 3.0f);
             }
         }
     }

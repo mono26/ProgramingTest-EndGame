@@ -4,13 +4,19 @@ namespace EndGame.Test.Actors
 {
     public class ActorComponent : MonoBehaviour
     {
+        /// <summary>
+        /// Owner of the component.
+        /// </summary>
         private Actor owner = null;
 
+        /// <summary>
+        /// Returns a reference to the owner.
+        /// </summary>
         public Actor GetOwner { get => owner; }
 
-        public virtual void OnAwake(Actor _owner)
+        protected virtual void Awake()
         {
-            owner = _owner;
+            owner = GetComponent<Actor>();
         }
     }
 }

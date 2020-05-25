@@ -8,11 +8,9 @@ namespace EndGame.Test.AI
     /// </summary>
     public abstract class AIStateData : ActorComponent
     {
-        public override void OnAwake(Actor _actor)
+        protected virtual void Start()
         {
-            base.OnAwake(_actor);
-
-            AddToStateContoller(_actor.GetComponent<AIView>());
+            AddToStateContoller(GetOwner.GetComponent<AIView>());
         }
 
         protected abstract void AddToStateContoller(AIView _controller);

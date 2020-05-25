@@ -8,15 +8,30 @@ namespace EndGame.Test.AI
 {
     public class AIView : ActorView
     {
+        /// <summary>
+        /// AI starting state.
+        /// </summary>
         [SerializeField]
         private AIState startingState = null;
+        /// <summary>
+        /// Remain in state. Is just and empty state.
+        /// </summary>
         [SerializeField]
         private AIState remainInState = null;
+        /// <summary>
+        /// Specific data for the ahi.
+        /// </summary>
         [SerializeField]
         private AIData aiData;
 
+        /// <summary>
+        /// Current state the AI is in.
+        /// </summary>
         [SerializeField]
         private AIState currentState;
+        /// <summary>
+        /// State datas type map.
+        /// </summary>
         private Dictionary<Type, AIStateData> stateDatas = new Dictionary<Type, AIStateData>();
 
         public AIState GetRemainState { get => remainInState; }
@@ -26,14 +41,14 @@ namespace EndGame.Test.AI
         {
             base.Start();
 
-            EventController.SubscribeToEvent(ActorEvents.ACTOR_RESPAWN, (args) => OnActorRespawn((OnActorRespawn)args));
+            EventController.SubscribeToEvent(ActorEvents.ACTOR_RESPAWN, (args) => OnActorRespawn((OnActorEventEventArgs)args));
 
             InitAI();
         }
 
         private void OnDestroy()
         {
-            EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_RESPAWN, (args) => OnActorRespawn((OnActorRespawn)args));
+            EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_RESPAWN, (args) => OnActorRespawn((OnActorEventEventArgs)args));
         }
 
         /// <summary>
@@ -59,7 +74,6 @@ namespace EndGame.Test.AI
             if (currentState != _nextState && _nextState != remainInState)
             {
                 currentState = _nextState;
-                // OnExitState();
             }
         }
 
@@ -101,8 +115,8 @@ namespace EndGame.Test.AI
         /// <summary>
         /// Called when an AI actor dies.
         /// </summary>
-        /// <param name="_args">AI actor that died.</param>
-        protected override void OnActorDeath(OnActorDeath _args)
+        /// <param name="_args">Death args.</param>
+        protected override void OnActorDeath(OnActorEventEventArgs _args)
         {
             if (GetOwner == _args.actor)
             {
@@ -111,8 +125,11 @@ namespace EndGame.Test.AI
             }
         }
 
-
-        private void OnActorRespawn(OnActorRespawn _args)
+        /// <summary>
+        /// Initializes the actor to the starting state after a respawn.
+        /// </summary>
+        /// <param name="_args">Respawn args.</param>
+        private void OnActorRespawn(OnActorEventEventArgs _args)
         {
             if (GetOwner == _args.actor)
             {

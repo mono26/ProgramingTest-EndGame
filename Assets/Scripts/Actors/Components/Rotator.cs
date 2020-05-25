@@ -1,5 +1,4 @@
 ﻿using EndGame.Test.Events;
-using System;
 using UnityEngine;
 
 namespace EndGame.Test.Actors
@@ -11,44 +10,43 @@ namespace EndGame.Test.Actors
 
         protected virtual void Start()
         {
-            //EventController.SubscribeToEvent(ActorEvents.ACTOR_MOVEMENT, (args) => OnActorMovement((OnActorMovement)args));
             EventController.SubscribeToEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, (args) => OnActorCommandReceive((OnActorCommandReceiveEventArgs)args));
-            //EventController.SubscribeToEvent(ActorEvents.ACTOR_FIRE_WEAPON, (args) => OnActorFireWeapon((OnActorFireWeapon)args));
         }
 
         protected virtual void OnDestroy()
         {
-            // TODO store as delegates ??
-            //EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_MOVEMENT, (args) => OnActorMovement((OnActorMovement)args));
             EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_COMMAND_RECEIVE, (args) => OnActorCommandReceive((OnActorCommandReceiveEventArgs)args));
-            //EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_FIRE_WEAPON, (args) => OnActorFireWeapon((OnActorFireWeapon)args));
         }
 
-        private void OnActorMovement(OnActorMovement _args)
-        {
-            if (GetOwner == _args.actor)
-            {
-                RotateTowardsTargetDirection(_args.direction);
-            }
-        }
 
-        private void RotateTowardsTargetDirection(Vector3 _nextDirection)
-        {
-            GetOwner.transform.LookAt(GetOwner.transform.position + _nextDirection);
-        }
-
-        // TODO see if is beter to when is aiming or aim command.
+        /// <summary>
+        /// Rotates the actor towards the direction of fire.
+        /// </summary>
+        /// <param name="_args"></param>
         protected void OnActorFireWeapon(OnActorFireWeapon _args)
         {
-            if (GetOwner == _args.actor)
+            if (GetOwner == _args.baseArgs.actor)
             {
                 RotateTowardsTargetDirection(_args.aimDirection);
             }
         }
 
+        /// <summary>
+        /// Rotates the actor towards a direction.
+        /// </summary>
+        /// <param name="_nextDirection"></param>
+        private void RotateTowardsTargetDirection(Vector3 _nextDirection)
+        {
+            GetOwner.transform.LookAt(GetOwner.transform.position + _nextDirection);
+        }
+
+        /// <summary>
+        /// Rotates the actor when the actor is aiming or auto aiming.
+        /// </summary>
+        /// <param name="_args"></param>
         private void OnActorCommandReceive(OnActorCommandReceiveEventArgs _args)
         {
-            if (GetOwner == _args.actor)
+            if (GetOwner == _args.baseArgs.actor)
             {
                 if (_args.command.Equals(ActorCommands.Aim))
                 {

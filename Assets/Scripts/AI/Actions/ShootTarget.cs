@@ -12,6 +12,10 @@ namespace EndGame.Test.AI
             DoShoot(_controller);
         }
 
+        /// <summary>
+        /// Sends a shoot and aim command to the ai.
+        /// </summary>
+        /// <param name="_controller"></param>
         private void DoShoot(AIView _controller)
         {
             if (!_controller.GetAIData.GetNavigationComponent.isStopped)
@@ -26,7 +30,7 @@ namespace EndGame.Test.AI
 
             OnActorCommandReceiveEventArgs aimArgs = new OnActorCommandReceiveEventArgs()
             {
-                actor = _controller.GetOwner,
+                baseArgs = new OnActorEventEventArgs() { actor = _controller.GetOwner },
                 command = ActorCommands.Aim,
                 // Means the shoot button is pressed.
                 value = vectorToTarget.normalized
@@ -36,7 +40,7 @@ namespace EndGame.Test.AI
 
             OnActorCommandReceiveEventArgs shootArgs = new OnActorCommandReceiveEventArgs()
             {
-                actor = _controller.GetOwner,
+                baseArgs = new OnActorEventEventArgs() { actor = _controller.GetOwner },
                 command = ActorCommands.Shoot,
                 // Means the shoot button is pressed.
                 value = 1.0f

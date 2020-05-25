@@ -26,7 +26,7 @@ namespace EndGame.Test.AI
 
             OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
             {
-                actor = _controller.GetOwner,
+                baseArgs = new OnActorEventEventArgs() { actor = _controller.GetOwner },
                 command = ActorCommands.Move,
                 value = targetPosition
             };

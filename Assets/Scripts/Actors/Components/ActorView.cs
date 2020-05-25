@@ -10,13 +10,16 @@ namespace EndGame.Test.Actors
         private Action<IEventArgs> OnActorHealthUpdatedEvent;
         private Action<IEventArgs> OnActorDeathEvent;
 
+        /// <summary>
+        /// Fill image component.
+        /// </summary>
         [SerializeField]
         private Image healthBarFillComponent = null;
 
         protected virtual void Start()
         {
             OnActorHealthUpdatedEvent = (args) => UpdateHealthBar((OnActorHealthUpdated)args);
-            OnActorDeathEvent = (args) => OnActorDeath((OnActorDeath)args);
+            OnActorDeathEvent = (args) => OnActorDeath((OnActorEventEventArgs)args);
 
             EventController.SubscribeToEvent(ActorEvents.ACTOR_HEALTH_UPDATED, OnActorHealthUpdatedEvent);
             EventController.SubscribeToEvent(ActorEvents.ACTOR_DEATH, OnActorDeathEvent);
@@ -28,9 +31,13 @@ namespace EndGame.Test.Actors
             EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_DEATH, OnActorDeathEvent);
         }
 
+        /// <summary>
+        /// Updates the healthbar of the actor to reflect the current value.
+        /// </summary>
+        /// <param name="_args"></param>
         private void UpdateHealthBar(OnActorHealthUpdated _args)
         {
-            if (GetOwner == _args.actor)
+            if (GetOwner == _args.baseArgs.actor)
             {
                 int currentHealth = _args.healthComponent.GetCurrentHitPoints;
                 int maxHealth = _args.healthComponent.GetMaxHitPoints;
@@ -38,6 +45,10 @@ namespace EndGame.Test.Actors
             }
         }
 
-        protected abstract void OnActorDeath(OnActorDeath _args);
+        /// <summary>
+        /// Called when the actor dies.
+        /// </summary>
+        /// <param name="_args"></param>
+        protected abstract void OnActorDeath(OnActorEventEventArgs _args);
     }
 }

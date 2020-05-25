@@ -8,6 +8,9 @@ namespace EndGame.Test.Actors
     {
         private Action<IEventArgs> OnActorDeathEvent;
 
+        /// <summary>
+        /// Object to drop.
+        /// </summary>
         [SerializeField]
         private GameObject dropObject;
 
@@ -17,19 +20,21 @@ namespace EndGame.Test.Actors
 
         private void Start()
         {
-            OnActorDeathEvent = (args) => OnActorDeath((OnActorDeath)args);
+            OnActorDeathEvent = (args) => OnActorDeath((OnActorEventEventArgs)args);
 
             EventController.SubscribeToEvent(ActorEvents.ACTOR_DEATH, OnActorDeathEvent);
         }
 
         private void OnDestroy()
         {
-            OnActorDeathEvent = (args) => OnActorDeath((OnActorDeath)args);
-
             EventController.SubscribeToEvent(ActorEvents.ACTOR_DEATH, OnActorDeathEvent);
         }
 
-        private void OnActorDeath(OnActorDeath _args)
+        /// <summary>
+        /// Drops and objet, if there is one.
+        /// </summary>
+        /// <param name="_args"></param>
+        private void OnActorDeath(OnActorEventEventArgs _args)
         {
             if (canDrop)
             {
@@ -43,16 +48,17 @@ namespace EndGame.Test.Actors
             }
         }
 
+        /// <summary>
+        /// Create the drop in the world.
+        /// </summary>
         private void CreateDrop()
         {
             if (dropObject)
             {
-                // Instantiate the drop.
+                // Activate the drop object.
                 dropObject.SetActive(true);
                 dropObject.transform.position = GetOwner.transform.position;
                 dropObject.transform.rotation = GetOwner.transform.rotation;
-
-                // Instantiate(dropObject, GetOwner.transform.position, GetOwner.transform.rotation);
             }
         }
     }

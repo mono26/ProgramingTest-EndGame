@@ -17,59 +17,48 @@ namespace EndGame.Test.Actors
         public const string ACTOR_RESPAWN = "event.actor.respawn";
     }
 
-    public struct OnActorCommandReceiveEventArgs : IEventArgs
+    /// <summary>
+    /// Base args of an actor related event.
+    /// </summary>
+    public struct OnActorEventEventArgs : IEventArgs
     {
         public Actor actor;
+    }
+
+    /// <summary>
+    /// Args of an actor command event.
+    /// </summary>
+    public struct OnActorCommandReceiveEventArgs : IEventArgs
+    {
+        public OnActorEventEventArgs baseArgs;
         public ActorCommands command;
         public object value;
     }
 
-    // TODO create BaseEventArgs with actor as base.
+    /// <summary>
+    /// Args of an actor movement event.
+    /// </summary>
     public struct OnActorMovement : IEventArgs
     {
-        public Actor actor;
-        public Vector3 direction;
+        public OnActorEventEventArgs baseArgs;
+        public Vector3 movementDirection;
     }
 
-    public struct OnActorStoppedMovement : IEventArgs
-    {
-        public Actor actor;
-    }
-
-    public struct OnActorPulledTrigger : IEventArgs
-    {
-        public Actor actor;
-    }
-
+    /// <summary>
+    /// Args of an actor fires weapon event.
+    /// </summary>
     public struct OnActorFireWeapon : IEventArgs
     {
-        public Actor actor;
+        public OnActorEventEventArgs baseArgs;
         public Vector3 aimDirection;
     }
 
-    public struct OnActorReleasedTrigger : IEventArgs
-    {
-        public Actor actor;
-    }
-
-    public struct OnBulletHitActor : IEventArgs
-    {
-        public Actor actor;
-    }
-
+    /// <summary>
+    /// Args containing information when an actor updates it's health value.
+    /// </summary>
     public struct OnActorHealthUpdated : IEventArgs
     {
-        public Actor actor;
+        public OnActorEventEventArgs baseArgs;
         public Health healthComponent;
-    }
-
-    public struct OnActorDeath : IEventArgs
-    {
-        public Actor actor;
-    }
-
-    public struct OnActorRespawn : IEventArgs
-    {
-        public Actor actor;
     }
 }

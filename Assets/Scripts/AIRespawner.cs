@@ -10,14 +10,20 @@ namespace EndGame.Test.AI
     {
         private Action<IEventArgs> OnActorDeathEvent;
 
+        /// <summary>
+        /// Reference to the actor to respawn.
+        /// </summary>
         [SerializeField]
         private Actor actorToRespawn = null;
+        /// <summary>
+        /// Time in seconds to respawn the actor.
+        /// </summary>
         [SerializeField]
         private float respawnTime = 6.0f;
 
         private void Start()
         {
-            OnActorDeathEvent = (args) => OnActorDeath((OnActorDeath)args);
+            OnActorDeathEvent = (args) => OnActorDeath((OnActorEventEventArgs)args);
 
             EventController.SubscribeToEvent(ActorEvents.ACTOR_DEATH, OnActorDeathEvent);
         }
@@ -31,7 +37,7 @@ namespace EndGame.Test.AI
         /// Starts the Coroutine wait and then respawns the actor.
         /// </summary>
         /// <param name="_args"></param>
-        private void OnActorDeath(OnActorDeath _args)
+        private void OnActorDeath(OnActorEventEventArgs _args)
         {
             if (actorToRespawn == _args.actor)
             {
@@ -58,7 +64,7 @@ namespace EndGame.Test.AI
             actorToRespawn.transform.position = transform.position;
             actorToRespawn.gameObject.SetActive(true);
 
-            OnActorRespawn args = new OnActorRespawn()
+            OnActorEventEventArgs args = new OnActorEventEventArgs()
             {
                 actor = actorToRespawn
             };

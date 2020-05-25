@@ -37,7 +37,7 @@ namespace EndGame.Test.Weapons
             Actor hitActor = other.GetComponent<Actor>();
             if (hitActor)
             {
-                OnBulletHitActor args = new OnBulletHitActor()
+                OnActorEventEventArgs args = new OnActorEventEventArgs()
                 {
                     actor = hitActor
                 };

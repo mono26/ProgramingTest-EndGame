@@ -12,30 +12,29 @@ namespace EndGame.Test
         private const string IS_MOVING_PARAMETER = "IsMoving";
         private const string IS_SHOOTING_PARAMETER = "IsShootingBool";
 
-        public override void OnAwake(Actor _actor)
-        {
-            base.OnAwake(_actor);
-        }
-
         private void Start()
         {
             EventController.SubscribeToEvent(ActorEvents.ACTOR_MOVEMENT, (args) => OnActorMovement((OnActorMovement)args));
-            EventController.SubscribeToEvent(ActorEvents.ACTOR_MOVEMENT_STOPPED, (args) => OnActorStoppedMovement((OnActorStoppedMovement)args));
-            EventController.SubscribeToEvent(ActorEvents.ACTOR_TRIGGER_PULLED, (args) => OnActorPullingTrigger((OnActorPulledTrigger)args));
-            EventController.SubscribeToEvent(ActorEvents.ACTOR_TRIGGER_RELEASED, (args) => OnActorReleasedTrigger((OnActorReleasedTrigger)args));
+            EventController.SubscribeToEvent(ActorEvents.ACTOR_MOVEMENT_STOPPED, (args) => OnActorStoppedMovement((OnActorEventEventArgs)args));
+            EventController.SubscribeToEvent(ActorEvents.ACTOR_TRIGGER_PULLED, (args) => OnActorPullingTrigger((OnActorEventEventArgs)args));
+            EventController.SubscribeToEvent(ActorEvents.ACTOR_TRIGGER_RELEASED, (args) => OnActorReleasedTrigger((OnActorEventEventArgs)args));
         }
 
         private void OnDestroy()
         {
             EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_MOVEMENT, (args) => OnActorMovement((OnActorMovement)args));
-            EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_MOVEMENT_STOPPED, (args) => OnActorStoppedMovement((OnActorStoppedMovement)args));
-            EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_TRIGGER_PULLED, (args) => OnActorPullingTrigger((OnActorPulledTrigger)args));
-            EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_TRIGGER_RELEASED, (args) => OnActorReleasedTrigger((OnActorReleasedTrigger)args));
+            EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_MOVEMENT_STOPPED, (args) => OnActorStoppedMovement((OnActorEventEventArgs)args));
+            EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_TRIGGER_PULLED, (args) => OnActorPullingTrigger((OnActorEventEventArgs)args));
+            EventController.UnSubscribeFromEvent(ActorEvents.ACTOR_TRIGGER_RELEASED, (args) => OnActorReleasedTrigger((OnActorEventEventArgs)args));
         }
 
+        /// <summary>
+        /// Tells the animator controller to play the moving animation.
+        /// </summary>
+        /// <param name="_args">Actor movement args.</param>
         private void OnActorMovement(OnActorMovement _args)
         {
-            if (GetOwner == _args.actor)
+            if (GetOwner == _args.baseArgs.actor)
             {
                 if (!animationController.GetBool(IS_MOVING_PARAMETER))
                 {
@@ -44,7 +43,11 @@ namespace EndGame.Test
             }
         }
 
-        private void OnActorStoppedMovement(OnActorStoppedMovement _args)
+        /// <summary>
+        /// Tells the animator to stop playing the movement animation.
+        /// </summary>
+        /// <param name="_args">Actor stoped args.</param>
+        private void OnActorStoppedMovement(OnActorEventEventArgs _args)
         {
             if (GetOwner == _args.actor)
             {
@@ -55,7 +58,11 @@ namespace EndGame.Test
             }
         }
 
-        private void OnActorPullingTrigger(OnActorPulledTrigger _args)
+        /// <summary>
+        /// Tells the animator to play the shooting animation.
+        /// </summary>
+        /// <param name="_args">Actor pulling trigger args.</param>
+        private void OnActorPullingTrigger(OnActorEventEventArgs _args)
         {
             if (GetOwner == _args.actor)
             {
@@ -66,7 +73,11 @@ namespace EndGame.Test
             }
         }
 
-        private void OnActorReleasedTrigger(OnActorReleasedTrigger _args)
+        /// <summary>
+        /// Tells the actor to stop playing the shooting animation.
+        /// </summary>
+        /// <param name="_args"></param>
+        private void OnActorReleasedTrigger(OnActorEventEventArgs _args)
         {
             if (GetOwner == _args.actor)
             {

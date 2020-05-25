@@ -5,26 +5,30 @@ namespace EndGame.Test.Actors
 {
     public class Detector : ActorComponent
     {
+        /// <summary>
+        /// Distance of view. Associated to the trigger radius.
+        /// </summary>
         [SerializeField]
         protected float viewDistance = 6.0f;
+        /// <summary>
+        /// Trigger detector.
+        /// </summary>
         [SerializeField]
         protected SphereCollider detectorTrigger = null;
 
-        [SerializeField]
-        protected Actor currentTarget = null;
-        // Srialize for editor inspect.
-        [SerializeField]
         protected List<Actor> nearTargets = new List<Actor>();
 
-        //public float GetViewDistance { get => viewDistance; }
+        /// <summary>
+        /// Gets a reference to the near actor list.
+        /// </summary>
         public List<Actor> GetNearTargets { get => nearTargets; }
-        //public virtual Actor GetCurrenTarget { get => currentTarget; }
+        /// <summary>
+        /// Gets the direction to the current target.
+        /// </summary>
         public virtual Vector3 GetTargetDirection { get; }
 
-        public override void OnAwake(Actor _owner)
+        private void Start()
         {
-            base.OnAwake(_owner);
-
             detectorTrigger.radius = viewDistance;
         }
 

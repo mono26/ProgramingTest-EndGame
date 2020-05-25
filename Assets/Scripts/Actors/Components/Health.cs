@@ -5,8 +5,14 @@ namespace EndGame.Test.Actors
 {
     public class Health : ActorComponent
     {
+        /// <summary>
+        /// Max health value.
+        /// </summary>
         [SerializeField]
         private int maxHitPoints = 3;
+        /// <summary>
+        /// The current value of the hit points.
+        /// </summary>
         [SerializeField]
         private int currentHitPoints = 3;
 
@@ -17,21 +23,25 @@ namespace EndGame.Test.Actors
         {
             currentHitPoints = maxHitPoints;
 
-            EventController.SubscribeToEvent(ActorEvents.ACTOR_HIT_BY_BULLET, (args) => OnBulletHitActor((OnBulletHitActor)args));
-            EventController.SubscribeToEvent(ActorEvents.ACTOR_RESPAWN, (args) => OnActorRespawn((OnActorRespawn)args));
+            EventController.SubscribeToEvent(ActorEvents.ACTOR_HIT_BY_BULLET, (args) => OnBulletHitActor((OnActorEventEventArgs)args));
+            EventController.SubscribeToEvent(ActorEvents.ACTOR_RESPAWN, (args) => OnActorRespawn((OnActorEventEventArgs)args));
         }
 
-        private void OnBulletHitActor(OnBulletHitActor _args)
+        /// <summary>
+        /// Updates the healh value after a bullet hit. Also sends health update events and death event if the health reaches zero.
+        /// </summary>
+        /// <param name="_args">Bullet hit args.</param>
+        private void OnBulletHitActor(OnActorEventEventArgs _args)
         {
             if (GetOwner == _args.actor)
             {
                 currentHitPoints--;
 
-                if (currentHitPoints > 0)
+                if (currentHitPoints >= 0)
                 {
                     OnActorHealthUpdated args = new OnActorHealthUpdated()
                     {
-                        actor = GetOwner,
+                        baseArgs = new OnActorEventEventArgs() { actor = GetOwner },
                         healthComponent = this
                     };
 
@@ -39,7 +49,7 @@ namespace EndGame.Test.Actors
                 }
                 else
                 {
-                    OnActorDeath args = new OnActorDeath()
+                    OnActorEventEventArgs args = new OnActorEventEventArgs()
                     {
                         actor = GetOwner
                     };
@@ -49,7 +59,11 @@ namespace EndGame.Test.Actors
             }
         }
 
-        private void OnActorRespawn(OnActorRespawn _args)
+        /// <summary>
+        /// Updates the health value to the max one after the actor respawns.
+        /// </summary>
+        /// <param name="_args"></param>
+        private void OnActorRespawn(OnActorEventEventArgs _args)
         {
             if (GetOwner == _args.actor)
             {
@@ -57,7 +71,7 @@ namespace EndGame.Test.Actors
 
                 OnActorHealthUpdated args = new OnActorHealthUpdated()
                 {
-                    actor = GetOwner,
+                    baseArgs = new OnActorEventEventArgs() { actor = GetOwner },
                     healthComponent = this
                 };
 

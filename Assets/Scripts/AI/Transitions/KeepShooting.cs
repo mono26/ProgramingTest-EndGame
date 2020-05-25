@@ -14,11 +14,12 @@ namespace EndGame.Test.AI
         {
             bool keepShooting = base.Decide(_controller);
 
+            // If we can't keep shooting send a shoot command with a input value of 0.0f.
             if (!keepShooting)
             {
                 OnActorCommandReceiveEventArgs args = new OnActorCommandReceiveEventArgs()
                 {
-                    actor = _controller.GetOwner,
+                    baseArgs = new OnActorEventEventArgs() { actor = _controller.GetOwner },
                     command = ActorCommands.Shoot,
                     // Means the shoot button has been released.
                     value = 0.0f

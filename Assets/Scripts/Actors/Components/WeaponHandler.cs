@@ -20,7 +20,7 @@ namespace EndGame.Test.Actors
         /// <param name="_args"></param>
         private void OnShootCommand(OnActorCommandReceiveEventArgs _args)
         {
-            if (GetOwner == _args.actor)
+            if (GetOwner == _args.baseArgs.actor)
             {
                 if (_args.command.Equals(ActorCommands.Shoot))
                 {
@@ -45,7 +45,7 @@ namespace EndGame.Test.Actors
         /// </summary>
         private void PullTrigger()
         {
-            OnActorPulledTrigger args = new OnActorPulledTrigger()
+            OnActorEventEventArgs args = new OnActorEventEventArgs()
             {
                 actor = GetOwner
             };
@@ -58,7 +58,7 @@ namespace EndGame.Test.Actors
         /// </summary>
         private void ReleaseTrigger()
         {
-            OnActorReleasedTrigger args = new OnActorReleasedTrigger()
+            OnActorEventEventArgs args = new OnActorEventEventArgs()
             {
                 actor = GetOwner
             };

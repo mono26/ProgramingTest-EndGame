@@ -1,7 +1,4 @@
-﻿using EndGame.Test.Actors;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Actor : MonoBehaviour
 {
@@ -11,7 +8,9 @@ public class Actor : MonoBehaviour
     [SerializeField]
     private float actorHeight;
 
-    // public float GetHeight { get => actorHeight; }
+    /// <summary>
+    /// Gets a position in the center of the actor bounds.
+    /// </summary>
     public Vector3 GetCenterOfBodyPosition 
     { 
         get
@@ -20,15 +19,5 @@ public class Actor : MonoBehaviour
             centerPosition.y += actorHeight / 2;
             return centerPosition;
         } 
-    }
-
-    private void Awake()
-    {
-        ActorComponent[] components = GetComponents<ActorComponent>();
-
-        foreach (ActorComponent component in components)
-        {
-            component.OnAwake(this);
-        }
     }
 }

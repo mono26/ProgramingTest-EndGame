@@ -41,7 +41,7 @@ public class BuildingDoor : MonoBehaviour
             if (_args.actor.CompareTag("Player"))
             {
                 Inventory playerInventory = _args.actor.GetComponent<Inventory>();
-                if (!playerInventory.HasKeyItem(keyId))
+                if (!playerInventory.HasItem(keyId))
                 {
                     opendDoor = false;
 

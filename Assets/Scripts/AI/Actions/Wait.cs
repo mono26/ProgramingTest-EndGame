@@ -14,9 +14,6 @@ namespace EndGame.Test.AI
 
         private void WaitAction(AIView _controller)
         {
-            // Debug.Log("Actor: " + actor.gameObject.name + " waiting");
-
-            // TODO trigger actor waited event.
             OnWaitedActionEventArgs args = new OnWaitedActionEventArgs()
             {
                 actor = _controller.GetOwner,

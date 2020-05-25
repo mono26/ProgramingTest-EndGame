@@ -82,8 +82,6 @@ namespace EndGame.Test.AI
             {
                 inSight = true;
 
-                Debug.DrawLine(startPosition, targetPosition, Color.green, 3.0f);
-
                 OnTargetInSightEventArgs args = new OnTargetInSightEventArgs()
                 {
                     actor = _actor,

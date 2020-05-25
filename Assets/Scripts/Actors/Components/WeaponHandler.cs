@@ -38,8 +38,6 @@ namespace EndGame.Test.Actors
                     // If the value is grater than 0.0f it means the button is pressed.
                     if (inputValue > 0.0f)
                     {
-                        Debug.Log("shooting");
-
                         PullTrigger();
                     }
                     else

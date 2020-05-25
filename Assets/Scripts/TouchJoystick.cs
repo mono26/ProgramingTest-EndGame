@@ -17,7 +17,6 @@ namespace EndGame.Test.UI
         private Vector3 newTargetPosition;
         private Vector3 newJoystickPosition;
 
-
         private bool isTapped = false;
         private bool isDragged = false;
         private bool isUp = false;
@@ -74,8 +73,6 @@ namespace EndGame.Test.UI
             isTapped = true;
 
             isUp = false;
-
-            Debug.Log("Down joystick");
         }
 
         /// <summary>

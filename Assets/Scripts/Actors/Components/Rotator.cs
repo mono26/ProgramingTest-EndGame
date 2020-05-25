@@ -54,16 +54,11 @@ namespace EndGame.Test.Actors
             {
                 if (_args.command.Equals(ActorCommands.Aim))
                 {
-                    //Debug.Log("Rotating towards: " + (Vector3)_args.value);
-
                     RotateTowardsTargetDirection((Vector3)_args.value);
                 }
                 else if (_args.command.Equals(ActorCommands.AutoAim))
                 {
-                    // TODO get targeted current target direction.
                     Vector3 targetDirection = detectorComponent.GetTargetDirection;
-
-                    Debug.Log("auto aiming");
 
                     RotateTowardsTargetDirection(targetDirection);
                 }

@@ -71,7 +71,6 @@ namespace EndGame.Test.Buildings
 
         private void OnHideTriggerEntered()
         {
-            Debug.Log("Entered building");
             ActivateWallSprite(false);
         }
 
@@ -82,7 +81,6 @@ namespace EndGame.Test.Buildings
 
         private void OnHideTriggerExited()
         {
-            Debug.Log("Exited building");
             ActivateWallSprite(true);
         }
     }

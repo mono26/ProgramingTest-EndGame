@@ -25,7 +25,7 @@ namespace EndGame.Test.AI
 
             ShootData data = _controller.GetStateData<ShootData>();
             Vector3 startPosition = _controller.GetOwner.GetCenterOfBodyPosition;
-            Vector3 targetPosition = data.GetCurrentTarget.transform.position;
+            Vector3 targetPosition = data.GetCurrentTarget.GetCenterOfBodyPosition;
             Vector3 vectorToTarget = targetPosition - startPosition;
 
             OnActorCommandReceiveEventArgs aimArgs = new OnActorCommandReceiveEventArgs()

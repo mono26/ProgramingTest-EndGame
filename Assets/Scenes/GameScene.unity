@@ -1302,7 +1302,7 @@ PrefabInstance:
     - target: {fileID: 711771900692827157, guid: 7b49506bce9d8fc44874b155ae0ab31b,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 711771900692827166, guid: 7b49506bce9d8fc44874b155ae0ab31b,
         type: 3}
@@ -4437,6 +4437,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9032190783216552319, guid: d87f2d2bfc66b1b4fa2cc87e1c911247, type: 3}
+    - {fileID: 3186231939553127766, guid: d87f2d2bfc66b1b4fa2cc87e1c911247, type: 3}
+    - {fileID: 3186231939553127764, guid: d87f2d2bfc66b1b4fa2cc87e1c911247, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d87f2d2bfc66b1b4fa2cc87e1c911247, type: 3}
 --- !u!1 &1087524505
 GameObject:
@@ -5765,12 +5767,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   knobRange: 50
   maxJoystickValue: 1
-  minTimeForDrag: 0.3
   joystickHolder: {fileID: 694268055}
-  joystickValue: {x: 0, y: 0}
-  isTapped: 0
-  isDragged: 0
-  isUp: 0
 --- !u!114 &1522243360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7315,12 +7312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   knobRange: 50
   maxJoystickValue: 1
-  minTimeForDrag: 0.3
   joystickHolder: {fileID: 535485347}
-  joystickValue: {x: 0, y: 0}
-  isTapped: 0
-  isDragged: 0
-  isUp: 0
 --- !u!114 &1881718059
 MonoBehaviour:
   m_ObjectHideFlags: 0

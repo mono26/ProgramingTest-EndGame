@@ -200,9 +200,9 @@ namespace EndGame.Test.Actors
         {
             if (GetOwner == _args.actor)
             {
-                OnPlayerDeathEventArgs args = new OnPlayerDeathEventArgs()
+                OnGameEventEventArgs args = new OnGameEventEventArgs()
                 {
-
+                    eventId = "player.death"
                 };
 
                 EventController.QueueEvent(GameEvents.PLAYER_DEATH, args);

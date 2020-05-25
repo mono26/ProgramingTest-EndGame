@@ -30,9 +30,9 @@ namespace EndGame.Test.Game
         private void Start()
         {
             OnUIButtonPressedListener = (args) => OnUIButtonPressed((OnUIButtonPressedEventArgs)args);
-            OnPlayerWonListener = (args) => OnPlayerWon((OnPlayerWonEventArgs)args);
-            OnPlayerDeathListener = (args) => OnPlayerDeath((OnPlayerDeathEventArgs)args);
-            OnPlayerHasNoKeyListener = (args) => OnPlayerHasNoKey((OnPlayerHasNoKeyEventArgs)args);
+            OnPlayerWonListener = (args) => OnPlayerWon((OnGameEventEventArgs)args);
+            OnPlayerDeathListener = (args) => OnPlayerDeath((OnGameEventEventArgs)args);
+            OnPlayerHasNoKeyListener = (args) => OnPlayerHasNoKey((OnGameEventEventArgs)args);
             OnPickUpCoffeeKeyListener = (args) => OnPickUpPicked((OnPickUpPickedEventArgs)args);
 
             EventController.SubscribeToEvent(UIEvents.BUTTON_PRESSED, OnUIButtonPressedListener);
@@ -40,15 +40,6 @@ namespace EndGame.Test.Game
             EventController.SubscribeToEvent(GameEvents.PLAYER_DEATH, OnPlayerDeathListener);
             EventController.SubscribeToEvent(GameEvents.PLAYER_HAS_NO_KEY, OnPlayerHasNoKeyListener);
             EventController.SubscribeToEvent(PickUpEvents.PICKUP_PICKED, OnPickUpCoffeeKeyListener);
-        }
-
-        private void OnDestroy()
-        {
-            EventController.UnSubscribeFromEvent(UIEvents.BUTTON_PRESSED, OnUIButtonPressedListener);
-            EventController.UnSubscribeFromEvent(GameEvents.PLAYER_WON, OnPlayerWonListener);
-            EventController.UnSubscribeFromEvent(GameEvents.PLAYER_DEATH, OnPlayerDeathListener);
-            EventController.UnSubscribeFromEvent(GameEvents.PLAYER_HAS_NO_KEY, OnPlayerHasNoKeyListener);
-            EventController.UnSubscribeFromEvent(PickUpEvents.PICKUP_PICKED, OnPickUpCoffeeKeyListener);
         }
 
         private void OnUIButtonPressed(OnUIButtonPressedEventArgs _args)
@@ -116,23 +107,32 @@ namespace EndGame.Test.Game
             OnPlayGame();
         }
 
-        private void OnPlayerWon(OnPlayerWonEventArgs _args)
+        private void OnPlayerWon(OnGameEventEventArgs _args)
         {
-            Time.timeScale = 0.0f;
+            if (_args.eventId.Equals("player.won"))
+            {
+                Time.timeScale = 0.0f;
 
-            InGameStateMenu.ShowStateScreen(WIN_TEXT);
+                InGameStateMenu.ShowStateScreen(WIN_TEXT);
+            }
         }
 
-        private void OnPlayerDeath(OnPlayerDeathEventArgs _args)
+        private void OnPlayerDeath(OnGameEventEventArgs _args)
         {
-            Time.timeScale = 0.0f;
+            if (_args.eventId.Equals("player.death"))
+            {
+                Time.timeScale = 0.0f;
 
-            InGameStateMenu.ShowStateScreen(DEFEAT_TEXT);
+                InGameStateMenu.ShowStateScreen(DEFEAT_TEXT);
+            }
         }
 
-        private void OnPlayerHasNoKey(OnPlayerHasNoKeyEventArgs _args)
+        private void OnPlayerHasNoKey(OnGameEventEventArgs _args)
         {
-            ToolTip.DisplayToolTip(NO_KEY_TOOLTIP);
+            if (_args.eventId.Equals("player.no.key"))
+            {
+                ToolTip.DisplayToolTip(NO_KEY_TOOLTIP);
+            }
         }
 
         private void OnPickUpPicked(OnPickUpPickedEventArgs _args)

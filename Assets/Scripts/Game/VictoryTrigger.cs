@@ -13,9 +13,9 @@ namespace EndGame.Test.Triggers
         {
             if (_actor.CompareTag("Player"))
             {
-                OnPlayerWonEventArgs args = new OnPlayerWonEventArgs()
+                OnGameEventEventArgs args = new OnGameEventEventArgs()
                 {
-
+                    eventId = "player.won"
                 };
 
                 EventController.QueueEvent(GameEvents.PLAYER_WON, args);

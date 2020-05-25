@@ -58,9 +58,9 @@ namespace EndGame.Test.Buildings
                     {
                         opendDoor = false;
 
-                        OnPlayerHasNoKeyEventArgs args = new OnPlayerHasNoKeyEventArgs()
+                        OnGameEventEventArgs args = new OnGameEventEventArgs()
                         {
-
+                            eventId = "player.no.key"
                         };
 
                         EventController.QueueEvent(GameEvents.PLAYER_HAS_NO_KEY, args);

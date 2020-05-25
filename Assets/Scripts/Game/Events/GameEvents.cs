@@ -9,18 +9,8 @@ namespace EndGame.Test.Game
         public const string PLAYER_HAS_NO_KEY = "evet.game.player.no.key";
     }
 
-    public struct OnPlayerDeathEventArgs : IEventArgs
+    public struct OnGameEventEventArgs : IEventArgs
     {
-
-    }
-
-    public struct OnPlayerWonEventArgs : IEventArgs
-    {
-
-    }
-
-    public struct OnPlayerHasNoKeyEventArgs : IEventArgs
-    {
-
+        public string eventId;
     }
 }

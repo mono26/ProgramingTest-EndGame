@@ -75,6 +75,7 @@ namespace EndGame.Test.AI
                 if (_args.command.Equals(ActorCommands.Move))
                 {
                     targetPosition = (Vector3)_args.value;
+                    targetPosition.y = 0;
                 }
             }
         }

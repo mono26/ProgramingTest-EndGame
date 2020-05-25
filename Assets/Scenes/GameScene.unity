@@ -572,6 +572,11 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 80
       objectReference: {fileID: 0}
+    - target: {fileID: 1506476843990859291, guid: 498e9d49b5344ac458643d18e9a5d559,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5454476634795328182, guid: 498e9d49b5344ac458643d18e9a5d559,
         type: 3}
       propertyPath: m_Name
@@ -735,6 +740,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Constraints
       value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 1506476843990859291, guid: 498e9d49b5344ac458643d18e9a5d559,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5454476634795328182, guid: 498e9d49b5344ac458643d18e9a5d559,
         type: 3}
@@ -7984,6 +7994,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Constraints
       value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 1506476843990859291, guid: 498e9d49b5344ac458643d18e9a5d559,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4013772327530900393, guid: 498e9d49b5344ac458643d18e9a5d559,
         type: 3}

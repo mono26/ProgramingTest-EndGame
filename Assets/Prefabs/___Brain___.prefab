@@ -160,7 +160,6 @@ GameObject:
   - component: {fileID: 3186231939553127765}
   - component: {fileID: 3186231939553127766}
   - component: {fileID: 3186231939553127764}
-  - component: {fileID: 9032190783216552319}
   m_Layer: 0
   m_Name: ___Brain___
   m_TagString: Untagged
@@ -195,6 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b2d866b3a36f014eb1aecf9cd321f33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 0
 --- !u!114 &3186231939553127764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,19 +207,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a640b4a618595e0409ed6d356d33480b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 0
   loadingScreen: {fileID: 0}
---- !u!114 &9032190783216552319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3186231939553127767}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d37db1e9eefb0c34b903b1f33ccc0093, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3186231939944299094
 GameObject:
   m_ObjectHideFlags: 0

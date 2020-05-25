@@ -8,6 +8,9 @@ namespace EndGame.Test
     {
         private static T uniqueInstance;
 
+        [SerializeField]
+        private bool dontDestroyOnLoad = false;
+
         protected static T GetUniqueInstance { get => uniqueInstance; }
 
         protected virtual void Awake()
@@ -15,6 +18,11 @@ namespace EndGame.Test
             if (uniqueInstance == null)
             {
                 uniqueInstance = this as T;
+
+                if (dontDestroyOnLoad)
+                {
+                    DontDestroyOnLoad(this);
+                }
             }
             else
             {

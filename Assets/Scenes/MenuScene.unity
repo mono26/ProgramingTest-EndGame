@@ -732,6 +732,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bdddb439330fc74e90fb75ffd78574f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 0
 --- !u!114 &679094473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1070,6 +1071,11 @@ PrefabInstance:
       propertyPath: loadingScreen
       value: 
       objectReference: {fileID: 1156348728}
+    - target: {fileID: 3186231939553127764, guid: d87f2d2bfc66b1b4fa2cc87e1c911247,
+        type: 3}
+      propertyPath: dontDestroyOnLoad
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3186231939553127765, guid: d87f2d2bfc66b1b4fa2cc87e1c911247,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1125,6 +1131,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3186231939553127766, guid: d87f2d2bfc66b1b4fa2cc87e1c911247,
+        type: 3}
+      propertyPath: dontDestroyOnLoad
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3186231939553127767, guid: d87f2d2bfc66b1b4fa2cc87e1c911247,
         type: 3}
       propertyPath: m_Name
@@ -1145,7 +1156,8 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 100
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9032190783216552319, guid: d87f2d2bfc66b1b4fa2cc87e1c911247, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d87f2d2bfc66b1b4fa2cc87e1c911247, type: 3}
 --- !u!114 &1156348728 stripped
 MonoBehaviour:
